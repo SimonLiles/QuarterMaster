@@ -1,0 +1,203 @@
+//
+//  ProfileTableViewController.swift
+//  InventoryApp
+//
+//  Created by Simon Liles on 8/13/20.
+//  Copyright © 2020 Simon Liles. All rights reserved.
+//
+
+import UIKit
+
+class ProfileTableViewController: UITableViewController {
+
+    // MARK: - Constants and Variables
+    
+    var profiles: [Profile] = []
+        
+    //Search bar constants and Variables
+    let searchController = UISearchController(searchResultsController: nil)
+    var filteredProfiles: [Profile] = [] //Holds pantryItems that are being searched for
+    var isSearchBarEmpty: Bool {
+        return searchController.searchBar.text?.isEmpty ?? true
+    }
+    var isFiltering: Bool {
+        return searchController.isActive && !isSearchBarEmpty
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        //Initializes Notification observer to listen for updates from other view controllers
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadTable), name: NSNotification.Name(rawValue: "reloadProfiles"), object: nil)
+
+        //Initialize user data on start up
+        if let savedProfiles = ProfileModelController().loadProfileData() {
+            ProfileModelController.shared.profiles = savedProfiles
+        } else {
+            ProfileModelController.shared.profiles = ProfileModelController().loadSampleProfile()
+            profiles = ProfileModelController.shared.profiles!
+        }
+        
+        profiles = ProfileModelController.shared.profiles!
+        
+        //Initialization of Search Bar
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search Profiles"
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
+        
+        // Uncomment the following line to preserve selection between presentations
+        // self.clearsSelectionOnViewWillAppear = false
+
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    //Called when a notification is received for reloadTable
+    @objc func reloadTable(notification: NSNotification) {
+        profiles = ProfileModelController.shared.profiles!
+        ProfileModelController.shared.selectedIndex = 0
+        
+        tableView.reloadData()
+    }
+    
+    // MARK: - Search Bar Functionality
+    
+    //Function to filter for search results
+    func filterContentForSearchText(_ searchText: String) {
+        
+        filteredProfiles = profiles.filter { (profile: Profile) -> Bool in
+        
+            return profile.name.lowercased().contains(searchText.lowercased())
+        }
+      
+      tableView.reloadData()
+    }
+    
+    // MARK: - Table view data source
+
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        return profiles.count
+    }
+
+    //Configure table view cells
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "profileTableViewCell", for: indexPath)
+
+        // Configure the cell...
+        cell.textLabel?.text = profiles[indexPath.row].name
+
+        return cell
+    }
+    
+
+    /*
+    // Override to support conditional editing of the table view.
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the specified item to be editable.
+        return true
+    }
+    */
+
+    /*
+    // Override to support editing the table view.
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            // Delete the row from the data source
+            tableView.deleteRows(at: [indexPath], with: .fade)
+        } else if editingStyle == .insert {
+            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        }    
+    }
+    */
+
+    /*
+    // Override to support rearranging the table view.
+    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+
+    }
+    */
+
+    /*
+    // Override to support conditional rearranging of the table view.
+    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        // Return false if you do not want the item to be re-orderable.
+        return true
+    }
+    */
+
+    
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+        
+        if segue.identifier == "profileDetailSegue" {
+            let indexPath = tableView.indexPathForSelectedRow!
+            
+            var selectedIndex: Int = 0
+            
+            if isFiltering {
+                let selectedProfile = filteredProfiles[indexPath.row]
+                for profile in ProfileModelController.shared.profiles! {
+                    if selectedProfile.name == profile.name {
+                        break
+                    } else {
+                        selectedIndex += 1
+                    }
+                }
+            } else {
+                selectedIndex = indexPath.row
+            }
+            
+            ProfileModelController.shared.selectedIndex = selectedIndex
+        }
+    }
+    
+    @IBAction func unwindToProfileTableView(segue: UIStoryboardSegue) {
+        if segue.identifier == "deleteProfileUnwind" {
+            if let selectedIndexPath = tableView.indexPathForSelectedRow {
+                
+                //Ugly code to remove a specific item from the array
+                let profileToRemove = ProfileModelController.shared.profiles![selectedIndexPath.row]
+                var index = 0
+                for profile in ProfileModelController.shared.profiles! {
+                    //Used profile name as an identifier, assuming generally user does not have 2 of same pantry item
+                    if profileToRemove.name == profile.name {
+                        break //If pantryItemToRemove matches the item, break out of the loop
+                    } else {
+                        index += 1
+                    }
+                }
+                
+                ProfileModelController.shared.profiles!.remove(at: index) //remove item from profile list
+                
+                profiles = ProfileModelController.shared.profiles! //Reset tableView data source
+                
+                tableView.reloadData() //reload table to reflect deleted item
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadProfiles"), object: nil) //DOUBLE RELOAD!!! cuz why not?
+                
+                ProfileModelController.shared.saveProfileData() //Save profile data
+            }
+        }
+    }
+}
+
+// MARK: - Class Extensions
+
+//Extensions to make search bar work
+extension ProfileTableViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        let searchBar = searchController.searchBar
+        filterContentForSearchText(searchBar.text!)
+    }
+}
