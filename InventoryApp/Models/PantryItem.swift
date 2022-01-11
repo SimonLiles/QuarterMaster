@@ -21,8 +21,7 @@ import Foundation
     - neededQuantity: Double, How much of the item is needed, defaults to 1
     - units: String, How the amount of the item is measured
     - note: String, Allows user to add notes regarding the item
- 
- var purchaseStatus: PurchaseStatus = .toBuy //Indicates wether an item has been purchased, canceled, or needs to be bought
+    - purchaseStatus: PurchaseStatus, Indicates wether an item has been purchased, canceled, or needs to be bought. Defualts to `.toBuy`
  
  
  - Important: Initialization of the PantryItem object can only be done with a name, category, location, currentQuantity, units, and the note, the other values must be set outside of the initializer
@@ -76,9 +75,9 @@ extension PantryItem: Equatable {
  Purchase status enumeration, defines the three states purchase status can be at any point in time, toBuy, bought, and notBought
  
  Purchase Status is subclassed as Codable to allow for encoding. The decoder will throw the error below when the decoder receives an inappropriate key from the file.
- ~~~
+ ```
  Unable to decode PurchaseStatus enum
- ~~~
+ ```
  */
 enum PurchaseStatus {
     ///Used to indicate the user intends to buy the item
