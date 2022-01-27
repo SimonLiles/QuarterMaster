@@ -11,7 +11,7 @@ import Foundation
 /**
  Profile model structure holds the pantry and shopping list together so that a profile can be shared with other devices.
  
- - ```name: String``` is the name of the profile object and acts as an indentifier for the user
+ - ```name```: is the name of the profile object and acts as an indentifier for the user
  
  - ToDo: Include more structure to allow for sharing functionality, consider permissions, allowed devices, etc.
  */
