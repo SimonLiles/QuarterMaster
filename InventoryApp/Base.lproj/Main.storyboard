@@ -221,7 +221,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <toolbar key="tableFooterView" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="Pln-Oz-Uan">
-                            <rect key="frame" x="0.0" y="112" width="375" height="44"/>
+                            <rect key="frame" x="0.0" y="111.66666412353516" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                             <items>
                                 <barButtonItem style="plain" systemItem="flexibleSpace" id="LU2-gL-B7P"/>
@@ -1302,13 +1302,25 @@
             </objects>
             <point key="canvasLocation" x="8560.8695652173919" y="1086.8303571428571"/>
         </scene>
+        <!--MCPeerBrowser-->
+        <scene sceneID="Ryf-LX-mdm">
+            <objects>
+                <viewControllerPlaceholder storyboardName="MCPeerBrowser" id="fV0-Mi-JLc" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Oc4-aM-uCb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2707" y="698"/>
+        </scene>
         <!--Profile-->
         <scene sceneID="JHd-Up-D0t">
             <objects>
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="RBG-ZJ-KCN" customClass="ProfileTabViewController" customModule="QuarterMaster" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Profile" largeTitleDisplayMode="never" id="hwn-6i-f6k">
-                        <barButtonItem key="rightBarButtonItem" title="Share" image="square.and.arrow.up" catalog="system" id="uC3-pE-Y6F"/>
+                        <barButtonItem key="rightBarButtonItem" title="Share" image="square.and.arrow.up" catalog="system" id="uC3-pE-Y6F">
+                            <connections>
+                                <segue destination="fV0-Mi-JLc" kind="presentation" modalPresentationStyle="fullScreen" id="tLc-hf-RPC"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="4oF-fS-CB0">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>

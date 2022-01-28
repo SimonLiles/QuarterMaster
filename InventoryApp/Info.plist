@@ -4,6 +4,11 @@
 <dict>
 	<key>Privacy - Local Network Usage Description</key>
 	<string>Local Area network used to share user selected data with approved nearby devices. </string>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_qnt-pantryshare._tcp</string>
+		<string>_qnt-pantryshare._udp</string>
+	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>

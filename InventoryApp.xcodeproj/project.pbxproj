@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F4F819BD27A34CBE0037B4DA /* MCPeerBrowserTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F819B627A34CBE0037B4DA /* MCPeerBrowserTableViewController.swift */; };
+		F4F819BE27A34CBE0037B4DA /* MCSessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F819BA27A34CBE0037B4DA /* MCSessionController.swift */; };
+		F4F819BF27A34CBE0037B4DA /* MCPeerBrowserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F819B927A34CBE0037B4DA /* MCPeerBrowserTableViewCell.swift */; };
+		F4F819C027A373620037B4DA /* MCPeerBrowser.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4F819B727A34CBE0037B4DA /* MCPeerBrowser.storyboard */; };
 		FE0D9EB424B3644D007E9D65 /* ShoppingListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE0D9EB324B3644D007E9D65 /* ShoppingListTableViewCell.swift */; };
 		FE3AEE7224EDB3E800CF34AF /* EditProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3AEE7124EDB3E800CF34AF /* EditProfileTableViewController.swift */; };
 		FE3AEE7424EDD11D00CF34AF /* NewProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE3AEE7324EDD11D00CF34AF /* NewProfileTableViewController.swift */; };
@@ -34,6 +38,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F4F819B627A34CBE0037B4DA /* MCPeerBrowserTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MCPeerBrowserTableViewController.swift; sourceTree = "<group>"; };
+		F4F819B727A34CBE0037B4DA /* MCPeerBrowser.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MCPeerBrowser.storyboard; sourceTree = "<group>"; };
+		F4F819B927A34CBE0037B4DA /* MCPeerBrowserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MCPeerBrowserTableViewCell.swift; sourceTree = "<group>"; };
+		F4F819BA27A34CBE0037B4DA /* MCSessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MCSessionController.swift; sourceTree = "<group>"; };
 		FE0D9EB324B3644D007E9D65 /* ShoppingListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListTableViewCell.swift; sourceTree = "<group>"; };
 		FE3AEE7124EDB3E800CF34AF /* EditProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileTableViewController.swift; sourceTree = "<group>"; };
 		FE3AEE7324EDD11D00CF34AF /* NewProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewProfileTableViewController.swift; sourceTree = "<group>"; };
@@ -73,6 +81,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F4F819B527A34CBE0037B4DA /* MultiPeerSessionFramework */ = {
+			isa = PBXGroup;
+			children = (
+				F4F819BA27A34CBE0037B4DA /* MCSessionController.swift */,
+				F4F819B727A34CBE0037B4DA /* MCPeerBrowser.storyboard */,
+				F4F819B627A34CBE0037B4DA /* MCPeerBrowserTableViewController.swift */,
+				F4F819B927A34CBE0037B4DA /* MCPeerBrowserTableViewCell.swift */,
+			);
+			path = MultiPeerSessionFramework;
+			sourceTree = "<group>";
+		};
 		FE3AEE7024EDB3AC00CF34AF /* SettingsTab */ = {
 			isa = PBXGroup;
 			children = (
@@ -104,6 +123,7 @@
 				FE3DB14D247EBC690055EBEF /* Delegates */,
 				FE3DB14E247EBC810055EBEF /* ViewControllers */,
 				FE3DB14F24801A490055EBEF /* ModelControllers */,
+				F4F819B527A34CBE0037B4DA /* MultiPeerSessionFramework */,
 				FE3DB14C247EBBD30055EBEF /* Models */,
 				FE3DB13D247DAD2C0055EBEF /* Assets.xcassets */,
 				FE3DB13F247DAD2C0055EBEF /* LaunchScreen.storyboard */,
@@ -251,6 +271,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4F819C027A373620037B4DA /* MCPeerBrowser.storyboard in Resources */,
 				FE3DB141247DAD2C0055EBEF /* LaunchScreen.storyboard in Resources */,
 				FE3DB13E247DAD2C0055EBEF /* Assets.xcassets in Resources */,
 				FE3DB13C247DAD280055EBEF /* Main.storyboard in Resources */,
@@ -266,6 +287,7 @@
 			files = (
 				FE59623D24AD21F5001E2610 /* RecipeModelController.swift in Sources */,
 				FE75E37424E5DD8F004B3861 /* ProfileTableViewController.swift in Sources */,
+				F4F819BD27A34CBE0037B4DA /* MCPeerBrowserTableViewController.swift in Sources */,
 				FE75E37224E5D571004B3861 /* Profile.swift in Sources */,
 				FE75E37024E5D53C004B3861 /* ProfileModelController.swift in Sources */,
 				FE3AEE7224EDB3E800CF34AF /* EditProfileTableViewController.swift in Sources */,
@@ -279,8 +301,10 @@
 				FEC2F25224A15A7D0087FB3C /* PantryTableViewCell.swift in Sources */,
 				FEB28FEF24B611AD00EEDF5F /* AddToShoppingListTableViewController.swift in Sources */,
 				FE3AEE7424EDD11D00CF34AF /* NewProfileTableViewController.swift in Sources */,
+				F4F819BE27A34CBE0037B4DA /* MCSessionController.swift in Sources */,
 				FE3DB137247DAD280055EBEF /* SceneDelegate.swift in Sources */,
 				FE3DB149247DAE030055EBEF /* PantryItem.swift in Sources */,
+				F4F819BF27A34CBE0037B4DA /* MCPeerBrowserTableViewCell.swift in Sources */,
 				FE75E37624E6F1B3004B3861 /* ProfileTabViewController.swift in Sources */,
 				FEB28FF524D0C87300EEDF5F /* PantryPickerListTableViewController.swift in Sources */,
 				FEC2F25024A1517E0087FB3C /* PantryTableViewController.swift in Sources */,

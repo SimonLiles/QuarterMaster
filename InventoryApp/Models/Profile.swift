@@ -27,10 +27,34 @@ struct Profile: Codable {
     var description: String = "" //Description of the profile
     
     //Data used for sharing
-    
+
+    var versionTimeStamp: Date = Date() //Holds time and date of last saved update to Profile
+        
     init(name: String, pantry: [PantryItem], shoppingList: [PantryItem]) {
         self.name = name
         self.pantry = pantry
         self.shoppingList = shoppingList
+    }
+    
+    /**
+     Encodes single profile object representing user data to a .json file.
+     */
+    func encode() -> Data? {
+        print("Attempting to encode profile data")
+        
+        let jsonEncoder = JSONEncoder()
+        let encodedProfileObject = try? jsonEncoder.encode(self) //encode the profile object
+        
+        return encodedProfileObject
+    }
+    
+    func decode(data: Data) -> Profile {
+        print("Attempting to decode Profile Data")
+        
+        let jsonDecoder = JSONDecoder()
+                
+        let decodedProfile: Profile? = try? jsonDecoder.decode(Profile.self, from: data) //Decodes JSON profile data
+        
+        return decodedProfile!
     }
 }

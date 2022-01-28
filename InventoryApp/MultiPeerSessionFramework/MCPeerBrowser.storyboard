@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="IgD-Pp-9Oj">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Connect to Nearby Peers-->
+        <scene sceneID="CDH-zW-VrU">
+            <objects>
+                <tableViewController id="e5R-wz-swS" customClass="MCPeerBrowserTableViewController" customModule="ShareOfflinePrototype" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="QHJ-Qj-ZJh">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MCPeerBrowserCell" id="rtO-5b-B4s" customClass="MCPeerBrowserTableViewCell" customModule="ShareOfflinePrototype" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44.5" width="414" height="43"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rtO-5b-B4s" id="OYr-00-x4g">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="3TQ-F6-xxv">
+                                            <rect key="frame" x="20" y="11" width="374" height="21"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Peer ID Label" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rjV-Uv-An2">
+                                                    <rect key="frame" x="0.0" y="0.0" width="101" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Peer Status" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qyn-ma-6Yh">
+                                                    <rect key="frame" x="286" y="0.0" width="88" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" systemColor="secondaryLabelColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="rjV-Uv-An2" firstAttribute="top" secondItem="3TQ-F6-xxv" secondAttribute="top" id="2H5-Ry-1wb"/>
+                                                <constraint firstAttribute="bottom" secondItem="rjV-Uv-An2" secondAttribute="bottom" id="6CD-Fw-X3Z"/>
+                                                <constraint firstAttribute="bottom" secondItem="Qyn-ma-6Yh" secondAttribute="bottom" id="8rv-62-EoY"/>
+                                                <constraint firstItem="rjV-Uv-An2" firstAttribute="leading" secondItem="3TQ-F6-xxv" secondAttribute="leading" id="BG4-F8-2xB"/>
+                                                <constraint firstAttribute="trailing" secondItem="Qyn-ma-6Yh" secondAttribute="trailing" id="rGh-ph-Emk"/>
+                                                <constraint firstItem="Qyn-ma-6Yh" firstAttribute="top" secondItem="3TQ-F6-xxv" secondAttribute="top" id="srW-mD-xPw"/>
+                                            </constraints>
+                                        </stackView>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="3TQ-F6-xxv" firstAttribute="top" secondItem="OYr-00-x4g" secondAttribute="topMargin" id="EVV-VD-CjF"/>
+                                        <constraint firstItem="3TQ-F6-xxv" firstAttribute="leading" secondItem="OYr-00-x4g" secondAttribute="leadingMargin" id="WXV-WS-O6d"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="3TQ-F6-xxv" secondAttribute="bottom" id="Y6e-1U-i9l"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="3TQ-F6-xxv" secondAttribute="trailing" id="ieL-XG-YPA"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="peerIDLabel" destination="rjV-Uv-An2" id="chO-oN-WZf"/>
+                                    <outlet property="peerStatusLabel" destination="Qyn-ma-6Yh" id="z1L-I7-KyD"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="e5R-wz-swS" id="9Kt-LP-0EL"/>
+                            <outlet property="delegate" destination="e5R-wz-swS" id="R7Q-ar-Pwg"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Connect to Nearby Peers" id="c9A-EB-Yab">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="bUH-VV-CUJ">
+                            <connections>
+                                <action selector="cancelButtonPressed:" destination="e5R-wz-swS" id="gj9-vH-CfS"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="done" id="nRh-VJ-8Sa">
+                            <connections>
+                                <action selector="doneButtonPressed:" destination="e5R-wz-swS" id="cia-pq-waD"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Xc7-QI-d0b" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="710" y="684"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="8I9-Q8-Kcp">
+            <objects>
+                <navigationController id="IgD-Pp-9Oj" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ADC-FM-6Jv">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="e5R-wz-swS" kind="relationship" relationship="rootViewController" id="dPe-OI-23m"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Fr0-mY-T1N" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-181" y="684"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

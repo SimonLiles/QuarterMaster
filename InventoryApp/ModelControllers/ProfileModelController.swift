@@ -93,6 +93,24 @@ class ProfileModelController {
         return units
     }
 
+    //MARK: - P2P Services
+    
+    //Send specific data
+    func sendProfile() {
+        guard let encodedProfile = profiles![selectedIndex].encode() else { return }
+        
+        MultipeerSession.instance.send(data: encodedProfile)
+    }
+    
+    //MARK: - Version Control
+    //Determines whether user data should be updated with new data or not
+    func shouldUpdate(currentData: Profile, receivedData: Profile) -> Bool{
+        if (currentData.versionTimeStamp < receivedData.versionTimeStamp) {
+            return true
+        } else {
+            return false
+        }
+    }
     
     //MARK: - Data Persistence
     
