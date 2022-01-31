@@ -21,7 +21,7 @@ class PantryTableViewController: UITableViewController {
     // MARK: - Constants and Variables
     static var sharedPantryController = PantryTableViewController()
     
-    let profileIndex = ProfileModelController.shared.selectedIndex //Array index for use when modifying a specific profile
+    var profileIndex = ProfileModelController.shared.selectedIndex //Array index for use when modifying a specific profile
     
     var pantry: [PantryItem] = []
     
@@ -72,8 +72,21 @@ class PantryTableViewController: UITableViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(reloadTable), name: NSNotification.Name(rawValue: "reloadPantry"), object: nil)
                 
         //Initializes profile data on start up
+        profileIndex = ProfileModelController.shared.selectedIndex
         pantry = ProfileModelController.shared.profiles![profileIndex].pantry
         pantry = itemsSortedByCategory
+        
+        print("Printing pantry in Pantry Tab")
+        //Print pantry to the console
+        for item in pantry {
+            print(item.name)
+        }
+        
+        print("Printing ProfileModelController.shared.profiles pantry in Pantry Tab")
+        //Print pantry to the console
+        for item in ProfileModelController.shared.profiles![profileIndex].pantry {
+            print(item.name)
+        }
         
         //Initialization of Search Bar
         searchController.searchResultsUpdater = self
@@ -128,7 +141,7 @@ class PantryTableViewController: UITableViewController {
             return filteredPantry.count
         }
         
-        //Implemntation of dynamic categories
+        //Implementation of dynamic categories
         return itemsCollatedByCategory[categories[section]]!.count
     }
     
@@ -267,7 +280,9 @@ class PantryTableViewController: UITableViewController {
                 }
                 
                 pantry.remove(at: index) //remove item from pantry
-                ProfileModelController.shared.profiles![profileIndex].shoppingList.remove(at: shoppingIndex) //Remove item from shopping list
+                if (ProfileModelController.shared.profiles![profileIndex].shoppingList.contains(pantryItemToRemove)) {
+                    ProfileModelController.shared.profiles![profileIndex].shoppingList.remove(at: shoppingIndex) //Remove item from shopping list
+                }
                 
                 //Pass data back to model controller
                 ProfileModelController.shared.profiles![profileIndex].pantry = pantry //Pass pantry data back to model controller

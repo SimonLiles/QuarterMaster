@@ -22,7 +22,7 @@ class ShoppingListTableViewController: UITableViewController {
     // MARK: - Constants and Variables
     static var sharedShoppingListView = ShoppingListTableViewController()
     
-    let profileIndex = ProfileModelController.shared.selectedIndex //Array index for use when modifying a specific profile
+    var profileIndex = ProfileModelController.shared.selectedIndex //Array index for use when modifying a specific profile
     
     var shoppingList: [PantryItem] = []
     
@@ -57,6 +57,7 @@ class ShoppingListTableViewController: UITableViewController {
         //Initializes Notification observer to listen for updates from other view controllers
         NotificationCenter.default.addObserver(self, selector: #selector(reloadTable), name: NSNotification.Name(rawValue: "reloadShoppingList"), object: nil)
                 
+        profileIndex = ProfileModelController.shared.selectedIndex
         shoppingList = ProfileModelController.shared.profiles![profileIndex].shoppingList
         shoppingList = itemsSortedByCategory
 
@@ -164,11 +165,14 @@ class ShoppingListTableViewController: UITableViewController {
                         var pantryIndex = 0
                         for pantryItem in ProfileModelController.shared.profiles![self.profileIndex].pantry {
                             if pantryItem == item {
+                                ProfileModelController.shared.profiles![self.profileIndex].pantry[pantryIndex].neededQuantity = 1 //Reset needed quanity for pantry item
                                 ProfileModelController.shared.profiles![self.profileIndex].pantry[pantryIndex].purchaseStatus = .toBuy
                             } else {
                                 pantryIndex += 1
                             }
                         }
+                        ProfileModelController.shared.profiles![self.profileIndex].shoppingList[index].neededQuantity = 0 //Reset needed quantity to 0
+                        
                         ProfileModelController.shared.profiles![self.profileIndex].shoppingList.remove(at: index) //Remove item from shoppingList
                         self.shoppingList = ProfileModelController.shared.profiles![self.profileIndex].shoppingList //make tableview shopping list equal to shoppingList Model Controller
                     } else {
@@ -303,7 +307,18 @@ class ShoppingListTableViewController: UITableViewController {
             //let sourceViewController = segue.source as! AddToShoppingListTableViewController
             
             //let itemsBeingAdded = sourceViewController.itemsToAdd
-            let itemsBeingAdded = AddToShoppingListTableViewController.sharedItemAdder.itemsToAdd
+            var itemsBeingAdded = AddToShoppingListTableViewController.sharedItemAdder.itemsToAdd
+            
+            var index = 0
+            for item in itemsBeingAdded {
+                if shoppingList.contains(item) {
+                    ProfileModelController.shared.profiles![profileIndex].shoppingList[shoppingList.firstIndex(of: item)!].neededQuantity += 1
+                    
+                    itemsBeingAdded.remove(at: index)
+                }
+                
+                index += 1
+            }
             
             ProfileModelController.shared.profiles![profileIndex].shoppingList.append(contentsOf: itemsBeingAdded)
             shoppingList = ProfileModelController.shared.profiles![profileIndex].shoppingList

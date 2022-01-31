@@ -26,13 +26,20 @@ class AddNewShoppingListItemTableViewController: UITableViewController {
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
     // MARK: - Variables and Constants
-    let profileIndex = ProfileModelController.shared.selectedIndex
+    var profileIndex = ProfileModelController.shared.selectedIndex
     
     var shoppingListItem: PantryItem = PantryItem(name: "", category: "", location: "", currentQuantity: 0, units: "", note: "")
     
     override func viewDidLoad() {
         super.viewDidLoad()
                 
+        //Allows user to tap out of editing
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(tableView.endEditing(_:)))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+        
+        profileIndex = ProfileModelController.shared.selectedIndex
+        
         shoppingListItem.neededQuantity = 1
         
         quantityStepper.value = shoppingListItem.neededQuantity
@@ -64,8 +71,9 @@ class AddNewShoppingListItemTableViewController: UITableViewController {
     @IBAction func quantityChanged(_ sender: UITextField) {
         let newQuantity = Double(sender.text!)
         
-        quantityStepper.value = newQuantity!
+        quantityStepper.value = newQuantity ?? 0
 
+        updateSaveButtonState()
     }
     
     //Updates save button whenever text editing in required fields has changed
@@ -155,6 +163,8 @@ class AddNewShoppingListItemTableViewController: UITableViewController {
                 print("Hmm, switch statements in unwindToAddEditPantryTableView are not working properly")
                 return
             }
+            
+            updateSaveButtonState()
         } else if segue.identifier == "uniwndToAddNewShoppingListItemFromNewItem" {
             let pantryPickerAddNewViewController = segue.source as! PantryPickerAddNewViewController
             //let pantryPickerListTableViewController = navController.topViewController as! PantryPickerListTableViewController
@@ -178,6 +188,8 @@ class AddNewShoppingListItemTableViewController: UITableViewController {
                 print("Hmm, switch statements in unwindToAddEditPantryTableView are not working properly")
                 return
             }
+            
+            updateSaveButtonState()
         }
     }
 }

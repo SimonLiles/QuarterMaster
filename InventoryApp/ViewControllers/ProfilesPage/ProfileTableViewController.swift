@@ -147,6 +147,7 @@ class ProfileTableViewController: UITableViewController {
             var selectedIndex: Int = 0
             
             if isFiltering {
+                print("ProfileTableView is Filtering ")
                 let selectedProfile = filteredProfiles[indexPath.row]
                 for profile in ProfileModelController.shared.profiles! {
                     if selectedProfile.name == profile.name {
@@ -156,10 +157,16 @@ class ProfileTableViewController: UITableViewController {
                     }
                 }
             } else {
+                print("ProfileTableView is NOT Filtering ")
+
                 selectedIndex = indexPath.row
             }
             
+            print("selectedIndex = " + String(selectedIndex))
+            
             ProfileModelController.shared.selectedIndex = selectedIndex
+            
+            print("ProfileModelController.shared.selectedIndex = " + String(ProfileModelController.shared.selectedIndex))
         }
     }
     

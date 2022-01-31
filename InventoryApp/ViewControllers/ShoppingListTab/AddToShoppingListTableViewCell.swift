@@ -41,6 +41,7 @@ class AddToShoppingListTableViewCell: UITableViewCell {
         
         shoppingListItem = item
         
+        /*
         //Some more of my fugly code to run through an array to find an item and do a thing
         //In this case it makes items in the list have checkmarks if they are already on the shopping list
         var index = 0
@@ -52,6 +53,7 @@ class AddToShoppingListTableViewCell: UITableViewCell {
                 index += 1
             }
         }
+         */
         
         itemNameLabel.text = item.name
         
@@ -77,10 +79,7 @@ class AddToShoppingListTableViewCell: UITableViewCell {
             var index = 0
             for item in ProfileModelController.shared.profiles![profileIndex].shoppingList {
                 if shoppingListItem == item {
-                    itemIsChecked = true
-                                        
-                    updateCheckMark()
-                    return
+                    break
                 } else {
                     index += 1
                 }

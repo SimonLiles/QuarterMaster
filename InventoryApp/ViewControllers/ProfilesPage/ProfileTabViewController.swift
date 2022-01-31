@@ -15,11 +15,12 @@ class ProfileTabViewController: UITabBarController {
     //Intake for profile to be used
     var profile: Profile = Profile(name: "", pantry: [], shoppingList: [])
     
-    let profileIndex = ProfileModelController.shared.selectedIndex
+    var profileIndex = ProfileModelController.shared.selectedIndex
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        profileIndex = ProfileModelController.shared.selectedIndex
         profile = ProfileModelController.shared.profiles![profileIndex]
         
         //Initializes Notification observers to listen for updates from other view controllers

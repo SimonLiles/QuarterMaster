@@ -136,6 +136,8 @@ class PantryPickerListTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "pickerCell", for: indexPath)
             
             cell.textLabel?.text = itemNames[indexPath.row]
+            cell.textLabel?.textAlignment = .left
+            cell.textLabel?.textColor = .label
             
             if itemNames[indexPath.row] == selectedItem {
                 cell.accessoryType = .checkmark
@@ -154,6 +156,7 @@ class PantryPickerListTableViewController: UITableViewController {
             cell.textLabel?.text = "Add New"
             cell.textLabel?.textAlignment = .center
             cell.textLabel?.textColor = .systemBlue
+            cell.accessoryType = .none
             
             return cell
         default: //error handling code

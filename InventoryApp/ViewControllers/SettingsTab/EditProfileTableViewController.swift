@@ -23,7 +23,7 @@ class EditProfileTableViewController: UITableViewController {
     @IBOutlet weak var deleteButton: UIButton!
     
     // MARK: - Variables and Constants
-    let profileIndex = ProfileModelController.shared.selectedIndex
+    var profileIndex = ProfileModelController.shared.selectedIndex
     
     var profile = Profile(name: "", pantry: [], shoppingList: [])
         
@@ -35,6 +35,7 @@ class EditProfileTableViewController: UITableViewController {
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
         view.addGestureRecognizer(tap)
         
+        profileIndex = ProfileModelController.shared.selectedIndex
         profile = ProfileModelController.shared.profiles![profileIndex]
         
         if !profile.name.isEmpty {
