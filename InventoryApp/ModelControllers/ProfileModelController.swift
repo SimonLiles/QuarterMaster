@@ -104,9 +104,17 @@ class ProfileModelController {
     
     //MARK: - Version Control
     //Determines whether user data should be updated with new data or not
+    //Profile names must match
+    //Must have a later version
     func shouldUpdate(currentData: Profile, receivedData: Profile) -> Bool{
-        if (currentData.versionTimeStamp < receivedData.versionTimeStamp) {
-            return true
+        //Profile names must match
+        if (currentData == receivedData) {
+            //Must have a later version
+            if (currentData.versionTimeStamp < receivedData.versionTimeStamp) {
+                return true
+            } else {
+                return false
+            }
         } else {
             return false
         }

@@ -57,8 +57,39 @@ class ProfileTabViewController: UITabBarController {
             //Update user data
             let currentProfile = ProfileModelController.shared.profiles![profileIndex]
             
+            //If there is a slot to update into, push the updated data
             if (ProfileModelController.shared.shouldUpdate(currentData: currentProfile, receivedData: newProfile)) {
                 ProfileModelController.shared.profiles![profileIndex] = newProfile
+            } else {
+                //Check if there is a slot for the data to be fed into, if so, fill that slot
+                var index = 0
+                for profile in ProfileModelController.shared.profiles! {
+                    if (newProfile == profile) {
+                        break
+                    }
+                    
+                    index += 1
+                }
+                
+                if(index >= ProfileModelController.shared.profiles!.endIndex) {
+                    //Ask if user wants to accept a new profile
+                    //Create the alert
+                    let alertTitle = "New profile invite"
+                    let alertMessage = "Connected peer would like to share profile data with you. "
+                    
+                    let newProfileAlert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+
+                    let acceptAction = UIAlertAction(title: "Accept", style: .default, handler: { action in
+                        print("User chose accept action")
+                        ProfileModelController.shared.profiles!.append(newProfile)
+                    })
+                    
+                    newProfileAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                    newProfileAlert.addAction(acceptAction)
+                    
+                    print("presenting newProfileAlert from ProfileTabViewController")
+                    present(newProfileAlert, animated: true)
+                }
             }
             
             //Update all views that display shareable data

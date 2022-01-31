@@ -58,3 +58,13 @@ struct Profile: Codable {
         return decodedProfile!
     }
 }
+
+extension Profile: Equatable {
+    static func == (lhs: Profile, rhs: Profile) -> Bool{
+        if (lhs.name == rhs.name) {
+            return true
+        } else {
+            return false
+        }
+    }
+}

@@ -94,6 +94,11 @@ class PantryTableViewController: UITableViewController {
         searchController.searchBar.placeholder = "Search Pantry"
         navigationItem.searchController = searchController
         definesPresentationContext = true
+        
+        //Send data to any connected peers
+        ProfileModelController.shared.profiles![profileIndex].versionTimeStamp = Date()
+        ProfileModelController.shared.saveProfileData()
+        ProfileModelController.shared.sendProfile()
     }
     
     

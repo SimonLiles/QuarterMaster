@@ -73,6 +73,11 @@ class ShoppingListTableViewController: UITableViewController {
         searchController.searchBar.placeholder = "Search Shopping List"
         navigationItem.searchController = searchController
         definesPresentationContext = true
+        
+        //Send data to any connected peers
+        ProfileModelController.shared.profiles![profileIndex].versionTimeStamp = Date()
+        ProfileModelController.shared.saveProfileData()
+        ProfileModelController.shared.sendProfile()
     }
     
     //Called when a notification is received for reloadTable

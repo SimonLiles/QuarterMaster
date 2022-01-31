@@ -29,6 +29,9 @@ class ProfileTableViewController: UITableViewController {
         
         //Initializes Notification observer to listen for updates from other view controllers
         NotificationCenter.default.addObserver(self, selector: #selector(reloadTable), name: NSNotification.Name(rawValue: "reloadProfiles"), object: nil)
+        
+        //Listens for updates on receiving new Data
+        NotificationCenter.default.addObserver(self, selector: #selector(updateProfile), name: NSNotification.Name(rawValue: "received_data"), object: nil)
 
         //Initialize user data on start up
         if let savedProfiles = ProfileModelController().loadProfileData() {
@@ -62,6 +65,65 @@ class ProfileTableViewController: UITableViewController {
         tableView.reloadData()
     }
     
+    //Receive data from P2P controller and save it into Profile Model Controller
+    @objc func updateProfile(notification: NSNotification) {
+        print("updateProfile() called")
+        DispatchQueue.main.sync {
+            print("Entering DispatchQueue.main.sync in updateProfile()")
+            
+            let receivedData = MultipeerSession.instance.receivedData
+            
+            var newProfile = Profile(name: "", pantry: [], shoppingList: [])
+            newProfile = newProfile.decode(data: receivedData!)
+            
+            print("New Data Finished decoding")
+            
+            //Update user data
+            
+            //Check if there is a slot for the data to be fed into, if so, fill that slot
+            var index = 0
+            for profile in profiles {
+                if (newProfile == profile) {
+                    break
+                }
+                
+                index += 1
+            }
+                        
+            if (index < profiles.endIndex) {
+                let currentProfile = ProfileModelController.shared.profiles![index]
+
+                if (ProfileModelController.shared.shouldUpdate(currentData: currentProfile, receivedData: newProfile)) {
+                    ProfileModelController.shared.profiles![index] = newProfile
+                    tableView.reloadData()
+                }
+            } else {
+                //Ask if user wants to accept a new profile
+                //Create the alert
+                let alertTitle = "New profile invite"
+                let alertMessage = "Connected peer would like to share profile data with you. "
+                
+                let newProfileAlert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
+
+                let acceptAction = UIAlertAction(title: "Accept", style: .default, handler: { action in
+                    print("User chose accept action")
+                    ProfileModelController.shared.profiles!.append(newProfile)
+                    self.profiles = ProfileModelController.shared.profiles!
+                    self.tableView.reloadData()
+                })
+                
+                newProfileAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                newProfileAlert.addAction(acceptAction)
+                
+                print("presenting newProfileAlert from ProfileTableViewController")
+                present(newProfileAlert, animated: true)
+            }
+            
+            profiles = ProfileModelController.shared.profiles!
+            tableView.reloadData()
+        }
+    }
+    
     // MARK: - Search Bar Functionality
     
     //Function to filter for search results
@@ -84,6 +146,11 @@ class ProfileTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
+        
+        if (isFiltering) {
+            return filteredProfiles.count
+        }
+        
         return profiles.count
     }
 
@@ -92,7 +159,12 @@ class ProfileTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "profileTableViewCell", for: indexPath)
 
         // Configure the cell...
-        cell.textLabel?.text = profiles[indexPath.row].name
+        
+        if (isFiltering) {
+            cell.textLabel?.text = filteredProfiles[indexPath.row].name
+        } else {
+            cell.textLabel?.text = profiles[indexPath.row].name
+        }
 
         return cell
     }

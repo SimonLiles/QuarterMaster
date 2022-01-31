@@ -51,6 +51,10 @@ class EditProfileTableViewController: UITableViewController {
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
+        //Send data to any connected peers
+        ProfileModelController.shared.profiles![profileIndex].versionTimeStamp = Date()
+        ProfileModelController.shared.saveProfileData()
+        ProfileModelController.shared.sendProfile()
     }
     
     //Called when a notification is received for reloadTable
