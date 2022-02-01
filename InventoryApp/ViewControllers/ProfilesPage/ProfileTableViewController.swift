@@ -94,6 +94,7 @@ class ProfileTableViewController: UITableViewController {
                 let currentProfile = ProfileModelController.shared.profiles![index]
 
                 if (ProfileModelController.shared.shouldUpdate(currentData: currentProfile, receivedData: newProfile)) {
+                    newProfile = ProfileModelController().updateMerge(currentData: currentProfile, receivedData: newProfile)
                     ProfileModelController.shared.profiles![index] = newProfile
                     tableView.reloadData()
                 }

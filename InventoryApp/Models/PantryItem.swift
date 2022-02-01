@@ -67,7 +67,7 @@ struct PantryItem: Codable, Hashable {
 
 extension PantryItem: Equatable {
     static func == (lhs: PantryItem, rhs: PantryItem) -> Bool {
-        return lhs.name == rhs.name && lhs.category == rhs.category && lhs.location == rhs.location && lhs.units == rhs.units && lhs.note == rhs.note
+        return lhs.name == rhs.name && lhs.category == rhs.category && lhs.location == rhs.location && lhs.units == rhs.units
     }
 }
 

@@ -120,6 +120,34 @@ class ProfileModelController {
         }
     }
     
+    func updateMerge(currentData: Profile, receivedData: Profile) -> Profile {
+        var newData = Profile(name: "", pantry: [], shoppingList: [])
+        
+        /*
+        if (shouldUpdate(currentData: currentData, receivedData: receivedData)) {
+            //Update descriptors
+            newData.description = receivedData.description
+            
+            //Loop through each element of the receivedData pantry
+            var index = 0
+            for item in receivedData.pantry {
+                //If an instance of item exists in both pantries, add
+                if (item == currentData.pantry[index]) {
+                    newData.pantry.append(item)
+                }
+                
+                index += 1
+            }
+            
+            //Return the new profile object
+            return newData
+        }
+        */
+        //Default empty return statement
+        newData = receivedData
+        return newData
+    }
+    
     //MARK: - Data Persistence
     
     //URL address on user device for app memory

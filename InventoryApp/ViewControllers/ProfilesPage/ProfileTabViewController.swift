@@ -59,6 +59,7 @@ class ProfileTabViewController: UITabBarController {
             
             //If there is a slot to update into, push the updated data
             if (ProfileModelController.shared.shouldUpdate(currentData: currentProfile, receivedData: newProfile)) {
+                newProfile = ProfileModelController().updateMerge(currentData: currentProfile, receivedData: newProfile)
                 ProfileModelController.shared.profiles![profileIndex] = newProfile
             } else {
                 //Check if there is a slot for the data to be fed into, if so, fill that slot
