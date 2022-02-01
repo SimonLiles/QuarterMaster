@@ -11,6 +11,8 @@ import Foundation
 import UIKit
 import MultipeerConnectivity
 
+import os
+
 class MCPeerBrowserTableViewCell: UITableViewCell {
     // MARK: - IBOutlets
     @IBOutlet weak var peerIDLabel: UILabel!
@@ -22,6 +24,9 @@ class MCPeerBrowserTableViewCell: UITableViewCell {
     var peer: MCPeerID = MCPeerID(displayName: "peer")
     
     var indexpath: IndexPath = IndexPath()
+    
+    //Object to collect and store logs.
+    let log = Logger()
     
     //let connectedPeers = MultipeerSession.instance.connectedPeers
     
@@ -45,7 +50,7 @@ class MCPeerBrowserTableViewCell: UITableViewCell {
         - Parameter path: indexPath object
      */
     func update(with nearbyPeer: MCPeerID, at path: IndexPath) {
-        print("Updating peer browser table view cells")
+        log.info("Updating peer browser table view cells")
         
         //collect data from parameters to use locally in TableViewCell Class
         peer = nearbyPeer
@@ -62,7 +67,7 @@ class MCPeerBrowserTableViewCell: UITableViewCell {
         peerIDLabel.text = peer.displayName
         peerStatusLabel.text = peerStatus
         
-        print("Showing nearbyPeer: " + peer.displayName)
+        log.info("Showing nearbyPeer: \(self.peer.displayName, privacy: .private)")
         
         //Update model object data
     }

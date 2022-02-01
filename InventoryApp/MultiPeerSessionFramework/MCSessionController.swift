@@ -38,7 +38,7 @@ class MultipeerSession: NSObject, ObservableObject {
     private let session: MCSession
     
     ///Object to collect and store logs.
-    private let log = Logger()
+    let log = Logger()
     
     //Arrays to log the status of peers
     ///Array of connected peers.
@@ -66,7 +66,7 @@ class MultipeerSession: NSObject, ObservableObject {
      - Parameter serviceName: String representing the name of the MC service. It is recomended to use an abbreviation of the company followed by a hyphen and then the specific service. For example: `sjl-mcservice`.
      */
     override init(/*serviceName: String, trustedPeers: [MCPeerID]*/) {
-        print("Attempting to initialize Multipeer Session")
+        log.info("Attempting to initialize Multipeer Session")
         //self.serviceType = serviceName
         //self.trustedPeers = trustedPeers
 
@@ -103,19 +103,19 @@ class MultipeerSession: NSObject, ObservableObject {
         - data: encoded Data to be sent to other peers
     */
     func send(data: Data) {
-        print("func send() called")
+        log.info("func send() called")
         
         if session.connectedPeers.count > 0 {
             do {
                 try session.send(data, toPeers: session.connectedPeers, with: .reliable)
             } catch let error as NSError {
-                print("send error:\n" + error.localizedDescription)
+                log.error("send error:\n \(error.localizedDescription)")
                 let ac = UIAlertController(title: "Send error", message: error.localizedDescription, preferredStyle: .alert)
                 ac.addAction(UIAlertAction(title: "OK", style: .default))
                 //present(ac, animated: true)
             }
         } else {
-            print("Tried to send, but no peers were connected")
+            log.info("Tried to send, but no peers were connected")
         }
     }
     
@@ -140,33 +140,33 @@ class MultipeerSession: NSObject, ObservableObject {
         
         //Check for length, between 1 and 15 characters
         if(name.count < 1 || name.count > 15) {
-            print("Name provided for P2P service is not between 1 and 15 characters in length")
+            log.fault("Name provided for P2P service is not between 1 and 15 characters in length")
             
             return
         }
         //Check for lowercase
         if(name != name.lowercased()) {
-            print("Name provided for P2P service must be all lower case")
+            log.fault("Name provided for P2P service must be all lower case")
 
             return
         }
         //Check for letters, numbers, and hyphens only
         let allCharSet = CharacterSet(charactersIn: "abcdefghijklmnopqrstuvwxyz1234567890-")
         if(name.lowercased().rangeOfCharacter(from: allCharSet) == nil) {
-            print("Name provided for P2P service contains characters other than ASCII lowercase characters, numbers, or hyphens")
+            log.fault("Name provided for P2P service contains characters other than ASCII lowercase characters, numbers, or hyphens")
 
             return
         }
         //Check that it contains at least 1 ASCII letter
         let lowerCaseASCII = "abcdefghijklmnopqrstuvwxyz"
         if(name.contains(lowerCaseASCII)) {
-            print("Name provided for P2P service does not contain at least 1 lowercase letter")
+            log.fault("Name provided for P2P service does not contain at least 1 lowercase letter")
 
             return
         }
         //Check does not begin or end with a hyphen
         if(name.first! == "-" || name.last! == "-") {
-            print("Name provided for P2P service cannot start nor end with a hyphen")
+            log.fault("Name provided for P2P service cannot start nor end with a hyphen")
 
             return
         }
@@ -186,7 +186,7 @@ class MultipeerSession: NSObject, ObservableObject {
             }
             
             if((char1 == "-") && (char2 == "-") && (char1 == char2)) {
-                print("Name provided for P2P service contains adjacent hyphens, this is not allowed")
+                log.fault("Name provided for P2P service contains adjacent hyphens, this is not allowed")
                 
                 return
             }
@@ -220,12 +220,12 @@ class MultipeerSession: NSObject, ObservableObject {
 extension MultipeerSession: MCNearbyServiceAdvertiserDelegate {
     ///Advertiser didNotStartAdvertising
     func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didNotStartAdvertisingPeer error: Error) {
-        print("ServiceAdvertiser didNotStartAdvertisingPeer: \(String(describing: error))")
+        log.error("ServiceAdvertiser didNotStartAdvertisingPeer: \(String(describing: error))")
     }
 
     ///Advertiser didReceiveInvitation
     func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: Data?, invitationHandler: @escaping (Bool, MCSession?) -> Void) {
-        print("didReceiveInvitationFromPeer \(peerID)")
+        log.info("didReceiveInvitationFromPeer \(peerID, privacy: .private)")
         
         //Create the alert
         let alertTitle = "Do you wish to connect?"
@@ -234,7 +234,7 @@ extension MultipeerSession: MCNearbyServiceAdvertiserDelegate {
         let connectAlert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
 
         let connectAction = UIAlertAction(title: "Connect", style: .default, handler: { action in
-            print("User chose join action")
+            self.log.info("User chose join action")
             
             invitationHandler(true, self.session)
         })
@@ -268,7 +268,7 @@ extension MultipeerSession: MCNearbyServiceBrowserDelegate {
 
     ///Browser foundPeer
     func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String: String]?) {
-        print("ServiceBrowser found peer: \(peerID)")
+        log.info("ServiceBrowser found peer: \(peerID, privacy: .private)")
         
         //Add peer to list of nearby peers
         nearbyPeers.append(peerID)
@@ -285,7 +285,7 @@ extension MultipeerSession: MCNearbyServiceBrowserDelegate {
 
     ///Browser lostPeer
     func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
-        print("ServiceBrowser lost peer: \(peerID)")
+        log.info("ServiceBrowser lost peer: \(peerID, privacy: .private)")
     }
     
     ///Invite a peer
@@ -303,9 +303,9 @@ extension MultipeerSession: MCSessionDelegate {
     
     ///Session didChange
     func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
-        print("peer \(peerID) didChangeState: \(state.rawValue)")
+        log.info("peer \(peerID, privacy: .private) didChangeState: \(state.rawValue)")
         connectedPeers = session.connectedPeers
-        print("Connected peers: " + connectedPeers.description)
+        log.info("Connected peers: \(self.connectedPeers.description, privacy: .private)")
 
         DispatchQueue.main.async {
             self.connectedPeers = session.connectedPeers
@@ -316,7 +316,7 @@ extension MultipeerSession: MCSessionDelegate {
         
         switch state {
         case MCSessionState.connected:
-            print("Connected: \(peerID.displayName)")
+            log.info("Connected: \(peerID.displayName, privacy: .private)")
             serviceAdvertiser.stopAdvertisingPeer()
             serviceBrowser.stopBrowsingForPeers()
             foundPeers[peerID] = "Connected"
@@ -325,22 +325,22 @@ extension MultipeerSession: MCSessionDelegate {
             ProfileModelController.shared.sendProfile()
             
         case MCSessionState.connecting:
-            print("Connecting: \(peerID.displayName)")
+            log.info("Connecting: \(peerID.displayName, privacy: .private)")
             foundPeers[peerID] = "Connecting"
 
 
         case MCSessionState.notConnected:
-            print("Not Connected: \(peerID.displayName)")
+            log.info("Not Connected: \(peerID.displayName, privacy: .private)")
             foundPeers[peerID] = "Not Connected"
             
         default:
-            print("Something Broke in session peer didChange")
+            log.fault("Something Broke in session peer didChange")
         }
     }
     
     ///Session didReceive data
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
-        print("didReceive bytes \(data.count) bytes")
+        log.info("didReceive bytes \(data.count) bytes")
         
         receivedData = data
         
@@ -353,16 +353,16 @@ extension MultipeerSession: MCSessionDelegate {
 
     ///Session didReceive stream
     public func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
-        print("Receiving streams is not supported")
+        log.fault("Receiving streams is not supported")
     }
 
     ///Session didStartReceivingResource
     public func session(_ session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, with progress: Progress) {
-        print("Receiving resources is not supported")
+        log.fault("Receiving resources is not supported")
     }
 
     ///Session didFinishReceivingResource
     public func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL?, withError error: Error?) {
-        print("Receiving resources is not supported")
+        log.fault("Receiving resources is not supported")
     }
 }

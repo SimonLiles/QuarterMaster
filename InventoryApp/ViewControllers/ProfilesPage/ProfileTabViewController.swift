@@ -8,6 +8,8 @@
 
 import UIKit
 
+import os
+
 class ProfileTabViewController: UITabBarController {
     
     // MARK: - Variables and Constants
@@ -16,6 +18,9 @@ class ProfileTabViewController: UITabBarController {
     var profile: Profile = Profile(name: "", pantry: [], shoppingList: [])
     
     var profileIndex = ProfileModelController.shared.selectedIndex
+    
+    //Object to collect and store logs.
+    let log = Logger()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,16 +48,16 @@ class ProfileTabViewController: UITabBarController {
     
     //Receive data from P2P controller and save it into Profile Model Controller
     @objc func updateProfile(notification: NSNotification) {
-        print("updateProfile() called")
+        log.info("updateProfile() called")
         DispatchQueue.main.sync {
-            print("Entering DispatchQueue.main.sync in updateFields()")
+            self.log.info("Entering DispatchQueue.main.sync in updateFields()")
             
             let receivedData = MultipeerSession.instance.receivedData
             
             var newProfile = Profile(name: "", pantry: [], shoppingList: [])
             newProfile = newProfile.decode(data: receivedData!)
             
-            print("New Data Finished decoding")
+            self.log.info("New Data Finished decoding")
             
             //Update user data
             let currentProfile = ProfileModelController.shared.profiles![profileIndex]
@@ -81,24 +86,24 @@ class ProfileTabViewController: UITabBarController {
                     let newProfileAlert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
 
                     let acceptAction = UIAlertAction(title: "Accept", style: .default, handler: { action in
-                        print("User chose accept action")
+                        self.log.info("User chose accept action")
                         ProfileModelController.shared.profiles!.append(newProfile)
                     })
                     
                     newProfileAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
                     newProfileAlert.addAction(acceptAction)
                     
-                    print("presenting newProfileAlert from ProfileTabViewController")
+                    self.log.info("presenting newProfileAlert from ProfileTabViewController")
                     present(newProfileAlert, animated: true)
                 }
             }
             
             //Update all views that display shareable data
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadPantry"), object: ProfileModelController.shared.profiles![self.profileIndex].pantry)
-            print("Notification for 'reloadPantrys' sent")
+            log.info("Notification for 'reloadPantrys' sent")
             
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadShoppingList"), object: ProfileModelController.shared.profiles![profileIndex].shoppingList)
-            print("Notification for 'reloadShoppingList' sent")
+            log.info("Notification for 'reloadShoppingList' sent")
         }
     }
     
@@ -115,7 +120,7 @@ class ProfileTabViewController: UITabBarController {
         case " ": //Shopping List Tab data passed through here
             break
         default: //If something breaks
-            print("No implementation provided for given segue in ProfileTabViewController prepare(for segue:)")
+            log.fault("No implementation provided for given segue in ProfileTabViewController prepare(for segue:)")
         }
     }
     

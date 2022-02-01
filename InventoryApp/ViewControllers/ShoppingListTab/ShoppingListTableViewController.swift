@@ -13,6 +13,8 @@
 
 import UIKit
 
+import os
+
 class ShoppingListTableViewController: UITableViewController {
     
     // MARK: - IBOutlets
@@ -51,6 +53,9 @@ class ShoppingListTableViewController: UITableViewController {
         return searchController.isActive && !isSearchBarEmpty
     }
     
+    //Object to collect and store logs.
+    let log = Logger()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -82,6 +87,7 @@ class ShoppingListTableViewController: UITableViewController {
     
     //Called when a notification is received for reloadTable
     @objc func reloadTable(notification: NSNotification) {
+        log.info("Shopping List tableView is reloading")
         shoppingList = ProfileModelController.shared.profiles![profileIndex].shoppingList
         
         tableView.reloadData()

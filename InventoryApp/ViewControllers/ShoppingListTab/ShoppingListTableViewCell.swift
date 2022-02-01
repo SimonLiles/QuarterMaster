@@ -8,6 +8,8 @@
 
 import UIKit
 
+import os
+
 class ShoppingListTableViewCell: UITableViewCell {
     
     // MARK: - IBOutlets
@@ -34,6 +36,9 @@ class ShoppingListTableViewCell: UITableViewCell {
     let toBuyImage: UIImage? = UIImage(systemName: "circle")
     let boughtImage: UIImage? = UIImage(systemName: "checkmark.circle")
     let notBoughtImage: UIImage? = UIImage(systemName: "x.circle")
+    
+    //Object to collect and store logs.
+    let log = Logger()
     
     override func awakeFromNib() {
         super.awakeFromNib()

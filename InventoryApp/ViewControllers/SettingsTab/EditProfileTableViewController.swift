@@ -8,6 +8,8 @@
 
 import UIKit
 
+import os
+
 class EditProfileTableViewController: UITableViewController {
     
     // MARK: - IBOutlets
@@ -27,6 +29,9 @@ class EditProfileTableViewController: UITableViewController {
     
     var profile = Profile(name: "", pantry: [], shoppingList: [])
         
+    //Object to collect and store logs.
+    let log = Logger()
+    
     // MARK: - viewDidLoad()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,7 +97,7 @@ class EditProfileTableViewController: UITableViewController {
         let saveAlert = UIAlertController(title: "Do you wish to save changes?", message: "Are you sure you wish to make these changes? Once the changes are saved, it is impossible to go back.", preferredStyle: .actionSheet)
         
         let saveAction = UIAlertAction(title: "Save", style: .default, handler: { action in
-            print("User chose to save profile data")
+            self.log.info("User chose to save profile data")
             
             //Push changes to model controller
             self.profile.name = self.profileNameTextField.text ?? "Unnamed"
@@ -121,7 +126,7 @@ class EditProfileTableViewController: UITableViewController {
         let cancelAlert = UIAlertController(title: "Do you wish to discard changes?", message: "Are you sure you wish to discard changes? Changes will be discarded and the original data will be displayed.", preferredStyle: .actionSheet)
         
         let cancelAction = UIAlertAction(title: "Discard", style: .default, handler: { action in
-            print("User chose to discard changes to profile data")
+            self.log.info("User chose to discard changes to profile data")
             self.profileNameTextField.text? = self.profile.name
             self.descriptionTextView.text? = self.profile.description
             
@@ -139,7 +144,7 @@ class EditProfileTableViewController: UITableViewController {
         let deleteAlert = UIAlertController(title: "Do you wish to continue?", message: "Are you sure you wish to delete this profile? After deleting you will not be able to recover the data.", preferredStyle: .actionSheet)
         
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: { action in
-            print("User chose delete action")
+            self.log.info("User chose delete action")
                 
             self.performSegue(withIdentifier: "deleteProfileUnwind", sender: nil)
         })

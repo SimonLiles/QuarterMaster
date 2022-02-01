@@ -8,10 +8,14 @@
 
 import UIKit
 
+import os
+
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
+    //Object to collect and store logs.
+    let log = Logger()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -43,7 +47,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         //Save app data to disk while moving from active state to inactive
         ProfileModelController.shared.saveProfileData()
-        //print("ProfileModelController data saved while moving from active state to inactive")
+        log.info("ProfileModelController data saved while moving from active state to inactive")
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
@@ -58,7 +62,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         //Save app data to disk while entering Background
         ProfileModelController.shared.saveProfileData()
-        //print("ProfileModelController data saved while entering background") //debug save state
+        log.info("ProfileModelController data saved while entering background") //debug save state
 
     }
 

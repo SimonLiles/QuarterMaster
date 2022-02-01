@@ -8,6 +8,8 @@
 
 import Foundation
 
+import os
+
 /**
  Model Controller to manage profile model objects.
  - Accessible Variables:
@@ -33,6 +35,9 @@ class ProfileModelController {
     
     ///holds an array of profile model objects
     var profiles: [Profile]?
+    
+    //Object to collect and store logs.
+    let log = Logger()
         
     //MARK: - Profile Functionality
     
@@ -157,6 +162,8 @@ class ProfileModelController {
      Saves the array of profile objects representing user data to a .json file.
      */
     func saveProfileData() {
+        log.info("Saving all user data")
+        
         let jsonEncoder = JSONEncoder()
         let encodedProfiles = try? jsonEncoder.encode(profiles) //encode the pantry
         
@@ -169,6 +176,8 @@ class ProfileModelController {
      - Returns: Optional array of profile objects.
      */
     func loadProfileData() -> [Profile]? {
+        log.info("Loading existing user data")
+        
         let jsonDecoder = JSONDecoder()
         
         guard let retrievedProfileData = try? Data(contentsOf: archiveURL) else { return nil } //Pulls json encoded profile data
@@ -186,6 +195,8 @@ class ProfileModelController {
      - Returns: Single profile with a prefilled pantry and shopping list.
      */
     func loadSampleProfile() -> [Profile]? {
+        log.info("Loading sample profile data")
+        
         var sampleProfile: [Profile] = [Profile(
         name: "Queen Anne's Revenge",
         pantry: [

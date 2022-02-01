@@ -8,6 +8,8 @@
 
 import UIKit
 
+import os
+
 class ProfileTableViewController: UITableViewController {
 
     // MARK: - Constants and Variables
@@ -23,6 +25,9 @@ class ProfileTableViewController: UITableViewController {
     var isFiltering: Bool {
         return searchController.isActive && !isSearchBarEmpty
     }
+    
+    //Object to collect and store logs.
+    let log = Logger()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,14 +74,14 @@ class ProfileTableViewController: UITableViewController {
     @objc func updateProfile(notification: NSNotification) {
         print("updateProfile() called")
         DispatchQueue.main.sync {
-            print("Entering DispatchQueue.main.sync in updateProfile()")
+            self.log.info("Entering DispatchQueue.main.sync in updateProfile()")
             
             let receivedData = MultipeerSession.instance.receivedData
             
             var newProfile = Profile(name: "", pantry: [], shoppingList: [])
             newProfile = newProfile.decode(data: receivedData!)
             
-            print("New Data Finished decoding")
+            self.log.info("New Data Finished decoding")
             
             //Update user data
             
@@ -107,7 +112,7 @@ class ProfileTableViewController: UITableViewController {
                 let newProfileAlert = UIAlertController(title: alertTitle, message: alertMessage, preferredStyle: .alert)
 
                 let acceptAction = UIAlertAction(title: "Accept", style: .default, handler: { action in
-                    print("User chose accept action")
+                    self.log.info("User chose accept action")
                     ProfileModelController.shared.profiles!.append(newProfile)
                     self.profiles = ProfileModelController.shared.profiles!
                     self.tableView.reloadData()
@@ -220,7 +225,7 @@ class ProfileTableViewController: UITableViewController {
             var selectedIndex: Int = 0
             
             if isFiltering {
-                print("ProfileTableView is Filtering ")
+                log.info("ProfileTableView is Filtering ")
                 let selectedProfile = filteredProfiles[indexPath.row]
                 for profile in ProfileModelController.shared.profiles! {
                     if selectedProfile.name == profile.name {
@@ -230,16 +235,16 @@ class ProfileTableViewController: UITableViewController {
                     }
                 }
             } else {
-                print("ProfileTableView is NOT Filtering ")
+                log.info("ProfileTableView is NOT Filtering ")
 
                 selectedIndex = indexPath.row
             }
             
-            print("selectedIndex = " + String(selectedIndex))
+            log.info("selectedIndex = \(String(selectedIndex))")
             
             ProfileModelController.shared.selectedIndex = selectedIndex
             
-            print("ProfileModelController.shared.selectedIndex = " + String(ProfileModelController.shared.selectedIndex))
+            log.info("ProfileModelController.shared.selectedIndex = \(String(ProfileModelController.shared.selectedIndex))")
         }
     }
     

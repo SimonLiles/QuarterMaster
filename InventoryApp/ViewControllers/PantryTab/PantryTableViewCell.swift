@@ -8,6 +8,8 @@
 
 import UIKit
 
+import os
+
 class PantryTableViewCell: UITableViewCell {
     
     // MARK: - IBOutlets
@@ -25,6 +27,9 @@ class PantryTableViewCell: UITableViewCell {
     var pantryItem1 = PantryItem(name: "", category: "", location: "", currentQuantity: 0, units: "", note: "")
     
     var indexpath: IndexPath = IndexPath()
+    
+    //Object to collect and store logs.
+    let log = Logger()
     
     override func awakeFromNib() {
         super.awakeFromNib()

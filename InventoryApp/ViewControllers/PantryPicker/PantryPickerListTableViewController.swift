@@ -8,6 +8,8 @@
 
 import UIKit
 
+import os
+
 /**
  Pick List specifically designed for use with the Pantry Inventory Management Software
  */
@@ -29,6 +31,9 @@ class PantryPickerListTableViewController: UITableViewController {
     
     //Name of array being fed in. Used to create title for nav bar
     var name: String = ""
+    
+    //Object to collect and store logs.
+    let log = Logger()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,8 +78,8 @@ class PantryPickerListTableViewController: UITableViewController {
         case "addNewShoppingListItemTableView":
             performSegue(withIdentifier: "uniwndToAddNewShoppingListItemFromPickerList", sender: nil)
         default:
-            print("Hmm, whatever you were tryna' do obviously is not fully implemented yet")
-            print("Check func saveButtonPressed in PantryPickerListTableViewController")
+            log.fault("Hmm, whatever you were tryna' do obviously is not fully implemented yet")
+            log.fault("Check func saveButtonPressed in PantryPickerListTableViewController")
         }
         
     }
@@ -88,8 +93,8 @@ class PantryPickerListTableViewController: UITableViewController {
         case "addNewShoppingListItemTableView":
             performSegue(withIdentifier: "cancelUniwndToAddNewShoppingListItemFromPickerList", sender: nil)
         default:
-            print("Hmm, whatever you were tryna' do obviously is not fully implemented yet")
-            print("Check func cancelButtonPressed in PantryPickerListTableViewController")
+            log.fault("Hmm, whatever you were tryna' do obviously is not fully implemented yet")
+            log.fault("Check func cancelButtonPressed in PantryPickerListTableViewController")
         }
     }
     
@@ -108,8 +113,8 @@ class PantryPickerListTableViewController: UITableViewController {
         case 1: // Section that holds a single cell for an "add new" button
             return 1
         default:
-            print("You gone and done screwed up")
-            print("You should try and fix your code buddy")
+            log.fault("You gone and done screwed up")
+            log.fault("You should try and fix your code buddy")
             return 0
         }
     }

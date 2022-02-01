@@ -14,6 +14,8 @@
 
 import UIKit
 
+import os
+
 class AddToShoppingListTableViewController: UITableViewController {
 
     // MARK: - IBOutlets
@@ -51,6 +53,9 @@ class AddToShoppingListTableViewController: UITableViewController {
     var isFiltering: Bool {
         return searchController.isActive && !isSearchBarEmpty
     }
+    
+    //Object to collect and store logs.
+    let log = Logger()
 
     override func viewDidLoad() {
         super.viewDidLoad()

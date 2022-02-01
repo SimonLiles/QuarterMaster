@@ -8,6 +8,8 @@
 
 import UIKit
 
+import os
+
 class NewProfileTableViewController: UITableViewController {
     
     // MARK: - IBOutlets
@@ -21,6 +23,9 @@ class NewProfileTableViewController: UITableViewController {
     
     // MARK: - Variables and Constants
     var profile = Profile(name: "", pantry: [], shoppingList: [])
+    
+    //Object to collect and store logs.
+    let log = Logger()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,7 +59,7 @@ class NewProfileTableViewController: UITableViewController {
     
     
     @IBAction func saveButtonPressed(_ sender: Any) {
-        print("User created a new profile")
+        log.info("User created a new profile")
         
         //Push changes to model controller
         profile.name = profileNameTextField.text ?? "Unnamed"

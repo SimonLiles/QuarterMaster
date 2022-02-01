@@ -11,11 +11,16 @@ import Foundation
 import UIKit
 import MultipeerConnectivity
 
+import os
+
 class MCPeerBrowserTableViewController: UITableViewController {
     
     var nearbyPeers = MultipeerSession.instance.nearbyPeers
     var connectedPeers = MultipeerSession.instance.connectedPeers
     
+    //Object to collect and store logs.
+    let log = Logger()
+
     //MARK: - viewDidLoad()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,7 +37,7 @@ class MCPeerBrowserTableViewController: UITableViewController {
         connectedPeers = MultipeerSession.instance.connectedPeers
         
         DispatchQueue.main.async {
-            print("reloading peer browser tableview")
+            self.log.info("reloading peer browser tableview")
             self.tableView.reloadData()
         }
     }

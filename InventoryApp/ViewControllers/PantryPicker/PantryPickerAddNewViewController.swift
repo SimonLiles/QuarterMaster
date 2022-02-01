@@ -8,6 +8,8 @@
 
 import UIKit
 
+import os
+
 class PantryPickerAddNewViewController: UIViewController {
     
     // MARK: - IBOutlets
@@ -20,6 +22,9 @@ class PantryPickerAddNewViewController: UIViewController {
     var returnKey: String = "" //identifying key to allow return to edit menu
     
     var name: String = "" //Name of the array the item will be fed back into
+    
+    //Object to collect and store logs.
+    let log = Logger()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,8 +56,8 @@ class PantryPickerAddNewViewController: UIViewController {
         case "addNewShoppingListItemTableView":
             performSegue(withIdentifier: "uniwndToAddNewShoppingListItemFromNewItem", sender: nil)
         default:
-            print("Hmm, whatever you were tryna' do obviously is not fully implemented yet")
-            print("Check func saveButtonPressed in PantryPickerAddNewViewController")
+            log.fault("Hmm, whatever you were tryna' do obviously is not fully implemented yet")
+            log.fault("Check func saveButtonPressed in PantryPickerAddNewViewController")
         }
     }
     

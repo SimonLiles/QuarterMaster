@@ -8,6 +8,8 @@
 
 import UIKit
 
+import os
+
 class AddEditPantryItemTableViewController: UITableViewController {
 
     // MARK: - IBOutlets
@@ -28,6 +30,9 @@ class AddEditPantryItemTableViewController: UITableViewController {
     
     // MARK: - Variables and Constants
     var pantryItem: PantryItem = PantryItem(name: "", category: "", location: "", currentQuantity: 0.0, units: "", note: "")
+    
+    //Object to collect and store logs.
+    let log = Logger()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -107,7 +112,7 @@ class AddEditPantryItemTableViewController: UITableViewController {
         let deleteAlert = UIAlertController(title: "Do you wish to continue?", message: "Are you sure you wish to delete this item? After deleting you will not be able to recover the data.", preferredStyle: .actionSheet)
         
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: { action in
-                print("User chose delete action")
+            self.log.info("User chose delete action")
                 
             self.performSegue(withIdentifier: "deleteUnwind", sender: nil)
             })
@@ -161,8 +166,8 @@ class AddEditPantryItemTableViewController: UITableViewController {
                 currentItem = pantryItem.units
                 typeName = "Units"
             default:
-                print("Your thing is not fully implemented yet")
-                print("Check func prepare(segue:) in AddEditPantryItemTableViewController")
+                log.fault("Your thing is not fully implemented yet")
+                log.fault("Check func prepare(segue:) in AddEditPantryItemTableViewController")
                 return
             }
             
@@ -201,7 +206,7 @@ class AddEditPantryItemTableViewController: UITableViewController {
                 unitsLabel.text = pantryItem.units
                 tableView.reloadData()
             default:
-                print("Hmm, switch statements in unwindToAddEditPantryTableView are not working properly")
+                log.fault("Hmm, switch statements in unwindToAddEditPantryTableView are not working properly")
                 return
             }
             
@@ -226,7 +231,7 @@ class AddEditPantryItemTableViewController: UITableViewController {
                 unitsLabel.text = pantryItem.units
                 tableView.reloadData()
             default:
-                print("Hmm, switch statements in unwindToAddEditPantryTableView are not working properly")
+                log.fault("Hmm, switch statements in unwindToAddEditPantryTableView are not working properly")
                 return
             }
             

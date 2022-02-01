@@ -8,6 +8,8 @@
 
 import UIKit
 
+import os
+
 class AddNewShoppingListItemTableViewController: UITableViewController {
     
     // MARK: - IBOutlets
@@ -29,6 +31,9 @@ class AddNewShoppingListItemTableViewController: UITableViewController {
     var profileIndex = ProfileModelController.shared.selectedIndex
     
     var shoppingListItem: PantryItem = PantryItem(name: "", category: "", location: "", currentQuantity: 0, units: "", note: "")
+    
+    //Object to collect and store logs.
+    let log = Logger()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -121,8 +126,8 @@ class AddNewShoppingListItemTableViewController: UITableViewController {
                 currentItem = shoppingListItem.units
                 typeName = "Units"
             default:
-                print("Your thing is not fully implemented yet")
-                print("Check func prepare(segue:) in AddEditPantryItemTableViewController")
+                log.fault("Your thing is not fully implemented yet")
+                log.fault("Check func prepare(segue:) in AddEditPantryItemTableViewController")
                 return
             }
             
@@ -160,7 +165,7 @@ class AddNewShoppingListItemTableViewController: UITableViewController {
                 unitsLabel.text = shoppingListItem.units
                 tableView.reloadData()
             default:
-                print("Hmm, switch statements in unwindToAddEditPantryTableView are not working properly")
+                log.fault("Hmm, switch statements in unwindToAddEditPantryTableView are not working properly")
                 return
             }
             
@@ -185,7 +190,7 @@ class AddNewShoppingListItemTableViewController: UITableViewController {
                 unitsLabel.text = shoppingListItem.units
                 tableView.reloadData()
             default:
-                print("Hmm, switch statements in unwindToAddEditPantryTableView are not working properly")
+                log.fault("Hmm, switch statements in unwindToAddEditPantryTableView are not working properly")
                 return
             }
             

@@ -13,6 +13,8 @@
 
 import UIKit
 
+import os
+
 class PantryTableViewController: UITableViewController {
     
     /// MARK: - IBOutlets
@@ -65,6 +67,9 @@ class PantryTableViewController: UITableViewController {
         return searchController.isActive && !isSearchBarEmpty
     }
         
+    //Object to collect and store logs.
+    let log = Logger()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -75,18 +80,6 @@ class PantryTableViewController: UITableViewController {
         profileIndex = ProfileModelController.shared.selectedIndex
         pantry = ProfileModelController.shared.profiles![profileIndex].pantry
         pantry = itemsSortedByCategory
-        
-        print("Printing pantry in Pantry Tab")
-        //Print pantry to the console
-        for item in pantry {
-            print(item.name)
-        }
-        
-        print("Printing ProfileModelController.shared.profiles pantry in Pantry Tab")
-        //Print pantry to the console
-        for item in ProfileModelController.shared.profiles![profileIndex].pantry {
-            print(item.name)
-        }
         
         //Initialization of Search Bar
         searchController.searchResultsUpdater = self
@@ -110,6 +103,7 @@ class PantryTableViewController: UITableViewController {
     
     //Called when a notification is received for reloadTable
     @objc func reloadTable(notification: NSNotification) {
+        log.info("Pantry tableView is reloading")
         pantry = ProfileModelController.shared.profiles![profileIndex].pantry
         
         tableView.reloadData()

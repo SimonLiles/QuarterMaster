@@ -8,6 +8,8 @@
 
 import UIKit
 
+import os
+
 class AddToShoppingListTableViewCell: UITableViewCell {
     
     // MARK: - IBOutlets
@@ -24,6 +26,9 @@ class AddToShoppingListTableViewCell: UITableViewCell {
     //Images to use for the check mark
     let circleImage = UIImage(systemName: "circle")
     let checkMarkCircle = UIImage(systemName: "checkmark.circle")
+    
+    //Object to collect and store logs.
+    let log = Logger()
     
     override func awakeFromNib() {
         super.awakeFromNib()
