@@ -24,6 +24,9 @@ class EditProfileTableViewController: UITableViewController {
     //delete button
     @IBOutlet weak var deleteButton: UIButton!
     
+    //sendDataButton
+    @IBOutlet weak var sendDataButton: UIButton!
+    
     // MARK: - Variables and Constants
     var profileIndex = ProfileModelController.shared.selectedIndex
     
@@ -139,6 +142,13 @@ class EditProfileTableViewController: UITableViewController {
         present(cancelAlert, animated: true, completion: nil)
 
     }
+    
+    @IBAction func sendButtonPressed(_ sender: UIButton) {
+        log.info("sendButton Pressed")
+        //Send data to any connected peers
+        ProfileModelController.shared.profiles![profileIndex].versionTimeStamp = Date()
+        ProfileModelController.shared.saveProfileData()
+        ProfileModelController.shared.sendProfile()    }
     
     @IBAction func deleteButtonPressed(_ sender: Any) {
         let deleteAlert = UIAlertController(title: "Do you wish to continue?", message: "Are you sure you wish to delete this profile? After deleting you will not be able to recover the data.", preferredStyle: .actionSheet)

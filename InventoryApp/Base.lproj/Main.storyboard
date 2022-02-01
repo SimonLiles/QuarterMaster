@@ -940,10 +940,39 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection headerTitle=" " id="g8M-1J-KDh">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="SOZ-S8-iR2">
+                                        <rect key="frame" x="0.0" y="385.66666221618652" width="375" height="52.333332061767578"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="SOZ-S8-iR2" id="Rn9-cx-Rw6">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="52.333332061767578"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vkk-on-PVB">
+                                                    <rect key="frame" x="16" y="10.999999999999998" width="343" height="30.333333333333329"/>
+                                                    <state key="normal" title="Push Data to Connected Peers">
+                                                        <color key="titleColor" systemColor="systemBlueColor"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="sendButtonPressed:" destination="qRc-sO-tJa" eventType="touchUpInside" id="moS-ji-h30"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Vkk-on-PVB" secondAttribute="trailing" id="Ibc-qM-ixQ"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Vkk-on-PVB" secondAttribute="bottom" id="dms-hb-Zig"/>
+                                                <constraint firstItem="Vkk-on-PVB" firstAttribute="top" secondItem="Rn9-cx-Rw6" secondAttribute="topMargin" id="m8v-KP-Eef"/>
+                                                <constraint firstItem="Vkk-on-PVB" firstAttribute="leading" secondItem="Rn9-cx-Rw6" secondAttribute="leadingMargin" id="xNb-4S-Izh"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                             <tableViewSection headerTitle=" " id="68N-17-I9K">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="LK8-fP-qEh">
-                                        <rect key="frame" x="0.0" y="385.66666221618652" width="375" height="52.333332061767578"/>
+                                        <rect key="frame" x="0.0" y="505.33332633972168" width="375" height="52.333332061767578"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="LK8-fP-qEh" id="egE-mm-kYo">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="52.333332061767578"/>
@@ -994,6 +1023,7 @@
                         <outlet property="descriptionTextView" destination="KBs-Ta-JOw" id="8oh-W0-erq"/>
                         <outlet property="profileNameTextField" destination="kfj-Yn-fcb" id="kab-mt-7ez"/>
                         <outlet property="saveButton" destination="3SN-sN-X5z" id="1cy-Yv-CW8"/>
+                        <outlet property="sendDataButton" destination="Vkk-on-PVB" id="Kgu-5Q-nu2"/>
                         <segue destination="cEb-3A-peL" kind="unwind" identifier="deleteProfileUnwind" unwindAction="unwindToProfileTableViewWithSegue:" id="VUH-f4-kYY"/>
                     </connections>
                 </tableViewController>
