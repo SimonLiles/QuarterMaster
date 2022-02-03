@@ -46,6 +46,8 @@ struct PantryItem: Codable, Hashable {
     ///Indicates wether an item has been purchased, canceled, or needs to be bought
     var purchaseStatus: PurchaseStatus = .toBuy
     
+    var lastUpdate: Date
+    
     /**Initialization of the PantryItem object can only be done with a name, category, location, currentQuantity, units, and the note, the other values must be set outside of the initializer
      
         - Parameter name: the name of the item
@@ -55,13 +57,14 @@ struct PantryItem: Codable, Hashable {
         - Parameter units: How the amount of the item is measured
         - Parameter note: Allows user to add notes regarding the item
      */
-    init(name: String, category: String, location: String, currentQuantity: Double, units: String, note: String) {
+    init(name: String, category: String, location: String, currentQuantity: Double, units: String, note: String, lastUpdate: Date) {
         self.name = name
         self.category = category
         self.location = location
         self.currentQuantity = currentQuantity
         self.units = units
         self.note = note
+        self.lastUpdate = lastUpdate
     }
 }
 

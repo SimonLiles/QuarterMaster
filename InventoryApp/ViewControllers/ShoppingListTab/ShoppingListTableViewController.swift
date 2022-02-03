@@ -135,6 +135,7 @@ class ShoppingListTableViewController: UITableViewController {
                                 ProfileModelController.shared.profiles![self.profileIndex].pantry[pantryIndex].currentQuantity += item.neededQuantity //Add quantity to pantry item
                                 ProfileModelController.shared.profiles![self.profileIndex].pantry[pantryIndex].neededQuantity = 1 //Reset needed quanity for pantry item
                                 ProfileModelController.shared.profiles![self.profileIndex].pantry[pantryIndex].purchaseStatus = .toBuy
+                                ProfileModelController.shared.profiles![self.profileIndex].pantry[pantryIndex].lastUpdate = Date()
                             } else {
                                 pantryIndex += 1
                             }
@@ -145,6 +146,8 @@ class ShoppingListTableViewController: UITableViewController {
                         index += 1
                     }
                 }
+                
+                ProfileModelController.shared.profiles![self.profileIndex].shoppingListLastClear = Date()
                 
                 //Save data
                 ProfileModelController.shared.saveProfileData()
@@ -191,6 +194,8 @@ class ShoppingListTableViewController: UITableViewController {
                     }
                 }
                 
+                ProfileModelController.shared.profiles![self.profileIndex].shoppingListLastClear = Date()
+
                 //Save Data
                 ProfileModelController.shared.saveProfileData()
 
@@ -324,6 +329,7 @@ class ShoppingListTableViewController: UITableViewController {
             for item in itemsBeingAdded {
                 if shoppingList.contains(item) {
                     ProfileModelController.shared.profiles![profileIndex].shoppingList[shoppingList.firstIndex(of: item)!].neededQuantity += 1
+                    ProfileModelController.shared.profiles![profileIndex].shoppingList[shoppingList.firstIndex(of: item)!].lastUpdate = Date()
                     
                     itemsBeingAdded.remove(at: index)
                 }
@@ -341,7 +347,8 @@ class ShoppingListTableViewController: UITableViewController {
             
             let sourceViewController = segue.source as! AddNewShoppingListItemTableViewController
             
-            let newShoppingListItem = sourceViewController.shoppingListItem
+            var newShoppingListItem = sourceViewController.shoppingListItem
+            newShoppingListItem.lastUpdate = Date()
             
             //Append new shopping list item to end of array
             ProfileModelController.shared.profiles![profileIndex].shoppingList.append(newShoppingListItem)

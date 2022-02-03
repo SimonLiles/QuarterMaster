@@ -222,12 +222,14 @@ class PantryTableViewController: UITableViewController {
                     }
                 }
                 pantry[index] = pantryItem //update item with new data
+                pantry[index].lastUpdate = Date()
                 
                 //Ugly code to change a specific item in Shopping List
                 var shoppingListIndex = 0
                 for anotherItem in ProfileModelController.shared.profiles![profileIndex].shoppingList {
                     if pantryItemToChange == anotherItem {
                         ProfileModelController.shared.profiles![profileIndex].shoppingList[shoppingListIndex] = pantryItem
+                        ProfileModelController.shared.profiles![profileIndex].shoppingList[shoppingListIndex].lastUpdate = Date()
                         break
                     } else {
                         shoppingListIndex += 1
@@ -247,6 +249,7 @@ class PantryTableViewController: UITableViewController {
             } else {
                 //let newIndexPath = IndexPath(row: pantry.count, section: 0)
                 pantry.append(pantryItem) //add new item at end
+                pantry[pantry.endIndex - 1].lastUpdate = Date()
                 tableView.reloadData() //reload data so that table view updates with new data
                 
                 ProfileModelController.shared.profiles![profileIndex].pantry = pantry //Pass pantry data back to model controller
@@ -301,6 +304,7 @@ class PantryTableViewController: UITableViewController {
                 for item in ProfileModelController.shared.profiles![profileIndex].shoppingList {
                     if pantryItemToAdd == item { //If item is in the array, increase neededQuantity by one for that item
                         ProfileModelController.shared.profiles![profileIndex].shoppingList[index].neededQuantity += 1
+                        ProfileModelController.shared.profiles![profileIndex].shoppingList[index].lastUpdate = Date()
                         ShoppingListTableViewController().tableView.reloadData() //Reloads shoppingList table view
                         return
                     } else { //Else try again
@@ -312,7 +316,8 @@ class PantryTableViewController: UITableViewController {
             
                 //If item is not in array, loop ends and adds item to end of the shoppingList array
                 ProfileModelController.shared.profiles![profileIndex].shoppingList.append(pantryItemToAdd)
-
+                ProfileModelController.shared.profiles![profileIndex].shoppingList[ProfileModelController.shared.profiles![profileIndex].shoppingList.endIndex - 1].lastUpdate = Date()
+                
                 ProfileModelController.shared.saveProfileData() //Save all data
                 
                 //Tell ShoppingList Tab to reload data with new shoppingList data

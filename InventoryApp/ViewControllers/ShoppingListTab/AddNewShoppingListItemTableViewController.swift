@@ -30,7 +30,7 @@ class AddNewShoppingListItemTableViewController: UITableViewController {
     // MARK: - Variables and Constants
     var profileIndex = ProfileModelController.shared.selectedIndex
     
-    var shoppingListItem: PantryItem = PantryItem(name: "", category: "", location: "", currentQuantity: 0, units: "", note: "")
+    var shoppingListItem: PantryItem = PantryItem(name: "", category: "", location: "", currentQuantity: 0, units: "", note: "", lastUpdate: Date())
     
     //Object to collect and store logs.
     let log = Logger()
@@ -99,8 +99,9 @@ class AddNewShoppingListItemTableViewController: UITableViewController {
             let location = locationLabel.text ?? ""
             let units = unitsLabel.text ?? ""
             let note = commentTextFIeld.text ?? ""
+            let currentDate = Date()
             
-            shoppingListItem = PantryItem(name: name, category: category, location: location, currentQuantity: 0, units: units, note: note)
+            shoppingListItem = PantryItem(name: name, category: category, location: location, currentQuantity: 0, units: units, note: note, lastUpdate: currentDate)
         } else if segue.identifier == "pickerSegue" {
             let indexPath = tableView.indexPathForSelectedRow!
             

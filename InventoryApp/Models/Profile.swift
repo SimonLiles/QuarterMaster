@@ -29,6 +29,8 @@ struct Profile: Codable {
     //Data used for sharing
 
     var versionTimeStamp: Date = Date() //Holds time and date of last saved update to Profile
+    
+    var shoppingListLastClear: Date = Date()
         
     init(name: String, pantry: [PantryItem], shoppingList: [PantryItem]) {
         self.name = name

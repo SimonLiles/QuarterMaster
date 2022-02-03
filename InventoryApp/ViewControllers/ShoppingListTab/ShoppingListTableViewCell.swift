@@ -21,7 +21,7 @@ class ShoppingListTableViewCell: UITableViewCell {
     // MARK: - Variables and Constants
     let profileIndex = ProfileModelController.shared.selectedIndex
     
-    var item: PantryItem = PantryItem(name: "", category: "", location: "", currentQuantity: 0, units: "", note: "")
+    var item: PantryItem = PantryItem(name: "", category: "", location: "", currentQuantity: 0, units: "", note: "", lastUpdate: Date())
     
     var indexPath: IndexPath = IndexPath()
     

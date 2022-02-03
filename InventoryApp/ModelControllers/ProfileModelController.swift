@@ -114,12 +114,16 @@ class ProfileModelController {
     func shouldUpdate(currentData: Profile, receivedData: Profile) -> Bool{
         //Profile names must match
         if (currentData == receivedData) {
+            return true
+            /*
+            //Old code for old version control system
             //Must have a later version
             if (currentData.versionTimeStamp < receivedData.versionTimeStamp) {
                 return true
             } else {
                 return false
             }
+             */
         } else {
             return false
         }
@@ -128,26 +132,73 @@ class ProfileModelController {
     func updateMerge(currentData: Profile, receivedData: Profile) -> Profile {
         var newData = Profile(name: "", pantry: [], shoppingList: [])
         
-        /*
+        //If the received data and current data, do not match, send current data to connected peers
+        if(currentData.pantry != receivedData.pantry &&
+           currentData.shoppingList != receivedData.shoppingList) {
+            sendProfile()
+        }
+        
         if (shouldUpdate(currentData: currentData, receivedData: receivedData)) {
             //Update descriptors
+            newData.name = receivedData.name
             newData.description = receivedData.description
             
-            //Loop through each element of the receivedData pantry
-            var index = 0
-            for item in receivedData.pantry {
-                //If an instance of item exists in both pantries, add
-                if (item == currentData.pantry[index]) {
-                    newData.pantry.append(item)
+            //Make sure the shopping list is not empty
+            if (!currentData.pantry.isEmpty &&
+                !receivedData.pantry.isEmpty) {
+                //Loop through each element of the receivedData pantry
+                var index = 0
+                for receivedItem in receivedData.pantry {
+                    let currentItem = currentData.pantry[index]
+                    //Check if item exists in both pantries
+                    if (receivedItem == currentItem) {
+                        //Check which item is the latest to be updated
+                        if(currentItem.lastUpdate <= receivedItem.lastUpdate) {
+                            newData.pantry.append(receivedItem)
+                        } else {
+                            newData.pantry.append(currentItem)
+                        }
+                    } else {
+                        newData.pantry.append(receivedItem)
+                    }
+                    
+                    index += 1
                 }
-                
-                index += 1
+            }
+            
+            //Make sure the shopping list is not empty
+            if (!currentData.shoppingList.isEmpty &&
+                !receivedData.shoppingList.isEmpty) {
+                //Loop through each element of the receivedData shoppinglist
+                var index = 0
+                for receivedItem in receivedData.shoppingList {
+                    let currentItem = currentData.shoppingList[index]
+                    //Check if item exists in both pantries
+                    if (receivedItem == currentItem) {
+                        //Check which item is the latest to be updated
+                        if(currentItem.lastUpdate <= receivedItem.lastUpdate) {
+                            //Only keep items in shopping list that are newer than the last clear
+                            if(receivedItem.lastUpdate <= currentData.shoppingListLastClear) {
+                                newData.shoppingList.append(receivedItem)
+                            }
+                        } else {
+                            //Only keep items in shopping list that are newer than the last clear
+                            if((currentItem).lastUpdate <= receivedData.shoppingListLastClear) {
+                                newData.shoppingList.append((currentItem))
+                            }
+                        }
+                    } else {
+                        newData.shoppingList.append(receivedItem)
+                    }
+                    
+                    index += 1
+                }
             }
             
             //Return the new profile object
             return newData
         }
-        */
+        
         //Default empty return statement
         newData = receivedData
         return newData
@@ -200,13 +251,13 @@ class ProfileModelController {
         var sampleProfile: [Profile] = [Profile(
         name: "Queen Anne's Revenge",
         pantry: [
-        PantryItem(name: "Cookies", category: "Snacks", location: "Cookie Jar", currentQuantity: 12, units: "Cookies", note: "Very tasty, chocochip cookies"),
-        PantryItem(name: "Bagels", category: "Breads", location: "Galley Counter", currentQuantity: 6, units: "Bagels", note: "Quick, wholesome, and healthy breakfast"),
-        PantryItem(name: "Peanut Butter", category: "Staples", location: "Cupboard", currentQuantity: 3, units: "Jars", note: "Use in a sandwich"),
-        PantryItem(name: "Strawberry Jelly", category: "Preserves", location: "Fridge", currentQuantity: 2, units: "Jars", note: "Sweet strawberry jelly"),
-        PantryItem(name: "Bread", category: "Breads", location: "Bread Box", currentQuantity: 4, units: "Loaves", note: "Good for making sandwiches")],
+        PantryItem(name: "Cookies", category: "Snacks", location: "Cookie Jar", currentQuantity: 12, units: "Cookies", note: "Very tasty, chocochip cookies", lastUpdate: Date()),
+        PantryItem(name: "Bagels", category: "Breads", location: "Galley Counter", currentQuantity: 6, units: "Bagels", note: "Quick, wholesome, and healthy breakfast", lastUpdate: Date()),
+        PantryItem(name: "Peanut Butter", category: "Staples", location: "Cupboard", currentQuantity: 3, units: "Jars", note: "Use in a sandwich", lastUpdate: Date()),
+        PantryItem(name: "Strawberry Jelly", category: "Preserves", location: "Fridge", currentQuantity: 2, units: "Jars", note: "Sweet strawberry jelly", lastUpdate: Date()),
+        PantryItem(name: "Bread", category: "Breads", location: "Bread Box", currentQuantity: 4, units: "Loaves", note: "Good for making sandwiches", lastUpdate: Date())],
         shoppingList:
-        [PantryItem(name: "Cookies", category: "Snacks", location: "Cookie Jar", currentQuantity: 12, units: "Cookies", note: "Very tasty, chocochip cookies")])]
+        [PantryItem(name: "Cookies", category: "Snacks", location: "Cookie Jar", currentQuantity: 12, units: "Cookies", note: "Very tasty, chocochip cookies", lastUpdate: Date())])]
         
         sampleProfile[0].description = "Blackbeard's ship. This is a sample profile, feel free to change as you see fit."
         

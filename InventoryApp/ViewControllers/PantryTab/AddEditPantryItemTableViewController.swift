@@ -29,7 +29,7 @@ class AddEditPantryItemTableViewController: UITableViewController {
     @IBOutlet weak var deleteButton: UIButton!
     
     // MARK: - Variables and Constants
-    var pantryItem: PantryItem = PantryItem(name: "", category: "", location: "", currentQuantity: 0.0, units: "", note: "")
+    var pantryItem: PantryItem = PantryItem(name: "", category: "", location: "", currentQuantity: 0.0, units: "", note: "", lastUpdate: Date())
     
     //Object to collect and store logs.
     let log = Logger()
@@ -139,8 +139,9 @@ class AddEditPantryItemTableViewController: UITableViewController {
             let quantity = quantityStepper.value
             let units = unitsLabel.text ?? "Units"
             let note = commentTextField.text ?? ""
+            let currentDate = Date()
             
-            pantryItem = PantryItem(name: name, category: category, location: location, currentQuantity: quantity, units: units, note: note)
+            pantryItem = PantryItem(name: name, category: category, location: location, currentQuantity: quantity, units: units, note: note, lastUpdate: currentDate)
         } else if segue.identifier == "pickerSegue" {
             let indexPath = tableView.indexPathForSelectedRow!
             

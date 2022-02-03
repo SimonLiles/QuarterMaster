@@ -19,7 +19,7 @@ class AddToShoppingListTableViewCell: UITableViewCell {
     // MARK: - Constants and Variables
     let profileIndex = ProfileModelController.shared.selectedIndex
     
-    var shoppingListItem: PantryItem = PantryItem(name: "", category: "", location: "", currentQuantity: 0, units: "", note: "")
+    var shoppingListItem: PantryItem = PantryItem(name: "", category: "", location: "", currentQuantity: 0, units: "", note: "", lastUpdate: Date())
     
     var itemIsChecked: Bool = false
     
