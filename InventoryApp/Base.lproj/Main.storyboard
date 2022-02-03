@@ -221,7 +221,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <toolbar key="tableFooterView" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="Pln-Oz-Uan">
-                            <rect key="frame" x="0.0" y="111.66666412353516" width="375" height="44"/>
+                            <rect key="frame" x="0.0" y="112" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                             <items>
                                 <barButtonItem style="plain" systemItem="flexibleSpace" id="LU2-gL-B7P"/>
@@ -319,7 +319,7 @@
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kLM-s1-qPQ">
                                                     <rect key="frame" x="16" y="11" width="343" height="34.333333333333336"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                     <connections>
                                                         <action selector="textEditingChanged:" destination="34S-l3-A3U" eventType="editingChanged" id="Bxd-hn-jOV"/>
                                                         <action selector="textEditingChanged:" destination="34S-l3-A3U" eventType="editingDidEnd" id="uNB-YQ-V6t"/>
@@ -472,7 +472,7 @@
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Comment" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FGe-82-q5e">
                                                     <rect key="frame" x="16" y="11" width="343" height="34.333333333333336"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                     <connections>
                                                         <action selector="textEditingChanged:" destination="34S-l3-A3U" eventType="editingDidEnd" id="O4f-bc-gea"/>
                                                         <action selector="textEditingChanged:" destination="34S-l3-A3U" eventType="editingChanged" id="e09-Cv-Am9"/>
@@ -579,7 +579,7 @@
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pGy-34-8Tf">
                                                     <rect key="frame" x="16" y="3" width="343" height="34.333333333333336"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                     <connections>
                                                         <action selector="textEditingChanged:" destination="BzR-u9-TFz" eventType="editingDidEnd" id="pST-Lg-01I"/>
                                                         <action selector="textEditingChanged:" destination="BzR-u9-TFz" eventType="editingChanged" id="sfd-aW-yp8"/>
@@ -732,7 +732,7 @@
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Comment" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hzN-pp-zo3">
                                                     <rect key="frame" x="16" y="3" width="343" height="34.333333333333336"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                     <connections>
                                                         <action selector="textEditingChanged:" destination="BzR-u9-TFz" eventType="editingDidEnd" id="15e-P3-0C1"/>
                                                         <action selector="textEditingChanged:" destination="BzR-u9-TFz" eventType="editingChanged" id="zYv-8N-kGI"/>
@@ -896,7 +896,7 @@
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Profile Name" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kfj-Yn-fcb">
                                                     <rect key="frame" x="16" y="11" width="343" height="34.333333333333336"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
                                                     <connections>
                                                         <action selector="textFieldsEdited:" destination="qRc-sO-tJa" eventType="editingDidEnd" id="5FG-WR-YRm"/>
                                                         <action selector="textFieldsEdited:" destination="qRc-sO-tJa" eventType="editingChanged" id="mCr-Us-LhK"/>
@@ -1071,7 +1071,7 @@
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Profile Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9dU-1V-5Zx">
                                                     <rect key="frame" x="16" y="11" width="343" height="34.333333333333336"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                     <connections>
                                                         <action selector="textFieldsEdited:" destination="kcF-9D-o31" eventType="editingDidEnd" id="7xm-qH-gjl"/>
                                                         <action selector="textFieldsEdited:" destination="kcF-9D-o31" eventType="editingChanged" id="YZH-9a-Xnv"/>
@@ -1257,7 +1257,7 @@
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="New" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nsQ-yH-kb9">
                                 <rect key="frame" x="32" y="188" width="312" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <connections>
                                     <action selector="newItemTextFieldEdited:" destination="FyA-I8-YiA" eventType="editingChanged" id="JRO-uL-0Ek"/>
                                     <action selector="newItemTextFieldEdited:" destination="FyA-I8-YiA" eventType="editingDidEnd" id="RHs-qH-bBX"/>
