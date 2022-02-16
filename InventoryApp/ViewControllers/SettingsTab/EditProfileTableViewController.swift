@@ -156,7 +156,13 @@ class EditProfileTableViewController: UITableViewController {
         ProfileModelController.shared.profiles![profileIndex].versionTimeStamp = Date()
         ProfileModelController.shared.saveProfileData()
         log.info("ProfileModelController saved user data before sending data to conected peers")
-        ProfileModelController.shared.sendProfile()    }
+        ProfileModelController.shared.sendProfile()
+        
+        let sendAlert = UIAlertController(title: "Sending to connected peers", message: "Sending \(profile.name) data to all connected peers", preferredStyle: .alert)
+        sendAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+        
+        present(sendAlert, animated: true)
+    }
     
     @IBAction func deleteButtonPressed(_ sender: Any) {
         let deleteAlert = UIAlertController(title: "Do you wish to continue?", message: "Are you sure you wish to delete this profile? After deleting you will not be able to recover the data.", preferredStyle: .actionSheet)
