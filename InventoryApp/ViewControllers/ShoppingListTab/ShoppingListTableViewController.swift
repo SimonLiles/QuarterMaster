@@ -149,7 +149,7 @@ class ShoppingListTableViewController: UITableViewController {
                 }
                 
                 ProfileModelController.shared.profiles![self.profileIndex].shoppingListLastClear = Date()
-                log.info("Shopping List Last Clear was:  \(ProfileModelController.shared.profiles![self.profileIndex].shoppingListLastClear.description)")
+                self.log.info("Shopping List Last Clear was:  \(ProfileModelController.shared.profiles![self.profileIndex].shoppingListLastClear.description)")
                 
                 //Save data
                 ProfileModelController.shared.saveProfileData()
