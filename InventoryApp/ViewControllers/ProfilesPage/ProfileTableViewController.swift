@@ -97,7 +97,22 @@ class ProfileTableViewController: UITableViewController {
                         
             if (index < profiles.endIndex) {
                 let currentProfile = ProfileModelController.shared.profiles![index]
-
+                /*
+                //Send current device copy of data, if received data does not match
+                if(receivedData! != currentProfile.encode()) {
+                    log.info("ProfileTableViewController responding to new receivedData")
+                    log.info("receivedData did NOT match current data")
+                    log.info("ProfileTableViewController sending current data in response")
+                    let tempIndex = ProfileModelController.shared.selectedIndex
+                    ProfileModelController.shared.selectedIndex = index
+                    ProfileModelController.shared.sendProfile()
+                    ProfileModelController.shared.selectedIndex = tempIndex
+                } else {
+                    log.info("ProfileTableViewController responding to new receivedData")
+                    log.info("receivedData did match current data")
+                    log.info("ProfileTableViewController will NOT send data in response")
+                }*/
+                
                 if (ProfileModelController.shared.shouldUpdate(currentData: currentProfile, receivedData: newProfile)) {
                     newProfile = ProfileModelController().updateMerge(currentData: currentProfile, receivedData: newProfile)
                     ProfileModelController.shared.profiles![index] = newProfile

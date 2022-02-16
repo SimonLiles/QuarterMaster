@@ -91,6 +91,8 @@ class PantryTableViewCell: UITableViewCell {
     @IBAction func quantityStepped(_ sender: UIStepper) {
         pantryItem1.currentQuantity = quantityStepper.value
         
+        pantryItem1.lastUpdate = Date()
+
         update(with: pantryItem1, at: indexpath)
     }
     
@@ -99,6 +101,8 @@ class PantryTableViewCell: UITableViewCell {
         let newQuantity = Double(sender.text!)
                 
         pantryItem1.currentQuantity = newQuantity!
+        
+        pantryItem1.lastUpdate = Date()
         
         update(with: pantryItem1, at: indexpath)
     }

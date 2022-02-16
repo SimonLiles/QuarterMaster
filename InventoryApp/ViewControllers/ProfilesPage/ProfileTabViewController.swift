@@ -57,6 +57,19 @@ class ProfileTabViewController: UITabBarController {
             var newProfile = Profile(name: "", pantry: [], shoppingList: [])
             newProfile = newProfile.decode(data: receivedData!)
             
+            /*
+            //Send current device copy of data, if received data does not match
+            if(receivedData! != ProfileModelController.shared.profiles![ProfileModelController.shared.selectedIndex].encode()) {
+                log.info("ProfileTabViewController responding to new receivedData")
+                log.info("receivedData did NOT match current data")
+                log.info("ProfileTabViewController sending current data in response")
+                ProfileModelController.shared.sendProfile()
+            } else {
+                log.info("ProfileTabViewController responding to new receivedData")
+                log.info("receivedData did match current data")
+                log.info("ProfileTabViewController will NOT send data in response")
+            }*/
+            
             self.log.info("New Data Finished decoding")
             
             //Update user data
@@ -64,8 +77,9 @@ class ProfileTabViewController: UITabBarController {
             
             //If there is a slot to update into, push the updated data
             if (ProfileModelController.shared.shouldUpdate(currentData: currentProfile, receivedData: newProfile)) {
-                newProfile = ProfileModelController().updateMerge(currentData: currentProfile, receivedData: newProfile)
-                ProfileModelController.shared.profiles![profileIndex] = newProfile
+                //This code produces duplicate efforts that in certain cases breaks everything
+                //newProfile = ProfileModelController().updateMerge(currentData: currentProfile, receivedData: newProfile)
+                //ProfileModelController.shared.profiles![profileIndex] = newProfile
             } else {
                 //Check if there is a slot for the data to be fed into, if so, fill that slot
                 var index = 0

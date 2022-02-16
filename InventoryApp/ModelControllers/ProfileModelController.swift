@@ -102,7 +102,7 @@ class ProfileModelController {
     
     //Send specific data
     func sendProfile() {
-        guard let encodedProfile = profiles![selectedIndex].encode() else { return }
+        guard let encodedProfile = ProfileModelController.shared.profiles![selectedIndex].encode() else { return }
         
         MultipeerSession.instance.send(data: encodedProfile)
     }
@@ -130,77 +130,245 @@ class ProfileModelController {
     }
     
     func updateMerge(currentData: Profile, receivedData: Profile) -> Profile {
+        log.info("updateMerge() called")
+        
+        //log.info("\n\ncurrentData.pantry: \(currentData.pantry.description)")
+        //log.info("\n\ncurrentData.shoppingList: \(currentData.shoppingList.description)")
+        //log.info("\n\nreceivedData.pantry: \(receivedData.pantry.description)")
+        //log.info("\n\nreceivedData.shoppingList: \(receivedData.shoppingList.description)")
+
         var newData = Profile(name: "", pantry: [], shoppingList: [])
         
+        
+        /*
         //If the received data and current data, do not match, send current data to connected peers
-        if(currentData.pantry != receivedData.pantry &&
-           currentData.shoppingList != receivedData.shoppingList) {
+        let currentDataEncoded = currentData.encode()
+        let receivedDataEncoded = receivedData.encode()
+        log.info("\n\ncurrentDataEncoded.hashValue = \(currentDataEncoded.hashValue)\n\n")
+        log.info("\n\nreceivedDataEncoded.hashValue = \(receivedDataEncoded.hashValue)\n\n")
+        if(currentDataEncoded.hashValue == receivedDataEncoded.hashValue) {
+            log.info("updateMerge found no possible changes")
+            //return currentData
+        } else {
+            log.info("updateMerge found possible changes")
+            log.info("updateMerge sending current data to peers for merging")
+
             sendProfile()
         }
+        */
         
+        log.info("***** updateMerge merging changes now ***************")
+
         if (shouldUpdate(currentData: currentData, receivedData: receivedData)) {
             //Update descriptors
             newData.name = receivedData.name
             newData.description = receivedData.description
             
-            //Make sure the shopping list is not empty
+            //Update shoppingListLastClear
+            if (currentData.shoppingListLastClear <= receivedData.shoppingListLastClear) {
+                newData.shoppingListLastClear = receivedData.shoppingListLastClear
+            } else {
+                newData.shoppingListLastClear = currentData.shoppingListLastClear
+            }
+            
+//********************************************************************************************************
+
+            //Update the pantry
+            //Make sure the pantry is not empty
             if (!currentData.pantry.isEmpty &&
                 !receivedData.pantry.isEmpty) {
                 //Loop through each element of the receivedData pantry
                 var index = 0
                 for receivedItem in receivedData.pantry {
-                    let currentItem = currentData.pantry[index]
-                    //Check if item exists in both pantries
-                    if (receivedItem == currentItem) {
-                        //Check which item is the latest to be updated
-                        if(currentItem.lastUpdate <= receivedItem.lastUpdate) {
-                            newData.pantry.append(receivedItem)
+                    if (index >= currentData.pantry.endIndex) {
+                        log.info("Appending extraneous items from receivedData.pantry")
+                        log.info("Item: \(receivedItem.name)")
+                        newData.pantry.append(receivedItem)
+                    } else {
+                        //let currentItem = currentData.pantry[index]
+                        //Check if item exists in both pantries
+                        if (currentData.pantry.contains(receivedItem)) {
+                            //Get the item that matches receivedItem
+                            let currentItem = currentData.pantry[currentData.pantry.firstIndex(of: receivedItem)!]
+                            log.info("receivedItem: \(receivedItem.name) / \(receivedItem.currentQuantity)")
+                            log.info("currentItem: \(currentItem.name) / \(currentItem.currentQuantity)")
+                            log.info("receivedItem.lastUpdate: \(receivedItem.lastUpdate)")
+                            log.info("currentItem.lastUpdate: \(currentItem.lastUpdate)")
+                            //Check which item is the latest to be updated
+                            if(currentItem.lastUpdate <= receivedItem.lastUpdate) {
+                                log.info("Appending receivedItem to pantry")
+                                newData.pantry.append(receivedItem)
+                            } else {
+                                log.info("Appending currentItem to pantry")
+                                newData.pantry.append(currentItem)
+                            }
                         } else {
+                            log.info("Could not find receivedItem in currentData.pantry")
+                            log.info("Appending receivedItem to pantry")
+                            newData.pantry.append(receivedItem)
+                        }
+                        
+                        index += 1
+                    }
+                }
+                
+                log.info("Finding and appending extraneous item from currentData.pantry")
+                //Find which elements were left out from currentData, append to newData
+                for currentItem in currentData.pantry {
+                    //Loop through each element of the currentData pantry
+                    var index = 0
+                    if (index >= receivedData.pantry.endIndex) {
+                        log.info("Appending extraneous item from currentData.pantry")
+                        newData.pantry.append(currentItem)
+                    } else {
+                        var isMatch = false
+                        
+                        for receivedItem in receivedData.pantry {
+                            if (currentItem == receivedItem) {
+                                isMatch = true
+                                index += 1
+                                break
+                            }
+                        }
+                        
+                        if(!isMatch) {
+                            log.info("Found extraneous item in currentData.pantry")
+                            log.info("Appending currentItem.name: \(currentItem.name)")
                             newData.pantry.append(currentItem)
                         }
-                    } else {
-                        newData.pantry.append(receivedItem)
                     }
-                    
-                    index += 1
+                }
+            } else {
+                //If one is empty and the other is not, fill with the not empty one
+                if(currentData.pantry.isEmpty && !receivedData.pantry.isEmpty) {
+                    log.info("currentData.pantry is empty. Filling with receivedData.pantry")
+                    newData.pantry = receivedData.pantry
+                }
+                if(!currentData.pantry.isEmpty && receivedData.pantry.isEmpty) {
+                    log.info("receivedData.pantry is empty. Filling with currentData.pantry")
+                    newData.pantry = currentData.pantry
                 }
             }
             
+//********************************************************************************************************
+            
+            //Update the shopping list
             //Make sure the shopping list is not empty
             if (!currentData.shoppingList.isEmpty &&
                 !receivedData.shoppingList.isEmpty) {
                 //Loop through each element of the receivedData shoppinglist
                 var index = 0
                 for receivedItem in receivedData.shoppingList {
-                    let currentItem = currentData.shoppingList[index]
-                    //Check if item exists in both pantries
-                    if (receivedItem == currentItem) {
-                        //Check which item is the latest to be updated
-                        if(currentItem.lastUpdate <= receivedItem.lastUpdate) {
-                            //Only keep items in shopping list that are newer than the last clear
-                            if(receivedItem.lastUpdate <= currentData.shoppingListLastClear) {
-                                newData.shoppingList.append(receivedItem)
+                    if (index >= currentData.shoppingList.endIndex) {
+                        newData.shoppingList.append(receivedItem)
+                        print("L264 - newData.shoppingList appended receivedItem")
+                    } else {
+                        //let currentItem = currentData.shoppingList[index]
+                        //Check if item exists in both pantries
+                        if (currentData.shoppingList.contains(receivedItem)) {
+                            //Get the item that matches receivedItem
+                            let currentItem = currentData.shoppingList[currentData.shoppingList.firstIndex(of: receivedItem)!]
+                            //Check which item is the latest to be updated
+                            if(currentItem.lastUpdate <= receivedItem.lastUpdate) {
+                                //newData.shoppingList.append(receivedItem)
+                                
+                                //Only keep items in shopping list that are newer than the last clear
+                                if(receivedItem.lastUpdate >= currentData.shoppingListLastClear &&
+                                   receivedItem.lastUpdate >= receivedData.shoppingListLastClear) {
+                                    newData.shoppingList.append(receivedItem)
+                                    print("L279 - newData.shoppingList appended receivedItem")
+                                }
+                                
+                            } else {
+                                //newData.shoppingList.append((currentItem))
+                                
+                                //Only keep items in shopping list that are newer than the last clear
+                                if(currentItem.lastUpdate >= receivedData.shoppingListLastClear ||
+                                   currentItem.lastUpdate >= currentData.shoppingListLastClear) {
+                                    newData.shoppingList.append((currentItem))
+                                    print("L289 - newData.shoppingList appended currentItem")
+                                }
+                                
                             }
                         } else {
-                            //Only keep items in shopping list that are newer than the last clear
-                            if((currentItem).lastUpdate <= receivedData.shoppingListLastClear) {
-                                newData.shoppingList.append((currentItem))
+                            newData.shoppingList.append(receivedItem)
+                            print("L295 - newData.shoppingList appended receivedItem")
+                        }
+                        
+                        index += 1
+                    }
+                }
+                
+                //Find which elements were left out from currentData, append to newData
+                for currentItem in currentData.shoppingList {
+                    //Loop through each element of the currentData pantry
+                    var index = 0
+                    if (index >= receivedData.shoppingList.endIndex) {
+                        newData.shoppingList.append(currentItem)
+                        
+                        if(currentItem.lastUpdate >= receivedData.shoppingListLastClear ||
+                           currentItem.lastUpdate >= currentData.shoppingListLastClear) {
+                            newData.shoppingList.append(currentItem)
+                            print("L312 - newData.shoppingList appended currentItem")
+                        }
+                        
+                    } else {
+                        var isMatch = false
+                        
+                        for receivedItem in receivedData.shoppingList {
+                            if (currentItem == receivedItem) {
+                                isMatch = true
+                                index += 1
+                                break
                             }
                         }
-                    } else {
-                        newData.shoppingList.append(receivedItem)
+                        
+                        if(!isMatch) {
+                            //newData.shoppingList.append(currentItem)
+                            
+                            if(currentItem.lastUpdate >= receivedData.shoppingListLastClear ||
+                               currentItem.lastUpdate >= currentData.shoppingListLastClear) {
+                                newData.shoppingList.append(currentItem)
+                                print("L332 - newData.shoppingList appended currentItem")
+                            }
+                            
+                        }
                     }
-                    
-                    index += 1
+                }
+            } else {
+                if(currentData.shoppingList.isEmpty && !receivedData.shoppingList.isEmpty) {
+                    newData.shoppingList = receivedData.shoppingList
+                }
+                
+                if(!currentData.shoppingList.isEmpty && receivedData.shoppingList.isEmpty) {
+                    newData.shoppingList = currentData.shoppingList
                 }
             }
             
+            //Now that data has been merged on this end, push local changes to connected peers
+            
+            //If the received data and current data, do not match, send current data to connected peers
+            let receivedDataEncoded = receivedData.encode()
+            let newDataEncoded = newData.encode()
+            log.info("receivedDataEncoded.hashValue = \(receivedDataEncoded.hashValue)")
+            log.info("newDataEncoded.hashValue = \(newDataEncoded.hashValue)")
+            if(receivedDataEncoded.hashValue == newDataEncoded.hashValue) {
+                log.info("updateMerge found no possible changes")
+                //return currentData
+            } else {
+                log.info("updateMerge found possible changes")
+                log.info("updateMerge sending current data to peers for merging")
+
+                ProfileModelController.shared.sendProfile()
+            }
+            
+            log.info("***** updateMerge finished. Now returning updated Profile *****")
             //Return the new profile object
             return newData
         }
         
         //Default empty return statement
-        newData = receivedData
+        newData = currentData
         return newData
     }
     
@@ -213,7 +381,7 @@ class ProfileModelController {
      Saves the array of profile objects representing user data to a .json file.
      */
     func saveProfileData() {
-        log.info("Saving all user data")
+        log.info("ProfileModelController writing profiles[] to disk")
         
         let jsonEncoder = JSONEncoder()
         let encodedProfiles = try? jsonEncoder.encode(profiles) //encode the pantry

@@ -113,6 +113,8 @@ class ShoppingListTableViewCell: UITableViewCell {
     @IBAction func quantityStepped(_ sender: UIStepper) {
         item.neededQuantity = quantityStepper.value
         
+        item.lastUpdate = Date()
+        
         update(with: item, at: indexPath)
     }
     
@@ -121,6 +123,8 @@ class ShoppingListTableViewCell: UITableViewCell {
         let newQuantity = Double(sender.text!)
         
         item.neededQuantity = newQuantity!
+        
+        item.lastUpdate = Date()
         
         update(with: item, at: indexPath)
     }
@@ -146,6 +150,8 @@ class ShoppingListTableViewCell: UITableViewCell {
             
             //print("Status: To Buy")
         }
+        
+        item.lastUpdate = Date()
         
         //NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadShoppingList"), object: ShoppingListModelController.sharedShoppingList)
         

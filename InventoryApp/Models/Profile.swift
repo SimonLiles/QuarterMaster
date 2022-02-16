@@ -69,4 +69,81 @@ extension Profile: Equatable {
             return false
         }
     }
+    
+    /**
+     Determines if two Profiles are an exact match.
+     
+     - Parameters:
+        - item1: A Profile Object to be compared
+        - item2: A Profile Object to be compared
+     
+     Returns a boolean value for `true` if all properties in each item are the same. Otherwise it will return false.
+     */
+    func isExactMatch(item1: Profile, item2: Profile) -> Bool {
+        //Check singleton properties first
+        
+        //If names are not equal, return false
+        if(item1.name != item2.name) {
+            return false
+        }
+        
+        //If descriptions are not equal, return false
+        if(item1.description != item2.description) {
+            return false
+        }
+        
+        //Check if Pantries are the same
+        
+        //Are the pantries the same length? If not, return false
+        if(item1.pantry.count != item2.pantry.count) {
+            return false
+        }
+        
+        //Check if all elements of one, exist in the other
+        //Because the lengths have already been checked to be the same, if all of one exists in the other, they must be the same
+        for element1 in item1.pantry {
+            var index = 1
+            for element2 in item2.pantry {
+                //If the 2nd pantry contains an item from the 1st, then break out of the inner for loop
+                if (element1.isExactMatch(item1: element1, item2: element2)) {
+                    break
+                }
+                
+                index += 1
+            }
+            
+            //If the index reaches the end, and the last element of the 2nd pantry is not equal to the current element, return false
+            if (index >= item1.pantry.count && element1 != item2.pantry[item2.pantry.count - 1]) {
+                return false
+            }
+        }
+        
+        //Check if shopping lists are the same
+        //Are the shoppingLists the same length? If not, return false
+        if(item1.shoppingList.count != item2.shoppingList.count) {
+            return false
+        }
+        
+        //Check if all elements of one, exist in the other
+        //Because the lengths have already been checked to be the same, if all of one exists in the other, they must be the same
+        for element1 in item1.shoppingList {
+            var index = 1
+            for element2 in item2.shoppingList {
+                //If the 2nd shoppingList contains an item from the 1st, then break out of the inner for loop
+                if (element1.isExactMatch(item1: element1, item2: element2)) {
+                    break
+                }
+                
+                index += 1
+            }
+            
+            //If the index reaches the end, and the last element of the 2nd shoppingList is not equal to the current element, return false
+            if (index >= item1.shoppingList.count && element1 != item2.shoppingList[item2.shoppingList.count - 1]) {
+                return false
+            }
+        }
+        
+        log.info("Both Profiles are an exact match")
+        return true
+    }
 }

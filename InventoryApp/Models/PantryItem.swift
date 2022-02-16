@@ -72,6 +72,23 @@ extension PantryItem: Equatable {
     static func == (lhs: PantryItem, rhs: PantryItem) -> Bool {
         return lhs.name == rhs.name && lhs.category == rhs.category && lhs.location == rhs.location && lhs.units == rhs.units
     }
+    
+    /**
+     Determines if two PantryItems are an exact match.
+     
+     - Parameters:
+        - item1: A PantryItem to be compared
+        - item2: A PantryItem to be compared
+     
+     Returns a boolean value for `true` if all properties in each item are the same. Otherwise it will return false. 
+     */
+    func isExactMatch(item1: PantryItem, item2: PantryItem) -> Bool {
+        if(item1.name == item2.name && item1.category == item2.category && item1.location == item2.location && item1.currentQuantity == item2.currentQuantity && item1.units == item2.units && item1.neededQuantity == item2.neededQuantity && item1.note == item2.note && item1.purchaseStatus == item2.purchaseStatus && item1.lastUpdate == item2.lastUpdate) {
+            return true
+        } else {
+            return false
+        }
+    }
 }
 
 /**
@@ -111,6 +128,7 @@ extension PurchaseStatus: Codable {
         case .notBought:
             self = .notBought
         default:
+            log.fault("Critical Fault: Unable to decode PurchaseStatus enum")
             throw DecodingError.dataCorrupted(
                 DecodingError.Context(
                     codingPath: container.codingPath,
