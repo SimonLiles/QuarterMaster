@@ -97,11 +97,13 @@ class AddNewShoppingListItemTableViewController: UITableViewController {
             let name = nameTextField.text ?? ""
             let category = categoryLabel.text ?? ""
             let location = locationLabel.text ?? ""
+            let quantity = quantityStepper.value
             let units = unitsLabel.text ?? ""
             let note = commentTextFIeld.text ?? ""
             let currentDate = Date()
             
             shoppingListItem = PantryItem(name: name, category: category, location: location, currentQuantity: 0, units: units, note: note, lastUpdate: currentDate)
+            shoppingListItem.neededQuantity = quantity
         } else if segue.identifier == "pickerSegue" {
             let indexPath = tableView.indexPathForSelectedRow!
             
