@@ -158,7 +158,9 @@ class EditProfileTableViewController: UITableViewController {
         log.info("ProfileModelController saved user data before sending data to conected peers")
         ProfileModelController.shared.sendProfile()
         
-        let sendAlert = UIAlertController(title: "Sending to connected peers", message: "Sending \(profile.name) data to all connected peers", preferredStyle: .alert)
+        let sendAlertTitle = "Sending Data to Connected Peers"
+        let sendAlertMessage = "Sending \(profile.name) data to all connected peers"
+        let sendAlert = UIAlertController(title: sendAlertTitle, message: sendAlertMessage, preferredStyle: .alert)
         sendAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
         
         present(sendAlert, animated: true)
