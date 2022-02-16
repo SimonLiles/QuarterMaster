@@ -1097,7 +1097,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Yrx-ah-ZtM">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Profile Description" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Yrx-ah-ZtM">
                                                     <rect key="frame" x="16" y="11" width="343" height="128"/>
                                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <color key="textColor" systemColor="labelColor"/>
@@ -1219,9 +1219,14 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Profiles" largeTitleDisplayMode="always" id="npm-0d-Ln4">
                         <barButtonItem key="backBarButtonItem" title=" " id="fjB-Vn-ey4"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="o2s-Fz-Pvj">
+                        <barButtonItem key="leftBarButtonItem" systemItem="add" id="o2s-Fz-Pvj">
                             <connections>
                                 <segue destination="EjD-07-KVL" kind="presentation" id="gmS-qc-HCU"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="MPC Connect" image="personalhotspot" catalog="system" id="8Ki-aE-kzC">
+                            <connections>
+                                <segue destination="fV0-Mi-JLc" kind="presentation" modalPresentationStyle="fullScreen" id="7O5-cZ-v3A"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -1359,7 +1364,7 @@
                 <viewControllerPlaceholder storyboardName="MCPeerBrowser" id="fV0-Mi-JLc" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Oc4-aM-uCb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2707" y="698"/>
+            <point key="canvasLocation" x="1520" y="1909"/>
         </scene>
         <!--Profile-->
         <scene sceneID="JHd-Up-D0t">
@@ -1367,7 +1372,7 @@
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="RBG-ZJ-KCN" customClass="ProfileTabViewController" customModule="QuarterMaster" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Profile" largeTitleDisplayMode="never" id="hwn-6i-f6k">
-                        <barButtonItem key="rightBarButtonItem" title="Share" image="square.and.arrow.up" catalog="system" id="uC3-pE-Y6F">
+                        <barButtonItem key="rightBarButtonItem" title="MPC Connect" image="personalhotspot" catalog="system" id="uC3-pE-Y6F">
                             <connections>
                                 <segue destination="fV0-Mi-JLc" kind="presentation" modalPresentationStyle="fullScreen" id="tLc-hf-RPC"/>
                             </connections>
@@ -1390,6 +1395,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="tLc-hf-RPC"/>
         <segue reference="HRd-9q-S1k"/>
         <segue reference="4vV-M5-4Al"/>
     </inferredMetricsTieBreakers>
@@ -1400,7 +1406,7 @@
         <image name="circle" catalog="system" width="128" height="121"/>
         <image name="gear" catalog="system" width="128" height="119"/>
         <image name="house" catalog="system" width="128" height="106"/>
-        <image name="square.and.arrow.up" catalog="system" width="115" height="128"/>
+        <image name="personalhotspot" catalog="system" width="128" height="75"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
