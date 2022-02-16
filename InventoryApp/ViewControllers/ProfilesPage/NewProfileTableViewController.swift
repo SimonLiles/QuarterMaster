@@ -50,7 +50,19 @@ class NewProfileTableViewController: UITableViewController {
         var nameText = profileNameTextField.text ?? ""
         nameText = nameText.trimmingCharacters(in: CharacterSet(charactersIn: "\0 "))
         
-        saveButton.isEnabled = nameText != ""
+        let testProfile = Profile(name: nameText, pantry: [], shoppingList: [])
+        
+        //Check if new profile is unique
+        if(ProfileModelController.shared.profiles!.contains(testProfile)) {
+            saveButton.isEnabled = false
+            
+            return
+        } else {
+            //Check that profile is not empty
+            saveButton.isEnabled = nameText != ""
+            
+            return
+        }
     }
     
     // MARK: - IBActions

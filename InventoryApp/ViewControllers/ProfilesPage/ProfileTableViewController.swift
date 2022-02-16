@@ -136,7 +136,7 @@ class ProfileTableViewController: UITableViewController {
                 newProfileAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
                 newProfileAlert.addAction(acceptAction)
                 
-                print("presenting newProfileAlert from ProfileTableViewController")
+                log.info("presenting newProfileAlert from ProfileTableViewController")
                 present(newProfileAlert, animated: true)
             }
             

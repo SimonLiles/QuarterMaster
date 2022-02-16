@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 /**
  Profile model structure holds the pantry and shopping list together so that a profile can be shared with other devices.
@@ -19,6 +20,8 @@ struct Profile: Codable {
     
     //Identifying information
     var name: String //Name of the profile
+    
+    var originalAuthor: String = UIDevice.current.identifierForVendor?.uuidString ?? "NO_AUTHOR" //ID of the device that authored the profile
     
     //Data holding
     var pantry: [PantryItem] //Holds pantry for the profile instance
@@ -63,7 +66,7 @@ struct Profile: Codable {
 
 extension Profile: Equatable {
     static func == (lhs: Profile, rhs: Profile) -> Bool{
-        if (lhs.name == rhs.name) {
+        if (lhs.name == rhs.name && lhs.originalAuthor == rhs.originalAuthor) {
             return true
         } else {
             return false
