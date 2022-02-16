@@ -95,23 +95,8 @@ class ProfileTableViewController: UITableViewController {
                 index += 1
             }
                         
-            if (index < profiles.endIndex) {
+            if (profiles.contains(newProfile)) {
                 let currentProfile = ProfileModelController.shared.profiles![index]
-                /*
-                //Send current device copy of data, if received data does not match
-                if(receivedData! != currentProfile.encode()) {
-                    log.info("ProfileTableViewController responding to new receivedData")
-                    log.info("receivedData did NOT match current data")
-                    log.info("ProfileTableViewController sending current data in response")
-                    let tempIndex = ProfileModelController.shared.selectedIndex
-                    ProfileModelController.shared.selectedIndex = index
-                    ProfileModelController.shared.sendProfile()
-                    ProfileModelController.shared.selectedIndex = tempIndex
-                } else {
-                    log.info("ProfileTableViewController responding to new receivedData")
-                    log.info("receivedData did match current data")
-                    log.info("ProfileTableViewController will NOT send data in response")
-                }*/
                 
                 if (ProfileModelController.shared.shouldUpdate(currentData: currentProfile, receivedData: newProfile)) {
                     newProfile = ProfileModelController().updateMerge(currentData: currentProfile, receivedData: newProfile)
@@ -128,6 +113,8 @@ class ProfileTableViewController: UITableViewController {
 
                 let acceptAction = UIAlertAction(title: "Accept", style: .default, handler: { action in
                     self.log.info("User chose accept action")
+                    //newProfile.name = "\(newProfile.originalAuthor): \(newProfile.name)"
+                    self.log.info("Appending profile from: \n\(newProfile.originalAuthor)")
                     ProfileModelController.shared.profiles!.append(newProfile)
                     self.profiles = ProfileModelController.shared.profiles!
                     self.tableView.reloadData()

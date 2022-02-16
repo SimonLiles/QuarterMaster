@@ -164,6 +164,9 @@ class ProfileModelController {
             newData.name = receivedData.name
             newData.description = receivedData.description
             
+            //Changes to author should not permeate
+            newData.originalAuthor = currentData.originalAuthor
+            
             //Update shoppingListLastClear
             if (currentData.shoppingListLastClear <= receivedData.shoppingListLastClear) {
                 newData.shoppingListLastClear = receivedData.shoppingListLastClear
@@ -181,8 +184,8 @@ class ProfileModelController {
                 var index = 0
                 for receivedItem in receivedData.pantry {
                     if (index >= currentData.pantry.endIndex) {
-                        log.info("Appending extraneous items from receivedData.pantry")
-                        log.info("Item: \(receivedItem.name)")
+                        //log.info("Appending extraneous items from receivedData.pantry")
+                        //log.info("Item: \(receivedItem.name)")
                         newData.pantry.append(receivedItem)
                     } else {
                         //let currentItem = currentData.pantry[index]
@@ -190,21 +193,21 @@ class ProfileModelController {
                         if (currentData.pantry.contains(receivedItem)) {
                             //Get the item that matches receivedItem
                             let currentItem = currentData.pantry[currentData.pantry.firstIndex(of: receivedItem)!]
-                            log.info("receivedItem: \(receivedItem.name) / \(receivedItem.currentQuantity)")
-                            log.info("currentItem: \(currentItem.name) / \(currentItem.currentQuantity)")
-                            log.info("receivedItem.lastUpdate: \(receivedItem.lastUpdate)")
-                            log.info("currentItem.lastUpdate: \(currentItem.lastUpdate)")
+                            //log.info("receivedItem: \(receivedItem.name) / \(receivedItem.currentQuantity)")
+                            //log.info("currentItem: \(currentItem.name) / \(currentItem.currentQuantity)")
+                            //log.info("receivedItem.lastUpdate: \(receivedItem.lastUpdate)")
+                            //log.info("currentItem.lastUpdate: \(currentItem.lastUpdate)")
                             //Check which item is the latest to be updated
                             if(currentItem.lastUpdate <= receivedItem.lastUpdate) {
-                                log.info("Appending receivedItem to pantry")
+                                //log.info("Appending receivedItem to pantry")
                                 newData.pantry.append(receivedItem)
                             } else {
-                                log.info("Appending currentItem to pantry")
+                                //log.info("Appending currentItem to pantry")
                                 newData.pantry.append(currentItem)
                             }
                         } else {
-                            log.info("Could not find receivedItem in currentData.pantry")
-                            log.info("Appending receivedItem to pantry")
+                            //log.info("Could not find receivedItem in currentData.pantry")
+                            //log.info("Appending receivedItem to pantry")
                             newData.pantry.append(receivedItem)
                         }
                         
@@ -212,13 +215,13 @@ class ProfileModelController {
                     }
                 }
                 
-                log.info("Finding and appending extraneous item from currentData.pantry")
+                //log.info("Finding and appending extraneous item from currentData.pantry")
                 //Find which elements were left out from currentData, append to newData
                 for currentItem in currentData.pantry {
                     //Loop through each element of the currentData pantry
                     var index = 0
                     if (index >= receivedData.pantry.endIndex) {
-                        log.info("Appending extraneous item from currentData.pantry")
+                        //log.info("Appending extraneous item from currentData.pantry")
                         newData.pantry.append(currentItem)
                     } else {
                         var isMatch = false
@@ -232,8 +235,8 @@ class ProfileModelController {
                         }
                         
                         if(!isMatch) {
-                            log.info("Found extraneous item in currentData.pantry")
-                            log.info("Appending currentItem.name: \(currentItem.name)")
+                            //log.info("Found extraneous item in currentData.pantry")
+                            //log.info("Appending currentItem.name: \(currentItem.name)")
                             newData.pantry.append(currentItem)
                         }
                     }
@@ -261,7 +264,7 @@ class ProfileModelController {
                 for receivedItem in receivedData.shoppingList {
                     if (index >= currentData.shoppingList.endIndex) {
                         newData.shoppingList.append(receivedItem)
-                        print("L264 - newData.shoppingList appended receivedItem")
+                        //print("L264 - newData.shoppingList appended receivedItem")
                     } else {
                         //let currentItem = currentData.shoppingList[index]
                         //Check if item exists in both pantries
@@ -276,7 +279,7 @@ class ProfileModelController {
                                 if(receivedItem.lastUpdate >= currentData.shoppingListLastClear &&
                                    receivedItem.lastUpdate >= receivedData.shoppingListLastClear) {
                                     newData.shoppingList.append(receivedItem)
-                                    print("L279 - newData.shoppingList appended receivedItem")
+                                    //print("L279 - newData.shoppingList appended receivedItem")
                                 }
                                 
                             } else {
@@ -286,13 +289,13 @@ class ProfileModelController {
                                 if(currentItem.lastUpdate >= receivedData.shoppingListLastClear ||
                                    currentItem.lastUpdate >= currentData.shoppingListLastClear) {
                                     newData.shoppingList.append((currentItem))
-                                    print("L289 - newData.shoppingList appended currentItem")
+                                    //print("L289 - newData.shoppingList appended currentItem")
                                 }
                                 
                             }
                         } else {
                             newData.shoppingList.append(receivedItem)
-                            print("L295 - newData.shoppingList appended receivedItem")
+                            //print("L295 - newData.shoppingList appended receivedItem")
                         }
                         
                         index += 1
@@ -309,7 +312,7 @@ class ProfileModelController {
                         if(currentItem.lastUpdate >= receivedData.shoppingListLastClear ||
                            currentItem.lastUpdate >= currentData.shoppingListLastClear) {
                             newData.shoppingList.append(currentItem)
-                            print("L312 - newData.shoppingList appended currentItem")
+                            //print("L312 - newData.shoppingList appended currentItem")
                         }
                         
                     } else {
@@ -329,7 +332,7 @@ class ProfileModelController {
                             if(currentItem.lastUpdate >= receivedData.shoppingListLastClear ||
                                currentItem.lastUpdate >= currentData.shoppingListLastClear) {
                                 newData.shoppingList.append(currentItem)
-                                print("L332 - newData.shoppingList appended currentItem")
+                                //print("L332 - newData.shoppingList appended currentItem")
                             }
                             
                         }
