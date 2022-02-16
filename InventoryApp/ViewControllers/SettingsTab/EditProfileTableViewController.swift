@@ -43,6 +43,11 @@ class EditProfileTableViewController: UITableViewController {
         let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
         view.addGestureRecognizer(tap)
         
+        //Draw a border for the description box for a pro
+        descriptionTextView.layer.borderWidth = 1
+        descriptionTextView.layer.cornerRadius = 5
+        descriptionTextView.layer.borderColor = UIColor.opaqueSeparator.cgColor
+        
         profileIndex = ProfileModelController.shared.selectedIndex
         profile = ProfileModelController.shared.profiles![profileIndex]
         
