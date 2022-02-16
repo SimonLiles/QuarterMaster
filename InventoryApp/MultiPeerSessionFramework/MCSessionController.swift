@@ -112,7 +112,21 @@ class MultipeerSession: NSObject, ObservableObject {
                 log.error("send error:\n \(error.localizedDescription)")
                 let ac = UIAlertController(title: "Send error", message: error.localizedDescription, preferredStyle: .alert)
                 ac.addAction(UIAlertAction(title: "OK", style: .default))
-                //present(ac, animated: true)
+                
+                //Get current viewcontroller
+                var rootViewController = UIApplication.shared.keyWindow?.rootViewController
+                if let navigationController = rootViewController as? UINavigationController {
+                    rootViewController = navigationController.viewControllers.first
+                }
+                
+                if let tabBarController = rootViewController as? UITabBarController {
+                    rootViewController = tabBarController.selectedViewController
+                }
+                
+                //Display connection alert
+                DispatchQueue.main.async {
+                    rootViewController?.present(ac, animated: true, completion: nil)
+                }
             }
         } else {
             log.info("Tried to send, but no peers were connected")
