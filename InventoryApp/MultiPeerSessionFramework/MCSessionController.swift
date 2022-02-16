@@ -346,7 +346,7 @@ extension MultipeerSession: MCSessionDelegate {
         
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "received_data"), object: receivedData)
         
-        print("Notification for 'received_data' sent")
+        log.info("Notification for 'received_data' sent")
     }
     
     ///

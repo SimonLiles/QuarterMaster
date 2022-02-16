@@ -8,6 +8,10 @@
 
 import UIKit
 
+import os
+
+let log = Logger() //Global declaration for logging object. 
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 

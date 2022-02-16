@@ -42,7 +42,7 @@ struct Profile: Codable {
      Encodes single profile object representing user data to a .json file.
      */
     func encode() -> Data? {
-        print("Attempting to encode profile data")
+        log.info("Attempting to encode profile data")
         
         let jsonEncoder = JSONEncoder()
         let encodedProfileObject = try? jsonEncoder.encode(self) //encode the profile object
@@ -51,7 +51,7 @@ struct Profile: Codable {
     }
     
     func decode(data: Data) -> Profile {
-        print("Attempting to decode Profile Data")
+        log.info("Attempting to decode Profile Data")
         
         let jsonDecoder = JSONDecoder()
                 

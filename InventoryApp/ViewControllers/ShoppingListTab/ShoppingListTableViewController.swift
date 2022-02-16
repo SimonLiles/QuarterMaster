@@ -82,6 +82,7 @@ class ShoppingListTableViewController: UITableViewController {
         //Send data to any connected peers
         ProfileModelController.shared.profiles![profileIndex].versionTimeStamp = Date()
         ProfileModelController.shared.saveProfileData()
+        log.info("ProfileModelController saved user data before sending data to conected peers")
         ProfileModelController.shared.sendProfile()
     }
     
@@ -148,9 +149,11 @@ class ShoppingListTableViewController: UITableViewController {
                 }
                 
                 ProfileModelController.shared.profiles![self.profileIndex].shoppingListLastClear = Date()
+                log.info("Shopping List Last Clear was:  \(ProfileModelController.shared.profiles![self.profileIndex].shoppingListLastClear.description)")
                 
                 //Save data
                 ProfileModelController.shared.saveProfileData()
+                self.log.info("ProfileModelController saved user data after clearing completed items from shopping list")
                 
                 //Reload tableViews for shoppingList and pantry tabs
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadPantry"), object: ProfileModelController.shared.profiles![self.profileIndex].pantry)
@@ -198,6 +201,7 @@ class ShoppingListTableViewController: UITableViewController {
 
                 //Save Data
                 ProfileModelController.shared.saveProfileData()
+                self.log.info("ProfileModelController saved user data after clearing canceled items in shopping list")
 
                 //Reload tables
                 self.tableView.reloadData()
@@ -356,6 +360,7 @@ class ShoppingListTableViewController: UITableViewController {
             ProfileModelController.shared.profiles![profileIndex].pantry.append(newShoppingListItem)
 
             ProfileModelController.shared.saveProfileData()
+            log.info("ProfileModelController saved user data after adding an item to the shoppingList")
             
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadPantry"), object: ProfileModelController.shared.profiles![profileIndex].pantry)
         }

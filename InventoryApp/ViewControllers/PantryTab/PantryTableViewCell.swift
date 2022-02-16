@@ -83,6 +83,9 @@ class PantryTableViewCell: UITableViewCell {
         ProfileModelController.shared.profiles![profileIndex].pantry[index] = pantryItemToChange
         
         ProfileModelController.shared.saveProfileData() //Save user data
+        log.info("ProfileModelController saved user data after updating pantryItem cells")
+        //log.info("Sending profile data to connected peers because of PantryItemCell update")
+        //ProfileModelController.shared.sendProfile()
     }
 
     // MARK: - IBActions

@@ -91,6 +91,7 @@ class PantryTableViewController: UITableViewController {
         //Send data to any connected peers
         ProfileModelController.shared.profiles![profileIndex].versionTimeStamp = Date()
         ProfileModelController.shared.saveProfileData()
+        log.info("ProfileModelController saved user data before sending data to conected peers")
         ProfileModelController.shared.sendProfile()
     }
     
@@ -239,11 +240,13 @@ class PantryTableViewController: UITableViewController {
                 //Pass pantry data back to ProfileModelController and save all data
                 ProfileModelController.shared.profiles![profileIndex].pantry = pantry
                 ProfileModelController.shared.saveProfileData()
+                log.info("ProfileModelController saved user data after unwinding to PantryTableView")
                 
                 //Tell ShoppingList Tab to reload data with new shoppingList data
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadShoppingList"), object: ProfileModelController.shared.profiles![profileIndex].shoppingList)
                 
                 ProfileModelController.shared.saveProfileData() //Save data again just in case
+                log.info("ProfileModelController saved user data again just in case")
                 
                 tableView.reloadData() //reload data in pantry so that table view updates with new data
             } else {
@@ -254,6 +257,7 @@ class PantryTableViewController: UITableViewController {
                 
                 ProfileModelController.shared.profiles![profileIndex].pantry = pantry //Pass pantry data back to model controller
                 ProfileModelController.shared.saveProfileData() //Save model data
+                log.info("ProfileModelController saved user data after adding new item to pantry")
             }
             
         } else if segue.identifier == "deleteUnwind" {
@@ -294,6 +298,7 @@ class PantryTableViewController: UITableViewController {
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadShoppingList"), object: ProfileModelController.shared.profiles![profileIndex].shoppingList)
                 
                 ProfileModelController.shared.saveProfileData() //Save pantry data in profile
+                log.info("ProfileModelController saved user data after removing an item from the pantry")
             }
         } else if segue.identifier == "addToShoppingListUnwind" {
             if let selectedIndexPath = tableView.indexPathForSelectedRow {
@@ -319,6 +324,7 @@ class PantryTableViewController: UITableViewController {
                 ProfileModelController.shared.profiles![profileIndex].shoppingList[ProfileModelController.shared.profiles![profileIndex].shoppingList.endIndex - 1].lastUpdate = Date()
                 
                 ProfileModelController.shared.saveProfileData() //Save all data
+                log.info("ProfileModelController saved user data after adding an item to the shoppingList")
                 
                 //Tell ShoppingList Tab to reload data with new shoppingList data
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadShoppingList"), object: ProfileModelController.shared.profiles![profileIndex].shoppingList)

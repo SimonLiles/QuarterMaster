@@ -72,7 +72,7 @@ class ProfileTableViewController: UITableViewController {
     
     //Receive data from P2P controller and save it into Profile Model Controller
     @objc func updateProfile(notification: NSNotification) {
-        print("updateProfile() called")
+        log.info("updateProfile() called in ProfileTableViewController")
         DispatchQueue.main.sync {
             self.log.info("Entering DispatchQueue.main.sync in updateProfile()")
             
@@ -287,6 +287,7 @@ class ProfileTableViewController: UITableViewController {
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadProfiles"), object: nil) //DOUBLE RELOAD!!! cuz why not?
                 
                 ProfileModelController.shared.saveProfileData() //Save profile data
+                log.info("ProfileModelController saved data after exiting to ProfileTableView")
             }
         }
     }

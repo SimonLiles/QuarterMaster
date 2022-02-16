@@ -69,6 +69,7 @@ class NewProfileTableViewController: UITableViewController {
                             
         //Save model controller data
         ProfileModelController.shared.saveProfileData()
+        log.info("Profile Model Controller saved data after saving new profile")
                             
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadProfiles"), object: nil)
         

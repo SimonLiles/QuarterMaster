@@ -32,7 +32,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         //Save app data to disk while disconecting
         ProfileModelController.shared.saveProfileData()
-        //print("ProfileModelController data saved while disconnecting")
+        log.info("ProfileModelController data saved while disconnecting")
 
     }
 

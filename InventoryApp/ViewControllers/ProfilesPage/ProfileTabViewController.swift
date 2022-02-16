@@ -48,7 +48,7 @@ class ProfileTabViewController: UITabBarController {
     
     //Receive data from P2P controller and save it into Profile Model Controller
     @objc func updateProfile(notification: NSNotification) {
-        log.info("updateProfile() called")
+        log.info("updateProfile() called in ProfileTabViewController")
         DispatchQueue.main.sync {
             self.log.info("Entering DispatchQueue.main.sync in updateFields()")
             

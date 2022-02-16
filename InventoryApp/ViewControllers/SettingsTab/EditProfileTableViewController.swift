@@ -62,6 +62,7 @@ class EditProfileTableViewController: UITableViewController {
         //Send data to any connected peers
         ProfileModelController.shared.profiles![profileIndex].versionTimeStamp = Date()
         ProfileModelController.shared.saveProfileData()
+        log.info("ProfileModelController saved user data before sending data to conected peers")
         ProfileModelController.shared.sendProfile()
     }
     
@@ -110,6 +111,7 @@ class EditProfileTableViewController: UITableViewController {
             
             //Save model controller data
             ProfileModelController.shared.saveProfileData()
+            self.log.info("ProfileModelController saved user data after saving edited profile data")
             
             //Reload the data
             self.tableView.reloadData()
@@ -148,6 +150,7 @@ class EditProfileTableViewController: UITableViewController {
         //Send data to any connected peers
         ProfileModelController.shared.profiles![profileIndex].versionTimeStamp = Date()
         ProfileModelController.shared.saveProfileData()
+        log.info("ProfileModelController saved user data before sending data to conected peers")
         ProfileModelController.shared.sendProfile()    }
     
     @IBAction func deleteButtonPressed(_ sender: Any) {

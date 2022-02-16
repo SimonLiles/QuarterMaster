@@ -105,6 +105,8 @@ class ShoppingListTableViewCell: UITableViewCell {
         }
         ProfileModelController.shared.profiles![profileIndex].pantry[pantryIndex] = itemToChange
         
+        //log.info("Sending profile data to connected peers because of ShoppingListItemCell update")
+        //ProfileModelController.shared.sendProfile()
     }
     
     // MARK: - IBActions
