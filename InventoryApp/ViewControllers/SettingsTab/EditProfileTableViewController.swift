@@ -159,7 +159,7 @@ class EditProfileTableViewController: UITableViewController {
         ProfileModelController.shared.sendProfile()
         
         let sendAlertTitle = "Sending Data to Connected Peers"
-        let sendAlertMessage = "Sending \(profile.name) data to all connected peers"
+        let sendAlertMessage = "Sending Profile:\(profile.name) data to all connected peers"
         let sendAlert = UIAlertController(title: sendAlertTitle, message: sendAlertMessage, preferredStyle: .alert)
         sendAlert.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
         
