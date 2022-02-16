@@ -47,9 +47,10 @@ class NewProfileTableViewController: UITableViewController {
     
     ///Disables save button when required data fields are left blank
     func updateSaveButtonState() {
-        let nameText = profileNameTextField.text ?? "Unnamed Vessel"
+        var nameText = profileNameTextField.text ?? ""
+        nameText = nameText.trimmingCharacters(in: CharacterSet(charactersIn: "\0 "))
         
-        saveButton.isEnabled = nameText != "Unnamed Vessel"
+        saveButton.isEnabled = nameText != ""
     }
     
     // MARK: - IBActions
@@ -62,7 +63,7 @@ class NewProfileTableViewController: UITableViewController {
         log.info("User created a new profile")
         
         //Push changes to model controller
-        profile.name = profileNameTextField.text ?? "Unnamed"
+        profile.name = profileNameTextField.text ?? "Unnamed Vessel"
         profile.description = descriptionTextView.text ?? ""
         
         ProfileModelController.shared.profiles!.append(profile)
