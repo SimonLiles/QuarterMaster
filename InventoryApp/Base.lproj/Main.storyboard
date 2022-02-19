@@ -221,7 +221,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <toolbar key="tableFooterView" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="Pln-Oz-Uan">
-                            <rect key="frame" x="0.0" y="112" width="375" height="44"/>
+                            <rect key="frame" x="0.0" y="111.66666412353516" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                             <items>
                                 <barButtonItem style="plain" systemItem="flexibleSpace" id="LU2-gL-B7P"/>
@@ -394,7 +394,7 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Quantity" id="b4N-tI-8bf">
+                            <tableViewSection headerTitle="Needed Quantity" id="b4N-tI-8bf">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="pIP-A8-2tX">
                                         <rect key="frame" x="0.0" y="388.33333015441895" width="375" height="54.333332061767578"/>
@@ -654,7 +654,7 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle=" Quantity" id="adn-oR-8Tp">
+                            <tableViewSection headerTitle=" Current Quantity" id="adn-oR-8Tp">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="pantryItemQuantityCell" id="43d-xp-w9N">
                                         <rect key="frame" x="0.0" y="372.33333015441895" width="375" height="38.333332061767578"/>
