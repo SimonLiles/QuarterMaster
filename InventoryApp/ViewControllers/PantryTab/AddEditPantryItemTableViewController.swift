@@ -180,6 +180,16 @@ class AddEditPantryItemTableViewController: UITableViewController {
             pantryPickerListTableViewController.itemNames = items
             pantryPickerListTableViewController.selectedItem = currentItem
             pantryPickerListTableViewController.name = typeName
+        } else if segue.identifier == "addToShoppingListUnwind" {
+            let name = nameTextField.text ?? ""
+            let category = categoryLabel.text ?? "Uncategorized"
+            let location = locationLabel.text ?? "No Location"
+            let quantity = quantityStepper.value
+            let units = unitsLabel.text ?? "Units"
+            let note = commentTextField.text ?? ""
+            let currentDate = Date()
+            
+            pantryItem = PantryItem(name: name, category: category, location: location, currentQuantity: quantity, units: units, note: note, lastUpdate: currentDate)
         }
         
     }

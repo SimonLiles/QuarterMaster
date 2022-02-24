@@ -306,6 +306,38 @@ class PantryTableViewController: UITableViewController {
                 log.info("ProfileModelController saved user data after removing an item from the pantry")
             }
         } else if segue.identifier == "addToShoppingListUnwind" {
+            let sourceViewController = segue.source as! AddEditPantryItemTableViewController
+        
+            let pantryItem = sourceViewController.pantryItem
+            
+            //If it doesnt exist yet, add to pantry and shopping list
+            if(!ProfileModelController.shared.profiles![profileIndex].pantry.contains(pantryItem)) {
+                ProfileModelController.shared.profiles![profileIndex].pantry.append(pantryItem)
+                ProfileModelController.shared.profiles![profileIndex].shoppingList.append(pantryItem)
+            } else {
+                //Save to pantry
+                let pantryIndex = ProfileModelController.shared.profiles![profileIndex].pantry.firstIndex(of: pantryItem)
+                ProfileModelController.shared.profiles![profileIndex].pantry[pantryIndex!] = pantryItem
+                
+                //Add to ShoppingList
+                
+                //Increment if it already is there
+                if(ProfileModelController.shared.profiles![profileIndex].shoppingList.contains(pantryItem)) {
+                    let shoppingListIndex = ProfileModelController.shared.profiles![profileIndex].shoppingList.firstIndex(of: pantryItem)
+                    ProfileModelController.shared.profiles![profileIndex].shoppingList[shoppingListIndex!].neededQuantity += 1
+                    ProfileModelController.shared.profiles![profileIndex].shoppingList[shoppingListIndex!].lastUpdate = Date()
+                } else {
+                    ProfileModelController.shared.profiles![profileIndex].shoppingList.append(pantryItem)
+                }
+            }
+            
+            ProfileModelController.shared.saveProfileData() //Save all data
+            log.info("ProfileModelController saved user data after adding an item to the shoppingList")
+            
+            //Reload tableViews for shoppingList and pantry tabs
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadShoppingList"), object: ProfileModelController.shared.profiles![profileIndex].shoppingList)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadPantry"), object: ProfileModelController.shared.profiles![profileIndex].pantry)
+            /*
             if let selectedIndexPath = tableView.indexPathForSelectedRow {
                 //Uglyish code to add a specific item to the ShoppingList
                 let pantryItemToAdd = itemsCollatedByCategory[categories[selectedIndexPath.section]]![selectedIndexPath.row]
@@ -334,6 +366,7 @@ class PantryTableViewController: UITableViewController {
                 //Tell ShoppingList Tab to reload data with new shoppingList data
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadShoppingList"), object: ProfileModelController.shared.profiles![profileIndex].shoppingList)
             }
+            */
             
         }
         
