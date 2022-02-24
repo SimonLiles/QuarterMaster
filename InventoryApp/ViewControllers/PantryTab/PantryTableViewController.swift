@@ -185,6 +185,7 @@ class PantryTableViewController: UITableViewController {
         if segue.identifier == "EditPantryItem" {
             let indexPath = tableView.indexPathForSelectedRow!
             
+            //Get pantry item
             var pantryItem: PantryItem
             if isFiltering {
                 pantryItem = filteredPantry[indexPath.row]
@@ -192,6 +193,10 @@ class PantryTableViewController: UITableViewController {
                 //pantryItem = pantry[indexPath.row]
                 pantryItem = itemsCollatedByCategory[categories[indexPath.section]]![indexPath.row]
             }
+            
+            //Pull pantryItem from model controller
+            let pantryItemIndex = ProfileModelController.shared.profiles![profileIndex].pantry.firstIndex(of: pantryItem)
+            pantryItem = ProfileModelController.shared.profiles![profileIndex].pantry[pantryItemIndex!]
             
             let navController = segue.destination as! UINavigationController
             let addEditPantryItemTableViewController = navController.topViewController as! AddEditPantryItemTableViewController
