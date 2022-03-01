@@ -79,6 +79,11 @@ class ShoppingListTableViewController: UITableViewController {
         navigationItem.searchController = searchController
         definesPresentationContext = true
         
+        //Allows user to tap out of editing
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(tableView.endEditing(_:)))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+        
         //Send data to any connected peers
         ProfileModelController.shared.profiles![profileIndex].versionTimeStamp = Date()
         ProfileModelController.shared.saveProfileData()

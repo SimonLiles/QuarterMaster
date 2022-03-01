@@ -77,6 +77,11 @@ class AddToShoppingListTableViewController: UITableViewController {
         navigationItem.searchController?.hidesNavigationBarDuringPresentation = false
         searchController.isActive = true
         definesPresentationContext = true
+        
+        //Allows user to tap out of editing
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(tableView.endEditing(_:)))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
     }
     
     // MARK: - Search Bar Functionality

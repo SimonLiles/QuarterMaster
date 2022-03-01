@@ -55,6 +55,11 @@ class ProfileTableViewController: UITableViewController {
         navigationItem.searchController = searchController
         definesPresentationContext = true
         
+        //Allows user to tap out of editing
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(tableView.endEditing(_:)))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 

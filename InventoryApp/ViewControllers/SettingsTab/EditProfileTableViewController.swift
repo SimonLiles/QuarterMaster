@@ -40,7 +40,8 @@ class EditProfileTableViewController: UITableViewController {
         super.viewDidLoad()
         
         //Allows user to tap out of editing
-        let tap = UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:)))
+        let tap = UITapGestureRecognizer(target: self.view, action: #selector(tableView.endEditing(_:)))
+        tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
         
         //Draw a border for the description box for a pro
