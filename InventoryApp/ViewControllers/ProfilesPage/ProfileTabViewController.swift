@@ -49,10 +49,10 @@ class ProfileTabViewController: UITabBarController {
     //Receive data from P2P controller and save it into Profile Model Controller
     @objc func updateProfile(notification: NSNotification) {
         log.info("updateProfile() called in ProfileTabViewController")
-        /*
+        
         DispatchQueue.main.sync {
             self.log.info("Entering DispatchQueue.main.sync in updateFields()")
-            
+            /*
             let receivedData = MultipeerSession.instance.receivedData
             
             var newProfile = Profile(name: "", pantry: [], shoppingList: [])
@@ -112,7 +112,7 @@ class ProfileTabViewController: UITabBarController {
                     present(newProfileAlert, animated: true)
                 }
             }
-            
+            */
             //Update all views that display shareable data
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadPantry"), object: ProfileModelController.shared.profiles![self.profileIndex].pantry)
             log.info("Notification for 'reloadPantrys' sent")
@@ -120,7 +120,7 @@ class ProfileTabViewController: UITabBarController {
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadShoppingList"), object: ProfileModelController.shared.profiles![profileIndex].shoppingList)
             log.info("Notification for 'reloadShoppingList' sent")
         }
-        */
+        
     }
     
     // MARK: - Navigation

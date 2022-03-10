@@ -260,81 +260,41 @@ class ProfileModelController {
             if (!currentData.shoppingList.isEmpty &&
                 !receivedData.shoppingList.isEmpty) {
                 //Loop through each element of the receivedData shoppinglist
-                var index = 0
+                //var index = 0
                 for receivedItem in receivedData.shoppingList {
-                    if (index >= currentData.shoppingList.endIndex) {
-                        newData.shoppingList.append(receivedItem)
-                        //print("L264 - newData.shoppingList appended receivedItem")
-                    } else {
-                        //let currentItem = currentData.shoppingList[index]
-                        //Check if item exists in both pantries
-                        if (currentData.shoppingList.contains(receivedItem)) {
-                            //Get the item that matches receivedItem
-                            let currentItem = currentData.shoppingList[currentData.shoppingList.firstIndex(of: receivedItem)!]
-                            //Check which item is the latest to be updated
-                            if(currentItem.lastUpdate <= receivedItem.lastUpdate) {
-                                //newData.shoppingList.append(receivedItem)
-                                
-                                //Only keep items in shopping list that are newer than the last clear
-                                if(receivedItem.lastUpdate >= currentData.shoppingListLastClear &&
-                                   receivedItem.lastUpdate >= receivedData.shoppingListLastClear) {
-                                    newData.shoppingList.append(receivedItem)
-                                    //print("L279 - newData.shoppingList appended receivedItem")
-                                }
-                                
-                            } else {
-                                //newData.shoppingList.append((currentItem))
-                                
-                                //Only keep items in shopping list that are newer than the last clear
-                                if(currentItem.lastUpdate >= receivedData.shoppingListLastClear ||
-                                   currentItem.lastUpdate >= currentData.shoppingListLastClear) {
-                                    newData.shoppingList.append((currentItem))
-                                    //print("L289 - newData.shoppingList appended currentItem")
-                                }
-                                
+                    //Check if item exists in both pantries
+                    if (currentData.shoppingList.contains(receivedItem)) {
+                        //Get the item that matches receivedItem
+                        let currentItem = currentData.shoppingList[currentData.shoppingList.firstIndex(of: receivedItem)!]
+                        //Check which item is the latest to be updated
+                        if(currentItem.lastUpdate <= receivedItem.lastUpdate) {
+                            //Only keep items in shopping list that are newer than the last clear
+                            if(receivedItem.lastUpdate >= currentData.shoppingListLastClear &&
+                               receivedItem.lastUpdate >= receivedData.shoppingListLastClear) {
+                                newData.shoppingList.append(receivedItem)
+                                //print("L279 - newData.shoppingList appended receivedItem")
                             }
                         } else {
-                            newData.shoppingList.append(receivedItem)
-                            //print("L295 - newData.shoppingList appended receivedItem")
+                            //Only keep items in shopping list that are newer than the last clear
+                            if(currentItem.lastUpdate >= receivedData.shoppingListLastClear &&
+                               currentItem.lastUpdate >= currentData.shoppingListLastClear) {
+                                newData.shoppingList.append((currentItem))
+                                //print("L289 - newData.shoppingList appended currentItem")
+                            }
+                            
                         }
-                        
-                        index += 1
+                    } else {
+                        newData.shoppingList.append(receivedItem)
+                        //print("L295 - newData.shoppingList appended receivedItem")
                     }
                 }
                 
                 //Find which elements were left out from currentData, append to newData
                 for currentItem in currentData.shoppingList {
-                    //Loop through each element of the currentData pantry
-                    var index = 0
-                    if (index >= receivedData.shoppingList.endIndex) {
-                        newData.shoppingList.append(currentItem)
-                        
-                        if(currentItem.lastUpdate >= receivedData.shoppingListLastClear ||
-                           currentItem.lastUpdate >= currentData.shoppingListLastClear) {
+                    if(!newData.shoppingList.contains(currentItem)) {
+                        if(currentItem.lastUpdate >= receivedData.shoppingListLastClear &&
+                           currentItem.lastUpdate >= currentData.shoppingListLastClear ) {
                             newData.shoppingList.append(currentItem)
-                            //print("L312 - newData.shoppingList appended currentItem")
-                        }
-                        
-                    } else {
-                        var isMatch = false
-                        
-                        for receivedItem in receivedData.shoppingList {
-                            if (currentItem == receivedItem) {
-                                isMatch = true
-                                index += 1
-                                break
-                            }
-                        }
-                        
-                        if(!isMatch) {
-                            //newData.shoppingList.append(currentItem)
-                            
-                            if(currentItem.lastUpdate >= receivedData.shoppingListLastClear ||
-                               currentItem.lastUpdate >= currentData.shoppingListLastClear) {
-                                newData.shoppingList.append(currentItem)
-                                //print("L332 - newData.shoppingList appended currentItem")
-                            }
-                            
                         }
                     }
                 }
