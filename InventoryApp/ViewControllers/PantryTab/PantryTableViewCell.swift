@@ -70,7 +70,8 @@ class PantryTableViewCell: UITableViewCell {
         //Ugly code to update a specific item from the array
         let pantryItemToChange = pantryItem1
         
-        var index = 0
+        let index = ProfileModelController.shared.profiles![profileIndex].pantry.firstIndex(of: pantryItemToChange) ?? 0
+        /*
         for item in ProfileModelController.shared.profiles![profileIndex].pantry {
             if pantryItemToChange == item {
                 break
@@ -78,11 +79,23 @@ class PantryTableViewCell: UITableViewCell {
                 index += 1
             }
         }
+        */
         
         //PantryModelController.shared.pantry![index] = pantryItemToChange
         ProfileModelController.shared.profiles![profileIndex].pantry[index] = pantryItemToChange
         
+        /*
+        log.info("profileIndex = \(self.profileIndex)")
+        log.info("index = \(index)")
+        log.info("itemInCell: \(pantryItemToChange.name) | \(pantryItemToChange.currentQuantity)")
+        log.info("pantryItem: \(ProfileModelController.shared.profiles![self.profileIndex].pantry[index].name) | \(ProfileModelController.shared.profiles![self.profileIndex].pantry[index].currentQuantity)")
+        
         ProfileModelController.shared.saveProfileData() //Save user data
+        */
+        
+        //Tell ShoppingList Tab to reload data with new shoppingList data
+        //NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadShoppingList"), object: ProfileModelController.shared.profiles![profileIndex].shoppingList)
+        
         log.info("ProfileModelController saved user data after updating pantryItem cells")
         //log.info("Sending profile data to connected peers because of PantryItemCell update")
         //ProfileModelController.shared.sendProfile()
