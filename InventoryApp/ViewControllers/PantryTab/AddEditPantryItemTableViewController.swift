@@ -64,14 +64,14 @@ class AddEditPantryItemTableViewController: UITableViewController {
     ///Disables save button when required data fields are left blank
     func updateSaveButtonState() {
         let nameText = nameTextField.text ?? ""
-        let categoryText = categoryLabel.text ?? "Uncategorized"
-        let locationText = locationLabel.text ?? "No Location"
+        let categoryText = categoryLabel.text ?? ""
+        let locationText = locationLabel.text ?? ""
         let quantityText = quantityTextField.text ?? ""
-        let unitsText = unitsLabel.text ?? "Units"
+        let unitsText = unitsLabel.text ?? ""
         //let commentText = commentTextField.text ?? ""
         
         //Only returns true after all fields are filled
-        saveButton.isEnabled = !nameText.isEmpty && categoryText != "Uncategorized" && locationText != "No Location" && !quantityText.isEmpty && unitsText != "Units"
+        saveButton.isEnabled = !nameText.isEmpty && categoryText != "" && locationText != "" && !quantityText.isEmpty && unitsText != ""
         
         updateDeleteButtonState()
     }

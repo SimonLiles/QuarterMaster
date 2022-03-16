@@ -40,6 +40,8 @@ class PantryPickerListTableViewController: UITableViewController {
         
         navigationItem.title = name //Sets title of view based on text passed from parent
         
+        updateSaveButtonState()
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -55,6 +57,7 @@ class PantryPickerListTableViewController: UITableViewController {
         case 0: // When user selects an item, put a checkmark next to it and return to edit menu
             selectedItem = itemNames[indexPath.row]
             tableView.reloadData()
+            updateSaveButtonState()
         case 1:
             performSegue(withIdentifier: "addNewItemSegue", sender: nil)
         default:
@@ -67,6 +70,11 @@ class PantryPickerListTableViewController: UITableViewController {
     
     
     // MARK: - Save Button functionality
+    //Updates save button state based on current value
+    func updateSaveButtonState() {
+        saveButton.isEnabled = selectedItem != ""
+    }
+    
     //Responds when save button is pressed
     @IBAction func saveButtonPressed(_ sender: UIBarButtonItem) {
         //print("save button pressed successfully")
