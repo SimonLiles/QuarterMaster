@@ -154,7 +154,11 @@ class PantryTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         //activates when search bar is used
         if isFiltering {
-            return "Searching Pantry"
+            if (filteredPantry.count <= 0) {
+                return "No Results found"
+            } else {
+                return "Searching Pantry"
+            }
         }
         
         return categories[section]

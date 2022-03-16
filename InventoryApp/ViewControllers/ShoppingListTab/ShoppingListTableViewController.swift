@@ -270,7 +270,11 @@ class ShoppingListTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         //activates when search bar is used
         if isFiltering {
-            return "Search"
+            if (filteredShoppingList.count <= 0) {
+                return "No Results found"
+            } else {
+                return "Searching Shopping List"
+            }
         }
         
         return categories[section]

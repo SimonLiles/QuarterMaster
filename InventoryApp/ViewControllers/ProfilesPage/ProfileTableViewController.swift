@@ -167,6 +167,20 @@ class ProfileTableViewController: UITableViewController {
         return profiles.count
     }
 
+    //Sets section header titles
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        //activates when search bar is used
+        if isFiltering {
+            if (filteredProfiles.count <= 0) {
+                return "No Results found"
+            } else {
+                return "Searching Profiles"
+            }
+        }
+        
+        return ""
+    }
+    
     //Configure table view cells
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "profileTableViewCell", for: indexPath)
