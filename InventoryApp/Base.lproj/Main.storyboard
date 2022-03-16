@@ -123,20 +123,20 @@
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="54.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="KiL-cZ-Bz7">
+                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="KiL-cZ-Bz7">
                                             <rect key="frame" x="20" y="11" width="374" height="32.5"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ucl-50-ePr">
-                                                    <rect key="frame" x="0.0" y="0.0" width="41.5" height="32.5"/>
+                                                    <rect key="frame" x="0.0" y="6" width="183" height="20.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Vcq-1U-WLe">
-                                                    <rect key="frame" x="189" y="0.0" width="185" height="32.5"/>
+                                                    <rect key="frame" x="191" y="0.5" width="183" height="32"/>
                                                     <subviews>
                                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="0.0" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ada-t8-tH4">
-                                                            <rect key="frame" x="0.0" y="0.0" width="48.5" height="32.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="46.5" height="32"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                             <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                                             <connections>
@@ -144,13 +144,13 @@
                                                             </connections>
                                                         </textField>
                                                         <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" horizontalCompressionResistancePriority="751" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="9.2233720368547758e+18" translatesAutoresizingMaskIntoConstraints="NO" id="8bt-ZN-Yg3">
-                                                            <rect key="frame" x="53.5" y="0.0" width="94" height="32.5"/>
+                                                            <rect key="frame" x="51.5" y="0.0" width="94" height="32"/>
                                                             <connections>
                                                                 <action selector="quantityStepped:" destination="eMp-At-Qwg" eventType="valueChanged" id="cxO-qA-SQm"/>
                                                             </connections>
                                                         </stepper>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oYw-O3-9J8">
-                                                            <rect key="frame" x="152.5" y="0.0" width="32.5" height="32.5"/>
+                                                            <rect key="frame" x="150.5" y="0.0" width="32.5" height="32"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="32.5" id="hEI-mK-xg1"/>
                                                             </constraints>
@@ -163,9 +163,6 @@
                                                             </connections>
                                                         </button>
                                                     </subviews>
-                                                    <constraints>
-                                                        <constraint firstAttribute="trailing" secondItem="oYw-O3-9J8" secondAttribute="trailing" id="pVy-W6-a6Y"/>
-                                                    </constraints>
                                                 </stackView>
                                             </subviews>
                                         </stackView>
@@ -221,7 +218,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <toolbar key="tableFooterView" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="Pln-Oz-Uan">
-                            <rect key="frame" x="0.0" y="111.5" width="414" height="44"/>
+                            <rect key="frame" x="0.0" y="112" width="414" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                             <items>
                                 <barButtonItem style="plain" systemItem="flexibleSpace" id="LU2-gL-B7P"/>
