@@ -350,7 +350,7 @@ class ShoppingListTableViewController: UITableViewController {
             //let sourceViewController = segue.source as! AddToShoppingListTableViewController
             
             //let itemsBeingAdded = sourceViewController.itemsToAdd
-            var itemsBeingAdded = AddToShoppingListTableViewController.sharedItemAdder.itemsToAdd
+            let itemsBeingAdded = AddToShoppingListTableViewController.sharedItemAdder.itemsToAdd
             
             var index = 0
             for item in itemsBeingAdded {
@@ -358,13 +358,14 @@ class ShoppingListTableViewController: UITableViewController {
                     ProfileModelController.shared.profiles![profileIndex].shoppingList[shoppingList.firstIndex(of: item)!].neededQuantity += 1
                     ProfileModelController.shared.profiles![profileIndex].shoppingList[shoppingList.firstIndex(of: item)!].lastUpdate = Date()
                     
-                    itemsBeingAdded.remove(at: index)
+                    //itemsBeingAdded.remove(at: index)
+                } else {
+                    ProfileModelController.shared.profiles![profileIndex].shoppingList.append(item)
                 }
                 
                 index += 1
             }
             
-            ProfileModelController.shared.profiles![profileIndex].shoppingList.append(contentsOf: itemsBeingAdded)
             shoppingList = ProfileModelController.shared.profiles![profileIndex].shoppingList
             
             AddToShoppingListTableViewController.sharedItemAdder.itemsToAdd = [] //Reset the array after user presses done
