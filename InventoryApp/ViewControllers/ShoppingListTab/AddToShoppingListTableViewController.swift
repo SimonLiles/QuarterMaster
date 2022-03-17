@@ -97,6 +97,33 @@ class AddToShoppingListTableViewController: UITableViewController {
       tableView.reloadData()
     }
 
+    
+    //Tracks which row is selected and then does a thing
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //let cell = tableView.dequeueReusableCell(withIdentifier: "pantryItemCell", for: indexPath) as! AddToShoppingListTableViewCell
+        
+        //Fetch model object to display in cell
+        let shoppingListItem: PantryItem
+        
+        if isFiltering {
+            shoppingListItem = filteredShoppingList[indexPath.row]
+        } else {
+            shoppingListItem = itemsCollatedByCategory[categories[indexPath.section]]![indexPath.row]
+        }
+        
+        let itemsToAddList = AddToShoppingListTableViewController.sharedItemAdder.itemsToAdd
+        
+        if(!itemsToAddList.contains(shoppingListItem)) {
+            AddToShoppingListTableViewController.sharedItemAdder.itemsToAdd.append(shoppingListItem)
+        } else {
+            let indexToRemove = AddToShoppingListTableViewController.sharedItemAdder.itemsToAdd.firstIndex(of: shoppingListItem)!
+            AddToShoppingListTableViewController.sharedItemAdder.itemsToAdd.remove(at: indexToRemove)
+        }
+        
+        tableView.reloadData()
+    }
+    
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {

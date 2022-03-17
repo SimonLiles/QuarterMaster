@@ -38,7 +38,14 @@ class AddToShoppingListTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
+        //Log that cell was selected
+        //log.info("AddToShoppingListTableViewCell selected")
+        //log.info("Selected row with \(self.shoppingListItem.name)")
+        
         // Configure the view for the selected state
+        
+        //Update check mark if selected
+        //updateCheck()
     }
     
     // Updates entities in the cell (See Mom, I can speak CS Student too!)
@@ -46,21 +53,32 @@ class AddToShoppingListTableViewCell: UITableViewCell {
         
         shoppingListItem = item
         
-        /*
+        itemNameLabel.text = item.name
+
         //Some more of my fugly code to run through an array to find an item and do a thing
         //In this case it makes items in the list have checkmarks if they are already on the shopping list
-        var index = 0
-        for item in ProfileModelController.shared.profiles![profileIndex].shoppingList {
-            if shoppingListItem == item {
+        if(!AddToShoppingListTableViewController.sharedItemAdder.itemsToAdd.isEmpty) {
+            
+            if(AddToShoppingListTableViewController.sharedItemAdder.itemsToAdd.contains(shoppingListItem)) {
                 itemIsChecked = true
-                break
             } else {
-                index += 1
+                itemIsChecked = false
             }
+            
+            /*
+            var index = 0
+            for item in AddToShoppingListTableViewController.sharedItemAdder.itemsToAdd {
+                if shoppingListItem == item {
+                    itemIsChecked = true
+                    break
+                } else {
+                    index += 1
+                }
+            }
+            */
+        } else {
+            itemIsChecked = false
         }
-         */
-        
-        itemNameLabel.text = item.name
         
         updateCheckMark()
     }
@@ -74,6 +92,49 @@ class AddToShoppingListTableViewCell: UITableViewCell {
         }
     }
     
+    /*
+    // Adds item when user taps the checkmark
+    func updateCheck() {        
+        if !itemIsChecked {
+            //Some more of my fugly code to run through an array to find an item and do a thing
+            //In this case it finds if the item is in the list already, if it is not there it will append
+            var index = 0
+            for item in ProfileModelController.shared.profiles![profileIndex].shoppingList {
+                if shoppingListItem == item {
+                    break
+                } else {
+                    index += 1
+                }
+            }
+
+            //Code to run through button states
+            itemIsChecked = true
+            updateCheckMark()
+            update(with: shoppingListItem)
+            
+            AddToShoppingListTableViewController.sharedItemAdder.itemsToAdd.append(shoppingListItem)
+            
+        } else {
+            //Some more of my fugly code to run through an array to find an item and do a thing
+            //In this case it finds where the item is in the array
+            var index = 0
+            for item in AddToShoppingListTableViewController.sharedItemAdder.itemsToAdd {
+                if shoppingListItem == item {
+                    break
+                } else {
+                    index += 1
+                }
+            }
+            
+            AddToShoppingListTableViewController.sharedItemAdder.itemsToAdd.remove(at: index)
+            itemIsChecked = false
+            updateCheckMark()
+            update(with: shoppingListItem)
+        }
+    }
+    */
+    
+    /*
     // Adds item when user taps the checkmark
     @IBAction func itemChecked(_ sender: UIButton) {
         //AddToShoppingListTableViewController().itemsToAdd.append(shoppingListItem)
@@ -115,4 +176,5 @@ class AddToShoppingListTableViewCell: UITableViewCell {
             update(with: shoppingListItem)
         }
     }
+    */
 }

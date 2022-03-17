@@ -218,7 +218,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <toolbar key="tableFooterView" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="Pln-Oz-Uan">
-                            <rect key="frame" x="0.0" y="112" width="414" height="44"/>
+                            <rect key="frame" x="0.0" y="111.5" width="414" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                             <items>
                                 <barButtonItem style="plain" systemItem="flexibleSpace" id="LU2-gL-B7P"/>
@@ -249,9 +249,6 @@
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1bZ-Le-L9w">
                                                     <rect key="frame" x="343" y="0.0" width="31" height="22.5"/>
                                                     <state key="normal" title="+" image="circle" catalog="system"/>
-                                                    <connections>
-                                                        <action selector="itemChecked:" destination="Ta1-99-baA" eventType="touchUpInside" id="ufF-vN-1Ni"/>
-                                                    </connections>
                                                 </button>
                                             </subviews>
                                         </stackView>
