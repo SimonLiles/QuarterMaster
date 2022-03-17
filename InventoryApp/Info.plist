@@ -28,7 +28,7 @@
 		<string>_qnt-pantryshare._udp</string>
 	</array>
 	<key>Privacy - Local Network Usage Description</key>
-	<string>Local Area network used to share user selected data with approved nearby devices. </string>
+	<string>Local Area network used to share user selected data with user approved peers. Data is automatically synced with user approved peers. </string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
