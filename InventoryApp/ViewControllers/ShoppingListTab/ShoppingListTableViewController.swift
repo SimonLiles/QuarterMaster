@@ -125,8 +125,6 @@ class ShoppingListTableViewController: UITableViewController {
         
         let shoppingDoneAlert = UIAlertController(title: "Done Shopping?", message: shoppingListAlertMessage, preferredStyle: .actionSheet)
         
-        var pantry = userData.profiles![profileIndex].pantry
-
         //Initialize Actions for action sheet
         
         //Remove Items with a check and add their quantity to the pantry
