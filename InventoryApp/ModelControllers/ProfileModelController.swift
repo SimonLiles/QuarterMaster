@@ -97,12 +97,65 @@ class ProfileModelController {
         
         return units
     }
+    
+    //MARK: - Data Movement
+    func updatePantryFromShoppingList() {
+        let profileIndex = userData.selectedIndex
+        lazy var pantry = userData.profiles![profileIndex].pantry
+        lazy var shoppingList = userData.profiles![profileIndex].shoppingList
+        
+        // Run through shopping list array, if Item has a check mark, then add quantity to respective pantryItem
+        var index = 0
+        for item in shoppingList {
+            if item.purchaseStatus == .bought {
+                //Run through pantry array to find corresponding item and add neededQuantity to currentQuantity
+                let pantryIndex = pantry.firstIndex(of: item) ?? 0
+                
+                //let pantry = userData.profiles![profileIndex].pantry
+                /*
+                log.info("profileIndex = \(profileIndex)")
+                log.info("index = \(index)")
+                log.info("pantryIndex = \(pantryIndex)")
+                log.info("shoppingListItem: \(item.name) | \(item.neededQuantity)")
+                */
+                
+                
+                pantry[pantryIndex].currentQuantity += item.neededQuantity //Add quantity to pantry item
+                pantry[pantryIndex].neededQuantity = 1 //Reset needed quanity for pantry item
+                pantry[pantryIndex].purchaseStatus = .toBuy
+                pantry[pantryIndex].lastUpdate = Date()
+                
+                shoppingList.remove(at: index) //Remove item from shoppingList
+            } else {
+                index += 1
+            }
+        }
+        
+        //Set shoppingListLastClear
+        userData.profiles![profileIndex].shoppingListLastClear = Date()
+        log.info("Shopping List Last Clear was:  \(userData.profiles![profileIndex].shoppingListLastClear.description)")
+        
+        userData.profiles![profileIndex].pantry = pantry
+        userData.profiles![profileIndex].shoppingList = shoppingList
+
+        //Save data
+        userData.saveProfileData()
+        log.info("ProfileModelController saved user data after clearing completed items from shopping list")
+        
+        
+        //Reload tableViews for shoppingList and pantry tabs
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadPantry"), object: userData.profiles![profileIndex].pantry)
+        
+        //Reload tableViews for shoppingList and pantry tabs
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadShoppingList"), object: userData.profiles![profileIndex].shoppingList)
+
+    }
 
     //MARK: - P2P Services
     
     //Send specific data
     func sendProfile() {
-        guard let encodedProfile = ProfileModelController.shared.profiles![selectedIndex].encode() else { return }
+        guard let encodedProfile = userData.profiles![selectedIndex].encode() else { return }
         
         MultipeerSession.instance.send(data: encodedProfile)
     }
@@ -322,7 +375,7 @@ class ProfileModelController {
                 log.info("updateMerge found possible changes")
                 log.info("updateMerge sending current data to peers for merging")
 
-                ProfileModelController.shared.sendProfile()
+                userData.sendProfile()
             }
             
             log.info("***** updateMerge finished. Now returning updated Profile *****")

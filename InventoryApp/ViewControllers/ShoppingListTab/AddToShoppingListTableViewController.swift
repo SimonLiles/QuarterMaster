@@ -23,7 +23,7 @@ class AddToShoppingListTableViewController: UITableViewController {
     // MARK: - Constants and Variables
     static let sharedItemAdder = AddToShoppingListTableViewController()
     
-    var profileIndex = ProfileModelController.shared.selectedIndex
+    var profileIndex = userData.selectedIndex
     
     var availableItems: [PantryItem] = []
     
@@ -60,8 +60,8 @@ class AddToShoppingListTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
                 
-        profileIndex = ProfileModelController.shared.selectedIndex
-        availableItems = ProfileModelController.shared.profiles![profileIndex].pantry //Makes available items equal to the current pantry
+        profileIndex = userData.selectedIndex
+        availableItems = userData.profiles![profileIndex].pantry //Makes available items equal to the current pantry
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false

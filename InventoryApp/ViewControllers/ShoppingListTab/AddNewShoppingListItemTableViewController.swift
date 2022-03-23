@@ -28,7 +28,7 @@ class AddNewShoppingListItemTableViewController: UITableViewController {
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
     // MARK: - Variables and Constants
-    var profileIndex = ProfileModelController.shared.selectedIndex
+    var profileIndex = userData.selectedIndex
     
     var shoppingListItem: PantryItem = PantryItem(name: "", category: "", location: "", currentQuantity: 0, units: "", note: "", lastUpdate: Date())
     
@@ -43,7 +43,7 @@ class AddNewShoppingListItemTableViewController: UITableViewController {
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
         
-        profileIndex = ProfileModelController.shared.selectedIndex
+        profileIndex = userData.selectedIndex
         
         shoppingListItem.neededQuantity = 1
         
@@ -116,16 +116,16 @@ class AddNewShoppingListItemTableViewController: UITableViewController {
             //determine which array to open a picker for
             switch indexPath.section {
             case 1: //Category Section
-                items = ProfileModelController.shared.getCategories()
+                items = userData.getCategories()
                 currentItem = shoppingListItem.category
                 typeName = "Category"
             case 2: //Location Section
                 //Pull locations out of the Pantry model controller
-                items = ProfileModelController.shared.getLocations()
+                items = userData.getLocations()
                 currentItem = shoppingListItem.location
                 typeName = "Location"
             case 3: //Units section
-                items = ProfileModelController.shared.getUnits()
+                items = userData.getUnits()
                 currentItem = shoppingListItem.units
                 typeName = "Units"
             default:

@@ -28,7 +28,7 @@ class EditProfileTableViewController: UITableViewController {
     @IBOutlet weak var sendDataButton: UIButton!
     
     // MARK: - Variables and Constants
-    var profileIndex = ProfileModelController.shared.selectedIndex
+    var profileIndex = userData.selectedIndex
     
     var profile = Profile(name: "", pantry: [], shoppingList: [])
         
@@ -49,8 +49,8 @@ class EditProfileTableViewController: UITableViewController {
         descriptionTextView.layer.cornerRadius = 5
         descriptionTextView.layer.borderColor = UIColor.opaqueSeparator.cgColor
         
-        profileIndex = ProfileModelController.shared.selectedIndex
-        profile = ProfileModelController.shared.profiles![profileIndex]
+        profileIndex = userData.selectedIndex
+        profile = userData.profiles![profileIndex]
         
         if !profile.name.isEmpty {
             profileNameTextField.text = profile.name
@@ -66,15 +66,15 @@ class EditProfileTableViewController: UITableViewController {
         // self.clearsSelectionOnViewWillAppear = false
 
         //Send data to any connected peers
-        ProfileModelController.shared.profiles![profileIndex].versionTimeStamp = Date()
-        ProfileModelController.shared.saveProfileData()
+        userData.profiles![profileIndex].versionTimeStamp = Date()
+        userData.saveProfileData()
         log.info("ProfileModelController saved user data before sending data to conected peers")
-        ProfileModelController.shared.sendProfile()
+        userData.sendProfile()
     }
     
     //Called when a notification is received for reloadTable
     @objc func reloadTable(notification: NSNotification) {
-        profile = ProfileModelController.shared.profiles![profileIndex]
+        profile = userData.profiles![profileIndex]
         
         tableView.reloadData()
     }
@@ -113,17 +113,17 @@ class EditProfileTableViewController: UITableViewController {
             self.profile.name = self.profileNameTextField.text ?? "Unnamed"
             self.profile.description = self.descriptionTextView.text ?? ""
             
-            ProfileModelController.shared.profiles![self.profileIndex] = self.profile
+            userData.profiles![self.profileIndex] = self.profile
             
             //Save model controller data
-            ProfileModelController.shared.saveProfileData()
+            userData.saveProfileData()
             self.log.info("ProfileModelController saved user data after saving edited profile data")
             
             //Reload the data
             self.tableView.reloadData()
             
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadProfiles"), object: ProfileModelController.shared.profiles!)
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadProfileNavBar"), object: ProfileModelController.shared.profiles!)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadProfiles"), object: userData.profiles!)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadProfileNavBar"), object: userData.profiles!)
 
         })
         
@@ -154,10 +154,10 @@ class EditProfileTableViewController: UITableViewController {
     @IBAction func sendButtonPressed(_ sender: UIButton) {
         log.info("sendButton Pressed")
         //Send data to any connected peers
-        ProfileModelController.shared.profiles![profileIndex].versionTimeStamp = Date()
-        ProfileModelController.shared.saveProfileData()
+        userData.profiles![profileIndex].versionTimeStamp = Date()
+        userData.saveProfileData()
         log.info("ProfileModelController saved user data before sending data to conected peers")
-        ProfileModelController.shared.sendProfile()
+        userData.sendProfile()
         
         let sendAlertTitle = "Sending Data to Connected Peers"
         let sendAlertMessage = "Sending Profile: \(profile.name) data to all connected peers"

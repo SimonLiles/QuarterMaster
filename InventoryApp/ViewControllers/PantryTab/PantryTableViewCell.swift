@@ -21,7 +21,7 @@ class PantryTableViewCell: UITableViewCell {
     
     // MARK: - Variables & Constants
     
-    let profileIndex = ProfileModelController.shared.selectedIndex
+    let profileIndex = userData.selectedIndex
     
     //creates empty PantryItem object to later fill
     var pantryItem1 = PantryItem(name: "", category: "", location: "", currentQuantity: 0, units: "", note: "", lastUpdate: Date())
@@ -64,15 +64,15 @@ class PantryTableViewCell: UITableViewCell {
         
         //Somehow this works,
         //need it to keep index out range error from occuring when pantry is empty
-        guard ProfileModelController.shared.profiles![profileIndex].pantry.endIndex != 0 else { return }
+        guard userData.profiles![profileIndex].pantry.endIndex != 0 else { return }
         
         //Update model object data
         //Ugly code to update a specific item from the array
         let pantryItemToChange = pantryItem1
         
-        let index = ProfileModelController.shared.profiles![profileIndex].pantry.firstIndex(of: pantryItemToChange) ?? 0
+        let index = userData.profiles![profileIndex].pantry.firstIndex(of: pantryItemToChange) ?? 0
         /*
-        for item in ProfileModelController.shared.profiles![profileIndex].pantry {
+        for item in userData.profiles![profileIndex].pantry {
             if pantryItemToChange == item {
                 break
             } else {
@@ -82,23 +82,32 @@ class PantryTableViewCell: UITableViewCell {
         */
         
         //PantryModelController.shared.pantry![index] = pantryItemToChange
-        ProfileModelController.shared.profiles![profileIndex].pantry[index] = pantryItemToChange
+        userData.profiles![profileIndex].pantry[index] = pantryItemToChange
+        
+        //Update corresponding item in shoppingList if item exists there
+        if (userData.profiles![profileIndex].shoppingList.contains(pantryItemToChange)) {
+            let shoppingListIndex = userData.profiles![profileIndex].shoppingList.firstIndex(of: pantryItemToChange) ?? 0
+            
+            userData.profiles![profileIndex].shoppingList[shoppingListIndex] = pantryItemToChange
+            userData.profiles![profileIndex].shoppingList[shoppingListIndex].lastUpdate = Date()
+        }
         
         /*
         log.info("profileIndex = \(self.profileIndex)")
         log.info("index = \(index)")
         log.info("itemInCell: \(pantryItemToChange.name) | \(pantryItemToChange.currentQuantity)")
-        log.info("pantryItem: \(ProfileModelController.shared.profiles![self.profileIndex].pantry[index].name) | \(ProfileModelController.shared.profiles![self.profileIndex].pantry[index].currentQuantity)")
+        log.info("pantryItem: \(userData.profiles![self.profileIndex].pantry[index].name) | \(userData.profiles![self.profileIndex].pantry[index].currentQuantity)")
         
-        ProfileModelController.shared.saveProfileData() //Save user data
+        userData.saveProfileData() //Save user data
         */
         
         //Tell ShoppingList Tab to reload data with new shoppingList data
-        //NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadShoppingList"), object: ProfileModelController.shared.profiles![profileIndex].shoppingList)
-        
-        log.info("ProfileModelController saved user data after updating pantryItem cells")
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadShoppingList"), object: userData.profiles![profileIndex].shoppingList)
+        let pantry = userData.profiles![profileIndex].pantry
+
+        //log.info("ProfileModelController saved user data after updating pantryItem cells")
         //log.info("Sending profile data to connected peers because of PantryItemCell update")
-        //ProfileModelController.shared.sendProfile()
+        //userData.sendProfile()
     }
 
     // MARK: - IBActions
@@ -109,6 +118,12 @@ class PantryTableViewCell: UITableViewCell {
         
         pantryItem1.lastUpdate = Date()
 
+        //let pantryItemToChange = pantryItem1
+        
+        //let index = userData.profiles![profileIndex].pantry.firstIndex(of: pantryItemToChange) ?? 0
+        
+        //userData.profiles![profileIndex].pantry[index] = pantryItemToChange
+        
         update(with: pantryItem1, at: indexpath)
     }
     

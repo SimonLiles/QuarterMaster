@@ -10,7 +10,9 @@ import UIKit
 
 import os
 
-let log = Logger() //Global declaration for logging object. 
+let log = Logger() //Global declaration for logging object.
+
+let userData = ProfileModelController() //Global object for holding all user data
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

@@ -31,7 +31,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // The scene may re-connect later, as its session was not neccessarily discarded (see `application:didDiscardSceneSessions` instead).
         
         //Save app data to disk while disconecting
-        ProfileModelController.shared.saveProfileData()
+        userData.saveProfileData()
         log.info("ProfileModelController data saved while disconnecting")
 
     }
@@ -46,7 +46,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This may occur due to temporary interruptions (ex. an incoming phone call).
         
         //Save app data to disk while moving from active state to inactive
-        ProfileModelController.shared.saveProfileData()
+        userData.saveProfileData()
         log.info("ProfileModelController data saved while moving from active state to inactive")
     }
 
@@ -61,7 +61,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
         
         //Save app data to disk while entering Background
-        ProfileModelController.shared.saveProfileData()
+        userData.saveProfileData()
         log.info("ProfileModelController data saved while entering background") //debug save state
 
     }

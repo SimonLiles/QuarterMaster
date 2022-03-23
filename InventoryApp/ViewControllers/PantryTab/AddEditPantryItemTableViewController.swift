@@ -154,16 +154,16 @@ class AddEditPantryItemTableViewController: UITableViewController {
             //determine which array to open a picker for
             switch indexPath.section {
             case 1: //Category Section
-                items = ProfileModelController.shared.getCategories()
+                items = userData.getCategories()
                 currentItem = pantryItem.category
                 typeName = "Category"
             case 2: //Location Section
                 //Pull locations out of the Pantry model controller
-                items = ProfileModelController.shared.getLocations()
+                items = userData.getLocations()
                 currentItem = pantryItem.location
                 typeName = "Location"
             case 3: //Units section
-                items = ProfileModelController.shared.getUnits()
+                items = userData.getUnits()
                 currentItem = pantryItem.units
                 typeName = "Units"
             default:

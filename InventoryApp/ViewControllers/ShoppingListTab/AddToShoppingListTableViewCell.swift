@@ -17,7 +17,7 @@ class AddToShoppingListTableViewCell: UITableViewCell {
     @IBOutlet weak var checkMarkButton: UIButton!
     
     // MARK: - Constants and Variables
-    let profileIndex = ProfileModelController.shared.selectedIndex
+    let profileIndex = userData.selectedIndex
     
     var shoppingListItem: PantryItem = PantryItem(name: "", category: "", location: "", currentQuantity: 0, units: "", note: "", lastUpdate: Date())
     
@@ -99,7 +99,7 @@ class AddToShoppingListTableViewCell: UITableViewCell {
             //Some more of my fugly code to run through an array to find an item and do a thing
             //In this case it finds if the item is in the list already, if it is not there it will append
             var index = 0
-            for item in ProfileModelController.shared.profiles![profileIndex].shoppingList {
+            for item in userData.profiles![profileIndex].shoppingList {
                 if shoppingListItem == item {
                     break
                 } else {
@@ -143,7 +143,7 @@ class AddToShoppingListTableViewCell: UITableViewCell {
             //Some more of my fugly code to run through an array to find an item and do a thing
             //In this case it finds if the item is in the list already, if it is not there it will append
             var index = 0
-            for item in ProfileModelController.shared.profiles![profileIndex].shoppingList {
+            for item in userData.profiles![profileIndex].shoppingList {
                 if shoppingListItem == item {
                     break
                 } else {

@@ -59,7 +59,7 @@ class NewProfileTableViewController: UITableViewController {
         let testProfile = Profile(name: nameText, pantry: [], shoppingList: [])
         
         //Check if new profile is unique
-        if(ProfileModelController.shared.profiles!.contains(testProfile)) {
+        if(userData.profiles!.contains(testProfile)) {
             saveButton.isEnabled = false
             
             return
@@ -84,10 +84,10 @@ class NewProfileTableViewController: UITableViewController {
         profile.name = profileNameTextField.text ?? "Unnamed Vessel"
         profile.description = descriptionTextView.text ?? ""
         
-        ProfileModelController.shared.profiles!.append(profile)
+        userData.profiles!.append(profile)
                             
         //Save model controller data
-        ProfileModelController.shared.saveProfileData()
+        userData.saveProfileData()
         log.info("Profile Model Controller saved data after saving new profile")
                             
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadProfiles"), object: nil)

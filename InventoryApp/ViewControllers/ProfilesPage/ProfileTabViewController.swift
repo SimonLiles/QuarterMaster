@@ -17,7 +17,7 @@ class ProfileTabViewController: UITabBarController {
     //Intake for profile to be used
     var profile: Profile = Profile(name: "", pantry: [], shoppingList: [])
     
-    var profileIndex = ProfileModelController.shared.selectedIndex
+    var profileIndex = userData.selectedIndex
     
     //Object to collect and store logs.
     let log = Logger()
@@ -25,8 +25,8 @@ class ProfileTabViewController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        profileIndex = ProfileModelController.shared.selectedIndex
-        profile = ProfileModelController.shared.profiles![profileIndex]
+        profileIndex = userData.selectedIndex
+        profile = userData.profiles![profileIndex]
         
         //Initializes Notification observers to listen for updates from other view controllers
         
@@ -42,7 +42,7 @@ class ProfileTabViewController: UITabBarController {
     //Called when a notification is received for reloadTable
     @objc func reloadView(notification: NSNotification) {
         
-        navigationItem.title = ProfileModelController.shared.profiles![profileIndex].name        
+        navigationItem.title = userData.profiles![profileIndex].name        
         
     }
     
@@ -60,11 +60,11 @@ class ProfileTabViewController: UITabBarController {
             
             /*
             //Send current device copy of data, if received data does not match
-            if(receivedData! != ProfileModelController.shared.profiles![ProfileModelController.shared.selectedIndex].encode()) {
+            if(receivedData! != userData.profiles![userData.selectedIndex].encode()) {
                 log.info("ProfileTabViewController responding to new receivedData")
                 log.info("receivedData did NOT match current data")
                 log.info("ProfileTabViewController sending current data in response")
-                ProfileModelController.shared.sendProfile()
+                userData.sendProfile()
             } else {
                 log.info("ProfileTabViewController responding to new receivedData")
                 log.info("receivedData did match current data")
@@ -74,17 +74,17 @@ class ProfileTabViewController: UITabBarController {
             self.log.info("New Data Finished decoding")
             
             //Update user data
-            let currentProfile = ProfileModelController.shared.profiles![profileIndex]
+            let currentProfile = userData.profiles![profileIndex]
             
             //If there is a slot to update into, push the updated data
-            if (ProfileModelController.shared.shouldUpdate(currentData: currentProfile, receivedData: newProfile)) {
+            if (userData.shouldUpdate(currentData: currentProfile, receivedData: newProfile)) {
                 //This code produces duplicate efforts that in certain cases breaks everything
                 //newProfile = ProfileModelController().updateMerge(currentData: currentProfile, receivedData: newProfile)
-                //ProfileModelController.shared.profiles![profileIndex] = newProfile
+                //userData.profiles![profileIndex] = newProfile
             } else {
                 //Check if there is a slot for the data to be fed into, if so, fill that slot
                 var index = 0
-                for profile in ProfileModelController.shared.profiles! {
+                for profile in userData.profiles! {
                     if (newProfile == profile) {
                         break
                     }
@@ -92,7 +92,7 @@ class ProfileTabViewController: UITabBarController {
                     index += 1
                 }
                 
-                if(index >= ProfileModelController.shared.profiles!.endIndex) {
+                if(index >= userData.profiles!.endIndex) {
                     //Ask if user wants to accept a new profile
                     //Create the alert
                     let alertTitle = "New profile invite"
@@ -102,7 +102,7 @@ class ProfileTabViewController: UITabBarController {
 
                     let acceptAction = UIAlertAction(title: "Accept", style: .default, handler: { action in
                         self.log.info("User chose accept action")
-                        ProfileModelController.shared.profiles!.append(newProfile)
+                        userData.profiles!.append(newProfile)
                     })
                     
                     newProfileAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -114,10 +114,10 @@ class ProfileTabViewController: UITabBarController {
             }
             */
             //Update all views that display shareable data
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadPantry"), object: ProfileModelController.shared.profiles![self.profileIndex].pantry)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadPantry"), object: userData.profiles![self.profileIndex].pantry)
             log.info("Notification for 'reloadPantrys' sent")
             
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadShoppingList"), object: ProfileModelController.shared.profiles![profileIndex].shoppingList)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadShoppingList"), object: userData.profiles![profileIndex].shoppingList)
             log.info("Notification for 'reloadShoppingList' sent")
         }
         

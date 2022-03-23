@@ -336,7 +336,7 @@ extension MultipeerSession: MCSessionDelegate {
             foundPeers[peerID] = "Connected"
             
             //Send selected profile data to peers when connected
-            //ProfileModelController.shared.sendProfile()
+            //userData.sendProfile()
             
         case MCSessionState.connecting:
             log.info("Connecting: \(peerID.displayName, privacy: .private)")

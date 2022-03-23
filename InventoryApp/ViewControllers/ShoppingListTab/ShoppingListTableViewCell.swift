@@ -19,7 +19,7 @@ class ShoppingListTableViewCell: UITableViewCell {
     @IBOutlet weak var statusButton: UIButton!
     
     // MARK: - Variables and Constants
-    let profileIndex = ProfileModelController.shared.selectedIndex
+    let profileIndex = userData.selectedIndex
     
     var item: PantryItem = PantryItem(name: "", category: "", location: "", currentQuantity: 0, units: "", note: "", lastUpdate: Date())
     
@@ -84,29 +84,29 @@ class ShoppingListTableViewCell: UITableViewCell {
         let itemToChange = item
         
         var index = 0
-        for item in ProfileModelController.shared.profiles![profileIndex].shoppingList {
+        for item in userData.profiles![profileIndex].shoppingList {
             if itemToChange == item {
                 break
             } else {
                 index += 1
             }
         }
-        ProfileModelController.shared.profiles![profileIndex].shoppingList[index] = itemToChange
+        userData.profiles![profileIndex].shoppingList[index] = itemToChange
         
         //Update pantry purchase statuses
         //let pantryItemToChange = item
         var pantryIndex = 0
-        for item in ProfileModelController.shared.profiles![profileIndex].pantry {
+        for item in userData.profiles![profileIndex].pantry {
             if itemToChange == item {
                 break
             } else {
                 pantryIndex += 1
             }
         }
-        ProfileModelController.shared.profiles![profileIndex].pantry[pantryIndex] = itemToChange
+        userData.profiles![profileIndex].pantry[pantryIndex] = itemToChange
         
         //log.info("Sending profile data to connected peers because of ShoppingListItemCell update")
-        //ProfileModelController.shared.sendProfile()
+        //userData.sendProfile()
     }
     
     // MARK: - IBActions
@@ -163,26 +163,26 @@ class ShoppingListTableViewCell: UITableViewCell {
         let itemToChange = item
         
         var index = 0
-        for item in ProfileModelController.shared.profiles![profileIndex].shoppingList {
+        for item in userData.profiles![profileIndex].shoppingList {
             if itemToChange == item {
                 break
             } else {
                 index += 1
             }
         }
-        ProfileModelController.shared.profiles![profileIndex].shoppingList[index] = itemToChange
+        userData.profiles![profileIndex].shoppingList[index] = itemToChange
         
         //Update pantry purchase statuses
         //let pantryItemToChange = item
         var pantryIndex = 0
-        for item in ProfileModelController.shared.profiles![profileIndex].pantry {
+        for item in userData.profiles![profileIndex].pantry {
             if itemToChange == item {
                 break
             } else {
                 pantryIndex += 1
             }
         }
-        ProfileModelController.shared.profiles![profileIndex].pantry[pantryIndex] = itemToChange
+        userData.profiles![profileIndex].pantry[pantryIndex] = itemToChange
         
         update(with: item, at: indexPath)
     }

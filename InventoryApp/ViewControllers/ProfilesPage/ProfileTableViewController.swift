@@ -40,13 +40,13 @@ class ProfileTableViewController: UITableViewController {
 
         //Initialize user data on start up
         if let savedProfiles = ProfileModelController().loadProfileData() {
-            ProfileModelController.shared.profiles = savedProfiles
+            userData.profiles = savedProfiles
         } else {
-            ProfileModelController.shared.profiles = ProfileModelController().loadSampleProfile()
-            profiles = ProfileModelController.shared.profiles!
+            userData.profiles = ProfileModelController().loadSampleProfile()
+            profiles = userData.profiles!
         }
         
-        profiles = ProfileModelController.shared.profiles!
+        profiles = userData.profiles!
         
         //Initialization of Search Bar
         searchController.searchResultsUpdater = self
@@ -69,8 +69,8 @@ class ProfileTableViewController: UITableViewController {
     
     //Called when a notification is received for reloadTable
     @objc func reloadTable(notification: NSNotification) {
-        profiles = ProfileModelController.shared.profiles!
-        ProfileModelController.shared.selectedIndex = 0
+        profiles = userData.profiles!
+        userData.selectedIndex = 0
         
         tableView.reloadData()
     }
@@ -101,11 +101,11 @@ class ProfileTableViewController: UITableViewController {
             }
                         
             if (profiles.contains(newProfile)) {
-                let currentProfile = ProfileModelController.shared.profiles![index]
+                let currentProfile = userData.profiles![index]
                 
-                if (ProfileModelController.shared.shouldUpdate(currentData: currentProfile, receivedData: newProfile)) {
+                if (userData.shouldUpdate(currentData: currentProfile, receivedData: newProfile)) {
                     newProfile = ProfileModelController().updateMerge(currentData: currentProfile, receivedData: newProfile)
-                    ProfileModelController.shared.profiles![index] = newProfile
+                    userData.profiles![index] = newProfile
                     tableView.reloadData()
                 }
             } else {
@@ -120,8 +120,8 @@ class ProfileTableViewController: UITableViewController {
                     self.log.info("User chose accept action")
                     //newProfile.name = "\(newProfile.originalAuthor): \(newProfile.name)"
                     self.log.info("Appending profile from: \n\(newProfile.originalAuthor)")
-                    ProfileModelController.shared.profiles!.append(newProfile)
-                    self.profiles = ProfileModelController.shared.profiles!
+                    userData.profiles!.append(newProfile)
+                    self.profiles = userData.profiles!
                     self.tableView.reloadData()
                 })
                 
@@ -132,7 +132,7 @@ class ProfileTableViewController: UITableViewController {
                 present(newProfileAlert, animated: true)
             }
             
-            profiles = ProfileModelController.shared.profiles!
+            profiles = userData.profiles!
             tableView.reloadData()
         }
     }
@@ -248,7 +248,7 @@ class ProfileTableViewController: UITableViewController {
             if isFiltering {
                 log.info("ProfileTableView is Filtering ")
                 let selectedProfile = filteredProfiles[indexPath.row]
-                for profile in ProfileModelController.shared.profiles! {
+                for profile in userData.profiles! {
                     if selectedProfile.name == profile.name {
                         break
                     } else {
@@ -263,9 +263,9 @@ class ProfileTableViewController: UITableViewController {
             
             log.info("selectedIndex = \(String(selectedIndex))")
             
-            ProfileModelController.shared.selectedIndex = selectedIndex
+            userData.selectedIndex = selectedIndex
             
-            log.info("ProfileModelController.shared.selectedIndex = \(String(ProfileModelController.shared.selectedIndex))")
+            log.info("userData.selectedIndex = \(String(userData.selectedIndex))")
         }
     }
     
@@ -274,9 +274,9 @@ class ProfileTableViewController: UITableViewController {
             if let selectedIndexPath = tableView.indexPathForSelectedRow {
                 
                 //Ugly code to remove a specific item from the array
-                let profileToRemove = ProfileModelController.shared.profiles![selectedIndexPath.row]
+                let profileToRemove = userData.profiles![selectedIndexPath.row]
                 var index = 0
-                for profile in ProfileModelController.shared.profiles! {
+                for profile in userData.profiles! {
                     //Used profile name as an identifier, assuming generally user does not have 2 of same pantry item
                     if profileToRemove.name == profile.name {
                         break //If pantryItemToRemove matches the item, break out of the loop
@@ -285,14 +285,14 @@ class ProfileTableViewController: UITableViewController {
                     }
                 }
                 
-                ProfileModelController.shared.profiles!.remove(at: index) //remove item from profile list
+                userData.profiles!.remove(at: index) //remove item from profile list
                 
-                profiles = ProfileModelController.shared.profiles! //Reset tableView data source
+                profiles = userData.profiles! //Reset tableView data source
                 
                 tableView.reloadData() //reload table to reflect deleted item
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadProfiles"), object: nil) //DOUBLE RELOAD!!! cuz why not?
                 
-                ProfileModelController.shared.saveProfileData() //Save profile data
+                userData.saveProfileData() //Save profile data
                 log.info("ProfileModelController saved data after exiting to ProfileTableView")
             }
         }
