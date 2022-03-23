@@ -76,9 +76,6 @@ class PantryTableViewController: UITableViewController {
         //Initializes Notification observer to listen for updates from other view controllers
         NotificationCenter.default.addObserver(self, selector: #selector(reloadTable), name: NSNotification.Name(rawValue: "reloadPantry"), object: nil)
         
-        //Initializes Notification observer to listen for updates from other view controllers
-        NotificationCenter.default.addObserver(self, selector: #selector(addFromShoppingList), name: NSNotification.Name(rawValue: "addFromShoppingList"), object: nil)
-                
         //Initializes profile data on start up
         profileIndex = userData.selectedIndex
         pantry = userData.profiles![profileIndex].pantry
@@ -117,49 +114,7 @@ class PantryTableViewController: UITableViewController {
         
         tableView.reloadData()
     }
-    
-    //Called when a notification is received for addFromShoppingList
-    @objc func addFromShoppingList(notification: NSNotification) {
-        log.info("Adding .bought items from shopping list")
-        
-        // Run through shopping list array, if Item has a check mark, then add quantity to respective pantryItem
-        var index = 0
-        for item in userData.profiles![profileIndex].shoppingList {
-            if item.purchaseStatus == .bought {
-                //Run through pantry array to find corresponding item and add neededQuantity to currentQuantity
-                let pantryIndex = userData.profiles![profileIndex].pantry.firstIndex(of: item) ?? 0
-                
-                /*
-                let pantry = userData.profiles![profileIndex].pantry
-                
-                log.info("profileIndex = \(profileIndex)")
-                log.info("index = \(index)")
-                log.info("pantryIndex = \(pantryIndex)")
-                log.info("shoppingListItem: \(item.name) | \(item.neededQuantity)")
-                */
-                
-                userData.profiles![profileIndex].pantry[pantryIndex].currentQuantity += item.neededQuantity //Add quantity to pantry item
-                userData.profiles![profileIndex].pantry[pantryIndex].neededQuantity = 1 //Reset needed quanity for pantry item
-                userData.profiles![profileIndex].pantry[pantryIndex].purchaseStatus = .toBuy
-                userData.profiles![profileIndex].pantry[pantryIndex].lastUpdate = Date()
-                
-                userData.profiles![profileIndex].shoppingList.remove(at: index)
-            } else {
-                index += 1
-            }
-        }
-        
-        //Reload tableViews for shoppingList
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadShoppingList"), object: userData.profiles![profileIndex].shoppingList)
-        
-        tableView.reloadData()
-        
-        //Save data
-        userData.saveProfileData()
-        log.info("ProfileModelController saved user data after clearing completed items from shopping list from addFromShoppingList in PantryTableViewController")
-    }
-    
-
+ 
     // MARK: - Search Bar Functionality
     
     //Function to filter for search results
