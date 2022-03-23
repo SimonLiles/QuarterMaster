@@ -71,15 +71,6 @@ class PantryTableViewCell: UITableViewCell {
         let pantryItemToChange = pantryItem1
         
         let index = userData.profiles![profileIndex].pantry.firstIndex(of: pantryItemToChange) ?? 0
-        /*
-        for item in userData.profiles![profileIndex].pantry {
-            if pantryItemToChange == item {
-                break
-            } else {
-                index += 1
-            }
-        }
-        */
         
         //PantryModelController.shared.pantry![index] = pantryItemToChange
         userData.profiles![profileIndex].pantry[index] = pantryItemToChange
@@ -92,18 +83,8 @@ class PantryTableViewCell: UITableViewCell {
             userData.profiles![profileIndex].shoppingList[shoppingListIndex].lastUpdate = Date()
         }
         
-        /*
-        log.info("profileIndex = \(self.profileIndex)")
-        log.info("index = \(index)")
-        log.info("itemInCell: \(pantryItemToChange.name) | \(pantryItemToChange.currentQuantity)")
-        log.info("pantryItem: \(userData.profiles![self.profileIndex].pantry[index].name) | \(userData.profiles![self.profileIndex].pantry[index].currentQuantity)")
-        
-        userData.saveProfileData() //Save user data
-        */
-        
         //Tell ShoppingList Tab to reload data with new shoppingList data
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadShoppingList"), object: userData.profiles![profileIndex].shoppingList)
-        let pantry = userData.profiles![profileIndex].pantry
 
         //log.info("ProfileModelController saved user data after updating pantryItem cells")
         //log.info("Sending profile data to connected peers because of PantryItemCell update")
