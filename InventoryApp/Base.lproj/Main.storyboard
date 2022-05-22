@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="A9y-J9-4T6">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="A9y-J9-4T6">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -94,7 +94,7 @@
                             <outlet property="delegate" destination="5ba-ys-C6Y" id="dtD-bO-LGq"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Pantry" largeTitleDisplayMode="always" id="8LK-nr-FB2">
+                    <navigationItem key="navigationItem" title="Inventory" largeTitleDisplayMode="always" id="8LK-nr-FB2">
                         <barButtonItem key="backBarButtonItem" title="Pantry" id="NNt-BC-Kdf"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="x4T-Yy-Ixu">
                             <connections>
@@ -1159,11 +1159,11 @@
             </objects>
             <point key="canvasLocation" x="1793" y="-145"/>
         </scene>
-        <!--Pantry-->
+        <!--Inventory-->
         <scene sceneID="VR1-1G-EgD">
             <objects>
                 <navigationController id="5ov-qk-BmO" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Pantry" image="house" catalog="system" id="oUS-mw-mBC"/>
+                    <tabBarItem key="tabBarItem" title="Inventory" image="house" catalog="system" id="oUS-mw-mBC"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="Nl5-wF-1FB">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
