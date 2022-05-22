@@ -95,7 +95,7 @@ class ShoppingListTableViewController: UITableViewController {
     @objc func reloadTable(notification: NSNotification) {
         log.info("Shopping List tableView is reloading")
         shoppingList = userData.profiles![profileIndex].shoppingList
-        let pantry = userData.profiles![profileIndex].shoppingList
+        //let pantry = userData.profiles![profileIndex].shoppingList
         
         tableView.reloadData()
     }
