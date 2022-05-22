@@ -22,6 +22,7 @@ struct Profile: Codable {
     var name: String //Name of the profile
     
     var originalAuthor: String = UIDevice.current.identifierForVendor?.uuidString ?? "NO_AUTHOR" //ID of the device that authored the profile
+    var originalAuthorSimple: String = UIDevice.current.name //Name of the device that authored the profile. Is not unique
     
     //Data holding
     var pantry: [PantryItem] //Holds pantry for the profile instance

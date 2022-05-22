@@ -189,8 +189,22 @@ class ProfileTableViewController: UITableViewController {
         
         if (isFiltering) {
             cell.textLabel?.text = filteredProfiles[indexPath.row].name
+            
+            //Set subtitle to indicate source of the profile
+            if(filteredProfiles[indexPath.row].originalAuthorSimple == UIDevice.current.name) {
+                cell.detailTextLabel?.text = "From: This Device"
+            } else {
+                cell.detailTextLabel?.text = "From: \(filteredProfiles[indexPath.row].originalAuthorSimple)"
+            }
         } else {
             cell.textLabel?.text = profiles[indexPath.row].name
+            
+            //Set subtitle to indicate source of the profile
+            if(profiles[indexPath.row].originalAuthorSimple == UIDevice.current.name) {
+                cell.detailTextLabel?.text = "From: This Device"
+            } else {
+                cell.detailTextLabel?.text = "From: \(profiles[indexPath.row].originalAuthorSimple)"
+            }
         }
 
         return cell
