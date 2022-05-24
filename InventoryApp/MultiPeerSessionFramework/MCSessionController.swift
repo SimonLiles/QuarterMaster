@@ -299,6 +299,8 @@ extension MultipeerSession: MCNearbyServiceBrowserDelegate {
 
     ///Browser lostPeer
     func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
+        nearbyPeers.remove(at: nearbyPeers.firstIndex(of: peerID)!)
+        
         log.info("ServiceBrowser lost peer: \(peerID, privacy: .private)")
     }
     
