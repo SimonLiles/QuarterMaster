@@ -1237,10 +1237,202 @@
             </objects>
             <point key="canvasLocation" x="1022" y="1477"/>
         </scene>
+        <!--Local Network Usage-->
+        <scene sceneID="OkG-1r-wYY">
+            <objects>
+                <viewController storyboardIdentifier="LANPermNavController" title="Local Network Usage" id="nT6-bn-cuf" customClass="LANPermViewController" customModule="QuarterMaster" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="9Er-IM-nfo">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="krV-Xp-TGa">
+                                <rect key="frame" x="0.0" y="44" width="414" height="803"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G2e-vM-FF9">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="150"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="QuarterMaster" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3VQ-5n-iG2">
+                                                <rect key="frame" x="0.0" y="30" width="414" height="90"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle0"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="150" id="GaW-3J-VVu"/>
+                                            <constraint firstItem="3VQ-5n-iG2" firstAttribute="top" secondItem="G2e-vM-FF9" secondAttribute="top" constant="30" id="MB5-kX-ShG"/>
+                                            <constraint firstAttribute="trailing" secondItem="3VQ-5n-iG2" secondAttribute="trailing" id="SGv-UT-MdA"/>
+                                            <constraint firstAttribute="bottom" secondItem="3VQ-5n-iG2" secondAttribute="bottom" constant="30" id="oCi-6A-pQt"/>
+                                            <constraint firstItem="3VQ-5n-iG2" firstAttribute="leading" secondItem="G2e-vM-FF9" secondAttribute="leading" id="tAC-NC-Xb8"/>
+                                        </constraints>
+                                    </view>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="top" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="JqT-8j-org">
+                                        <rect key="frame" x="20" y="274.5" width="374" height="354"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Xz5-H6-CjU">
+                                                <rect key="frame" x="0.0" y="0.0" width="374" height="36"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="•" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZKa-mV-xc7">
+                                                        <rect key="frame" x="0.0" y="0.0" width="5" height="17"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="5" id="Tbi-48-3uT"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The next alert you see will ask for permission to find and connect to devices on your local network. " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lMn-UV-51M">
+                                                        <rect key="frame" x="10" y="0.0" width="364" height="36"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="zoH-Bl-C9T">
+                                                <rect key="frame" x="0.0" y="56" width="367" height="36"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="•" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bkI-Hq-OTa">
+                                                        <rect key="frame" x="0.0" y="0.0" width="5" height="17"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="5" id="dKe-uB-A8b"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choosing allow will allow you to connect to other devices running the QuarterMaster app and share data. " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TaL-8p-bpy">
+                                                        <rect key="frame" x="10" y="0.0" width="357" height="36"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="7f4-SL-BwR">
+                                                <rect key="frame" x="0.0" y="112" width="369" height="55"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="•" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QDn-Fs-LOd">
+                                                        <rect key="frame" x="0.0" y="0.0" width="5" height="17"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="5" id="tzQ-8j-Oyq"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You can search for and ask other devices to connect to yours through the chain button in the top right hand corner. " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Psv-36-peP">
+                                                        <rect key="frame" x="10" y="0.0" width="359" height="55"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="dnB-Ps-gLx">
+                                                <rect key="frame" x="0.0" y="187" width="355.5" height="36"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="•" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bcY-pt-lAR">
+                                                        <rect key="frame" x="0.0" y="0.0" width="5" height="17"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="5" id="i6a-Bp-TJj"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Other devices will be able to send invitations, but will not connect until you press accept." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V9J-dT-dYr">
+                                                        <rect key="frame" x="10" y="0.0" width="345.5" height="36"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="l5x-25-Qa9">
+                                                <rect key="frame" x="0.0" y="243" width="367.5" height="36"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="•" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZNe-iE-WOz">
+                                                        <rect key="frame" x="0.0" y="0.0" width="5" height="17"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="5" id="cU9-LT-xfa"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Choosing &quot;Don't Allow&quot; will turn off the sharing feature completely." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q8N-IG-eaJ">
+                                                        <rect key="frame" x="10" y="0.0" width="357.5" height="36"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="4Gh-iO-DSx">
+                                                <rect key="frame" x="0.0" y="299" width="330.5" height="55"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="•" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jn2-fR-TOO">
+                                                        <rect key="frame" x="0.0" y="0.0" width="5" height="17"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="5" id="OIz-Nf-bbO"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This setting can be changed anytime through the Settings app then Privacy &gt; Local Network &gt; QuarterMaster" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="10" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b5c-Qr-Oac">
+                                                        <rect key="frame" x="10" y="0.0" width="320.5" height="55"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V82-Uh-q3B">
+                                        <rect key="frame" x="146" y="753" width="122" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="nxz-pd-4Sq"/>
+                                        </constraints>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="Continue" cornerStyle="large">
+                                            <fontDescription key="titleFontDescription" style="UICTFontTextStyleTitle1"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <segue destination="A9y-J9-4T6" kind="presentation" identifier="LANPermSegue" id="QiN-aD-gsk"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="JqT-8j-org" firstAttribute="leading" secondItem="krV-Xp-TGa" secondAttribute="leading" constant="20" id="SgI-48-hEY"/>
+                                    <constraint firstAttribute="trailing" secondItem="JqT-8j-org" secondAttribute="trailing" constant="20" id="dAb-hl-Jjr"/>
+                                    <constraint firstItem="G2e-vM-FF9" firstAttribute="leading" secondItem="krV-Xp-TGa" secondAttribute="leading" id="j4C-Wt-6g2"/>
+                                    <constraint firstAttribute="trailing" secondItem="G2e-vM-FF9" secondAttribute="trailing" id="naH-at-zdm"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="0vO-xE-0fv"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="0vO-xE-0fv" firstAttribute="bottom" secondItem="krV-Xp-TGa" secondAttribute="bottom" constant="15" id="0fM-AP-Xi5"/>
+                            <constraint firstAttribute="trailing" secondItem="krV-Xp-TGa" secondAttribute="trailing" id="Hob-sJ-Ttg"/>
+                            <constraint firstItem="krV-Xp-TGa" firstAttribute="leading" secondItem="0vO-xE-0fv" secondAttribute="leading" id="Zpp-qy-IzE"/>
+                            <constraint firstItem="krV-Xp-TGa" firstAttribute="top" secondItem="0vO-xE-0fv" secondAttribute="top" id="qo6-Hp-lnl"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fdv-Vt-zSv" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-854" y="1477"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="Zbv-YP-Qfd">
             <objects>
-                <navigationController id="A9y-J9-4T6" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="ProfileNavController" modalTransitionStyle="flipHorizontal" modalPresentationStyle="fullScreen" id="A9y-J9-4T6" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="PcU-kk-aF5"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="m3g-t4-y7Z">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>

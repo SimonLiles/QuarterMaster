@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F41473F92840052100BFEFC4 /* AppInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41473F82840052100BFEFC4 /* AppInstance.swift */; };
+		F41473FB284005C100BFEFC4 /* AppInstanceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41473FA284005C100BFEFC4 /* AppInstanceController.swift */; };
+		F41473FD28415A9900BFEFC4 /* LANPermViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41473FC28415A9900BFEFC4 /* LANPermViewController.swift */; };
 		F4F819BD27A34CBE0037B4DA /* MCPeerBrowserTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F819B627A34CBE0037B4DA /* MCPeerBrowserTableViewController.swift */; };
 		F4F819BE27A34CBE0037B4DA /* MCSessionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F819BA27A34CBE0037B4DA /* MCSessionController.swift */; };
 		F4F819BF27A34CBE0037B4DA /* MCPeerBrowserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F819B927A34CBE0037B4DA /* MCPeerBrowserTableViewCell.swift */; };
@@ -38,6 +41,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F41473F82840052100BFEFC4 /* AppInstance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInstance.swift; sourceTree = "<group>"; };
+		F41473FA284005C100BFEFC4 /* AppInstanceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInstanceController.swift; sourceTree = "<group>"; };
+		F41473FC28415A9900BFEFC4 /* LANPermViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LANPermViewController.swift; path = InventoryApp/LANPermViewController.swift; sourceTree = SOURCE_ROOT; };
 		F4F819B627A34CBE0037B4DA /* MCPeerBrowserTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MCPeerBrowserTableViewController.swift; sourceTree = "<group>"; };
 		F4F819B727A34CBE0037B4DA /* MCPeerBrowser.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MCPeerBrowser.storyboard; sourceTree = "<group>"; };
 		F4F819B927A34CBE0037B4DA /* MCPeerBrowserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MCPeerBrowserTableViewCell.swift; sourceTree = "<group>"; };
@@ -136,6 +142,7 @@
 			isa = PBXGroup;
 			children = (
 				FE75E37124E5D571004B3861 /* Profile.swift */,
+				F41473F82840052100BFEFC4 /* AppInstance.swift */,
 				FE3DB148247DAE030055EBEF /* PantryItem.swift */,
 				FE3DB14A247EBBCA0055EBEF /* Recipe.swift */,
 			);
@@ -154,6 +161,7 @@
 		FE3DB14E247EBC810055EBEF /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				F41473FC28415A9900BFEFC4 /* LANPermViewController.swift */,
 				FE75E36D24E5D4E6004B3861 /* PantryPicker */,
 				FE75E36E24E5D4FC004B3861 /* ProfilesPage */,
 				FE59624024AD2824001E2610 /* PantryTab */,
@@ -167,6 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				FE75E36F24E5D53C004B3861 /* ProfileModelController.swift */,
+				F41473FA284005C100BFEFC4 /* AppInstanceController.swift */,
 				FE59623C24AD21F5001E2610 /* RecipeModelController.swift */,
 			);
 			path = ModelControllers;
@@ -289,7 +298,9 @@
 				FE75E37424E5DD8F004B3861 /* ProfileTableViewController.swift in Sources */,
 				F4F819BD27A34CBE0037B4DA /* MCPeerBrowserTableViewController.swift in Sources */,
 				FE75E37224E5D571004B3861 /* Profile.swift in Sources */,
+				F41473FB284005C100BFEFC4 /* AppInstanceController.swift in Sources */,
 				FE75E37024E5D53C004B3861 /* ProfileModelController.swift in Sources */,
+				F41473F92840052100BFEFC4 /* AppInstance.swift in Sources */,
 				FE3AEE7224EDB3E800CF34AF /* EditProfileTableViewController.swift in Sources */,
 				FE0D9EB424B3644D007E9D65 /* ShoppingListTableViewCell.swift in Sources */,
 				FEB28FF124B6231F00EEDF5F /* AddToShoppingListTableViewCell.swift in Sources */,
@@ -306,6 +317,7 @@
 				FE3DB149247DAE030055EBEF /* PantryItem.swift in Sources */,
 				F4F819BF27A34CBE0037B4DA /* MCPeerBrowserTableViewCell.swift in Sources */,
 				FE75E37624E6F1B3004B3861 /* ProfileTabViewController.swift in Sources */,
+				F41473FD28415A9900BFEFC4 /* LANPermViewController.swift in Sources */,
 				FEB28FF524D0C87300EEDF5F /* PantryPickerListTableViewController.swift in Sources */,
 				FEC2F25024A1517E0087FB3C /* PantryTableViewController.swift in Sources */,
 				FE75E36C24E1D39C004B3861 /* PantryPickerAddNewViewController.swift in Sources */,

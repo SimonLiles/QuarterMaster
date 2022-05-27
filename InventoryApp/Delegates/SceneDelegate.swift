@@ -22,6 +22,38 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let _ = (scene as? UIWindowScene) else { return }
+        
+        //Initialize app instance data on start up
+        if let savedInstance = AppInstanceController().loadInstanceData() {
+            AppInstanceController.shared.appInstance = savedInstance
+        } else {
+            AppInstanceController.shared.appInstance = AppInstanceController().loadSampleInstance()!
+        }
+                
+        var initialViewControllerID: String = "" //ID of the initial view controller
+        
+        //If this is first launch, do a permissions ask
+        if(AppInstanceController.shared.appInstance.firstLaunch == true) {
+            //Set Initial View Controller as Profiles Page
+            initialViewControllerID = "LANPermNavController"
+        } else {
+            //Set Initial View Controller as Profiles Page
+            initialViewControllerID = "ProfileNavController"
+            //Start Multipeer services
+            MultipeerSession.instance.startServices()
+        }
+        
+        AppInstanceController.shared.appInstance.firstLaunch = false
+        
+        //Set initial View Controller
+        if let windowScene = scene as? UIWindowScene {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let window = UIWindow(windowScene: windowScene)
+            window.rootViewController = storyboard.instantiateViewController(withIdentifier: initialViewControllerID)// RootViewController in here
+            self.window = window
+            window.makeKeyAndVisible()
+        }
+        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
@@ -33,7 +65,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         //Save app data to disk while disconecting
         userData.saveProfileData()
         log.info("ProfileModelController data saved while disconnecting")
-
+        
+        AppInstanceController.shared.saveInstanceData()
+        log.info("App Instance data saved while disconnecting")
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
@@ -48,6 +82,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         //Save app data to disk while moving from active state to inactive
         userData.saveProfileData()
         log.info("ProfileModelController data saved while moving from active state to inactive")
+        
+        AppInstanceController.shared.saveInstanceData()
+        log.info("App Instance data saved while moving from active state to inactive")
     }
 
     func sceneWillEnterForeground(_ scene: UIScene) {
@@ -63,6 +100,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         //Save app data to disk while entering Background
         userData.saveProfileData()
         log.info("ProfileModelController data saved while entering background") //debug save state
+        
+        AppInstanceController.shared.saveInstanceData()
+        log.info("App Instance data saved while entering background")
 
     }
 
