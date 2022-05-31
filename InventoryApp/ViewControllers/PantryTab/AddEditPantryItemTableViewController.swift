@@ -55,6 +55,8 @@ class AddEditPantryItemTableViewController: UITableViewController {
             quantityTextField.text = String(quantityStepper.value)
         }
         
+        self.title = pantryItem.name
+        
         updateSaveButtonState()
         
         updateAddToShoppingListButtonState()
@@ -73,6 +75,8 @@ class AddEditPantryItemTableViewController: UITableViewController {
         
         //Only returns true after all fields are filled
         saveButton.isEnabled = !nameText.isEmpty && categoryText != "" && locationText != "" && !quantityText.isEmpty && unitsText != ""
+        
+        self.title = nameText
         
         updateDeleteButtonState()
     }
