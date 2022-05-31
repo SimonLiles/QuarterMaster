@@ -56,7 +56,16 @@ class MCPeerBrowserTableViewController: UITableViewController {
     
     //Sets section header titles
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Searching for peers"
+        let peerCount = nearbyPeers.count
+        
+        switch(peerCount) {
+        case 0:
+            return "No peers found nearby"
+        case 1:
+            return "1 peer found"
+        default:
+            return "Found \(peerCount)"
+        }
     }
     
     //Configures each cell
