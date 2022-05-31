@@ -57,6 +57,7 @@ class AddEditPantryItemTableViewController: UITableViewController {
         
         updateSaveButtonState()
         
+        updateAddToShoppingListButtonState()
     }
     
     // MARK: - Functions
@@ -82,6 +83,20 @@ class AddEditPantryItemTableViewController: UITableViewController {
             deleteButton.isHidden = true
         } else {
             deleteButton.isHidden = false
+        }
+    }
+    
+    //Update add to shopping list button state
+    func updateAddToShoppingListButtonState() {
+        if (userData.profiles![userData.selectedIndex].shoppingList.contains(pantryItem)) {
+            addToShoppingListButton.setTitle("This item is on your Shopping List", for: .disabled)
+            addToShoppingListButton.setTitleColor(.gray, for: .disabled)
+            addToShoppingListButton.isEnabled = false
+        } else {
+            addToShoppingListButton.setTitle("Add to Shopping List", for: .normal)
+            addToShoppingListButton.setTitleColor(.systemBlue, for: .normal)
+            addToShoppingListButton.isEnabled = true
+            
         }
     }
     
