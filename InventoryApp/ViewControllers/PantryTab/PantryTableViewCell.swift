@@ -112,7 +112,8 @@ class PantryTableViewCell: UITableViewCell {
     @IBAction func quantityChanged(_ sender: UITextField) {
         let newQuantity = Double(sender.text!)
                 
-        pantryItem1.currentQuantity = newQuantity!
+        
+        pantryItem1.currentQuantity = newQuantity ?? 0
         
         pantryItem1.lastUpdate = Date()
         

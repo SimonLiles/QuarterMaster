@@ -124,7 +124,7 @@ class ShoppingListTableViewCell: UITableViewCell {
     @IBAction func quantityChanged(_ sender: UITextField) {
         let newQuantity = Double(sender.text!)
         
-        item.neededQuantity = newQuantity!
+        item.neededQuantity = newQuantity ?? 0
         
         item.lastUpdate = Date()
         
