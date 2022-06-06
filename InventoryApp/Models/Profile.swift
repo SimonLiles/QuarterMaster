@@ -34,6 +34,8 @@ struct Profile: Codable {
     
     var description: String = "" //Description of the profile
     
+    var pantryCollateKey: String = "" //Key for orgainizing the pantry
+    
     //Data used for sharing
 
     var versionTimeStamp: Date = Date() //Holds time and date of last saved update to Profile

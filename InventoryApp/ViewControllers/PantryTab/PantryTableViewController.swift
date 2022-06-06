@@ -20,12 +20,16 @@ class PantryTableViewController: UITableViewController {
     /// MARK: - IBOutlets
     //@IBOutlet weak var pantrySearchBar: UISearchBar!
     
+    @IBOutlet weak var sortButton: UIBarButtonItem!
+    
     // MARK: - Constants and Variables
     static var sharedPantryController = PantryTableViewController()
     
     var profileIndex = userData.selectedIndex //Array index for use when modifying a specific profile
     
     var pantry: [PantryItem] = []
+    
+    var collateKey: String = userData.profiles![userData.selectedIndex].pantryCollateKey
     
     //Collates pantry with Category keys
     var itemsCollatedByCategory: [String: [PantryItem]] {
@@ -57,6 +61,23 @@ class PantryTableViewController: UITableViewController {
     var locations: [String] {
         itemsCollatedByLocation.map({$0.key}).sorted()
     }
+    
+    //Collates pantry with Units keys
+    var itemsCollatedByUnit: [String: [PantryItem]] {
+        Dictionary(grouping: pantry, by: { $0.units })
+    }
+    
+    //Sorts pantry by unit
+    var itemsSortedByUnit: [PantryItem] {
+        return pantry.sorted { $0.units.lowercased() < $1.units.lowercased() }
+    }
+    
+    //List of all possible units
+    var units: [String] {
+        //itemsCollatedByCategory.map({$0.key}).sorted()
+        return userData.profiles![profileIndex].units.sorted()
+    }
+
     
     //Search bar constants and variables
     let searchController = UISearchController(searchResultsController: nil)
@@ -137,7 +158,18 @@ class PantryTableViewController: UITableViewController {
             return 1
         }
         
-        return categories.count
+        switch collateKey {
+        case "Category":
+            return categories.count
+        case "Location":
+            return locations.count
+        case "Units":
+            return units.count
+        default:
+            return 1
+        }
+        
+        //return categories.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {        
@@ -146,8 +178,19 @@ class PantryTableViewController: UITableViewController {
             return filteredPantry.count
         }
         
+        switch collateKey {
+        case "Category":
+            return itemsCollatedByCategory[categories[section]]?.count ?? 0
+        case "Location":
+            return itemsCollatedByLocation[locations[section]]?.count ?? 0
+        case "Units":
+            return itemsCollatedByUnit[units[section]]?.count ?? 0
+        default:
+            return 1
+        }
+        
         //Implementation of dynamic categories
-        return itemsCollatedByCategory[categories[section]]?.count ?? 0
+        //return itemsCollatedByCategory[categories[section]]?.count ?? 0
     }
     
     //Sets section header titles
@@ -161,7 +204,18 @@ class PantryTableViewController: UITableViewController {
             }
         }
         
-        return categories[section]
+        switch collateKey {
+        case "Category":
+            return categories[section]
+        case "Location":
+            return locations[section]
+        case "Units":
+            return units[section]
+        default:
+            return "ERROR: given collateKey unsupported"
+        }
+        
+        //return categories[section]
     }
     
     //Configures each cell
@@ -176,14 +230,59 @@ class PantryTableViewController: UITableViewController {
         } else {
             //pantryItem = pantry[indexPath.row]
             
-            pantryItem = itemsCollatedByCategory[categories[indexPath.section]]![indexPath.row]
+            switch collateKey {
+            case "Category":
+                pantryItem = itemsCollatedByCategory[categories[indexPath.section]]![indexPath.row]
+            case "Location":
+                pantryItem = itemsCollatedByLocation[locations[indexPath.section]]![indexPath.row]
+            case "Units":
+                pantryItem = itemsCollatedByUnit[units[indexPath.section]]![indexPath.row]
+            default:
+                log.error("ERROR: PantryTableView -> Unknown collateKey")
+                pantryItem = PantryItem(name: "", category: "", location: "", currentQuantity: 0.0, units: "", note: "", lastUpdate: Date())
+            }
+
         }
         
         // Configure the cell...
         
-        cell.update(with: pantryItem, at: indexPath)
+        cell.update(with: pantryItem, at: indexPath, with: collateKey)
 
         return cell
+    }
+    
+    // MARK: - IBActions
+    //Activates menu for when sort button is pressed
+    @IBAction func sortButtonPressed(_ sender: UIBarButtonItem) {
+        log.info("Sort Button Pressed")
+        
+        let sortTitle = "Sort the Invenotry"
+        let sortMessage = "Choose how you would like inventory items to be grouped."
+        
+        let sortAlert = UIAlertController(title: sortTitle, message: sortMessage, preferredStyle: .actionSheet)
+        
+        let categoryAction = UIAlertAction(title: "By Category", style: .default, handler: {_ in
+            self.collateKey = "Category"
+            userData.profiles![self.profileIndex].pantryCollateKey = "Category"
+            self.tableView.reloadData()
+        })
+        let locationAction = UIAlertAction(title: "By Location", style: .default, handler: {_ in
+            self.collateKey = "Location"
+            userData.profiles![self.profileIndex].pantryCollateKey = "Location"
+            self.tableView.reloadData()
+        })
+        let unitsAction = UIAlertAction(title: "By Unit", style: .default, handler: {_ in
+            self.collateKey = "Units"
+            userData.profiles![self.profileIndex].pantryCollateKey = "Units"
+            self.tableView.reloadData()
+        })
+        
+        sortAlert.addAction(categoryAction)
+        sortAlert.addAction(locationAction)
+        sortAlert.addAction(unitsAction)
+        sortAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        
+        present(sortAlert, animated: true)
     }
     
     // MARK: - Navigation

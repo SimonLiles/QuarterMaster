@@ -28,6 +28,8 @@ class PantryTableViewCell: UITableViewCell {
     
     var indexpath: IndexPath = IndexPath()
     
+    var collateKey: String = ""
+    
     //Object to collect and store logs.
     let log = Logger()
     
@@ -50,17 +52,30 @@ class PantryTableViewCell: UITableViewCell {
         - Parameter pantryItem: holds pantryItem object for a specific cell
         - Parameter path: indexPath object
      */
-    func update(with pantryItem: PantryItem, at path: IndexPath) {
+    func update(with pantryItem: PantryItem, at path: IndexPath, with collateKey: String) {
         
         //collect data from parameters to use locally in TableViewCell Class
         pantryItem1 = pantryItem
         indexpath = path
+        self.collateKey = collateKey
         
         //Update the cell GUI
         nameLabel.text = pantryItem.name
-        locationLabel.text = pantryItem.location
+        //locationLabel.text = pantryItem.location
         quantityTextField.text = String(pantryItem.currentQuantity)
         quantityStepper.value = pantryItem1.currentQuantity
+        
+        switch collateKey {
+        case "Category":
+            locationLabel.text = pantryItem.location
+        case "Location":
+            locationLabel.text = pantryItem.category
+        case "Units":
+            locationLabel.text = pantryItem.category
+        default:
+            log.error("ERROR: PantryTableView -> Unknown collateKey")
+            locationLabel.text = "ERROR: Unknown collateKey"
+        }
         
         //Somehow this works,
         //need it to keep index out range error from occuring when pantry is empty
@@ -105,7 +120,7 @@ class PantryTableViewCell: UITableViewCell {
         
         //userData.profiles![profileIndex].pantry[index] = pantryItemToChange
         
-        update(with: pantryItem1, at: indexpath)
+        update(with: pantryItem1, at: indexpath, with: collateKey)
     }
     
     //Updates cell and model data when value in text field is changed
@@ -117,6 +132,6 @@ class PantryTableViewCell: UITableViewCell {
         
         pantryItem1.lastUpdate = Date()
         
-        update(with: pantryItem1, at: indexpath)
+        update(with: pantryItem1, at: indexpath, with: collateKey)
     }
 }

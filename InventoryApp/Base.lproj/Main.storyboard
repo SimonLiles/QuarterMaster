@@ -96,12 +96,20 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Inventory" largeTitleDisplayMode="always" id="8LK-nr-FB2">
                         <barButtonItem key="backBarButtonItem" title="Pantry" id="NNt-BC-Kdf"/>
+                        <barButtonItem key="leftBarButtonItem" title="Sort" image="list.bullet" catalog="system" id="BKk-1n-Ez6">
+                            <connections>
+                                <action selector="sortButtonPressed:" destination="5ba-ys-C6Y" id="dhB-kr-Wyd"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="x4T-Yy-Ixu">
                             <connections>
                                 <segue destination="Wfk-gK-WHL" kind="show" id="Plp-dF-tch"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="sortButton" destination="BKk-1n-Ez6" id="UIL-jK-upm"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HLs-1I-tt4" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1661,6 +1669,7 @@
         <image name="circle" catalog="system" width="128" height="121"/>
         <image name="gear" catalog="system" width="128" height="119"/>
         <image name="house" catalog="system" width="128" height="106"/>
+        <image name="list.bullet" catalog="system" width="128" height="88"/>
         <image name="personalhotspot" catalog="system" width="128" height="75"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
         <systemColor name="labelColor">
