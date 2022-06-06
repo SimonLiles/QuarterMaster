@@ -30,7 +30,7 @@ class EditProfileTableViewController: UITableViewController {
     // MARK: - Variables and Constants
     var profileIndex = userData.selectedIndex
     
-    var profile = Profile(name: "", pantry: [], shoppingList: [])
+    var profile = Profile(name: "", pantry: [], shoppingList: [], categories: [], locations: [], units: [])
         
     //Object to collect and store logs.
     let log = Logger()
@@ -183,12 +183,83 @@ class EditProfileTableViewController: UITableViewController {
     }
     
     // MARK: - Navigation
-    /*
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
-    }
-    */
+        
+        super.prepare(for: segue, sender: sender)
 
+        if(segue.identifier == "pickerSegue") {
+            let indexPath = tableView.indexPathForSelectedRow
+            
+            let key: String = "profileSettingsView"
+            
+            var items: [String] = []
+            let currentItem: String = ""
+            var typeName: String = ""
+            
+            //determine which array to open a picker for
+            switch indexPath?.row ?? 0 {
+            case 0: //Category Row
+                items = userData.getCategories()
+                //currentItem = pantryItem.category
+                typeName = "Category"
+            case 1: //Location Row
+                //Pull locations out of the Pantry model controller
+                items = userData.getLocations()
+                //currentItem = pantryItem.location
+                typeName = "Location"
+            case 2: //Units Row
+                items = userData.getUnits()
+                //currentItem = pantryItem.units
+                typeName = "Units"
+            default:
+                log.fault("Your thing is not fully implemented yet")
+                log.fault("Check func prepare(segue:) in AddEditPantryItemTableViewController")
+                return
+            }
+            
+            //let navController = segue.destination as! UINavigationController
+            let pantryPickerListTableViewController = segue.destination as! PantryPickerListTableViewController
+            
+            //Pass the data to the picker
+            pantryPickerListTableViewController.returnKey = key
+            pantryPickerListTableViewController.itemNames = items
+            pantryPickerListTableViewController.selectedItem = currentItem
+            pantryPickerListTableViewController.name = typeName
+        }
+    }
+    
+    //Unwind segue to this point
+    @IBAction func unwindToEditProfileTableView(segue: UIStoryboardSegue) {
+        //Check to make sure it is the correct identifier first
+        if segue.identifier == "unwindToEditProfileTableViewFromPickerList" {
+            let pantryPickerListTableViewController = segue.source as! PantryPickerListTableViewController
+            //let pantryPickerListTableViewController = navController.topViewController as! PantryPickerListTableViewController
+            
+            let key = pantryPickerListTableViewController.name
+            
+            switch key {
+            case "Category":
+                //pantryItem.category = pantryPickerListTableViewController.selectedItem
+                //categoryLabel.text = pantryItem.category
+                tableView.reloadData()
+            case "Location":
+                //pantryItem.location = pantryPickerListTableViewController.selectedItem
+                //locationLabel.text = pantryItem.location
+                tableView.reloadData()
+            case "Units":
+                //pantryItem.units = pantryPickerListTableViewController.selectedItem
+                //unitsLabel.text = pantryItem.units
+                tableView.reloadData()
+            default:
+                log.fault("Hmm, switch statements in unwindToAddEditPantryTableView are not working properly")
+                return
+            }
+            
+            updateSaveButtonState()
+        }
+    }
 }

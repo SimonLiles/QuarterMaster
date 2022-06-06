@@ -15,7 +15,7 @@ class ProfileTabViewController: UITabBarController {
     // MARK: - Variables and Constants
     
     //Intake for profile to be used
-    var profile: Profile = Profile(name: "", pantry: [], shoppingList: [])
+    var profile: Profile = Profile(name: "", pantry: [], shoppingList: [], categories: [], locations: [], units: [])
     
     var profileIndex = userData.selectedIndex
     

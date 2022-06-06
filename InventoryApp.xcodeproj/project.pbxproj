@@ -141,8 +141,8 @@
 		FE3DB14C247EBBD30055EBEF /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				FE75E37124E5D571004B3861 /* Profile.swift */,
 				F41473F82840052100BFEFC4 /* AppInstance.swift */,
+				FE75E37124E5D571004B3861 /* Profile.swift */,
 				FE3DB148247DAE030055EBEF /* PantryItem.swift */,
 				FE3DB14A247EBBCA0055EBEF /* Recipe.swift */,
 			);
@@ -174,8 +174,8 @@
 		FE3DB14F24801A490055EBEF /* ModelControllers */ = {
 			isa = PBXGroup;
 			children = (
-				FE75E36F24E5D53C004B3861 /* ProfileModelController.swift */,
 				F41473FA284005C100BFEFC4 /* AppInstanceController.swift */,
+				FE75E36F24E5D53C004B3861 /* ProfileModelController.swift */,
 				FE59623C24AD21F5001E2610 /* RecipeModelController.swift */,
 			);
 			path = ModelControllers;

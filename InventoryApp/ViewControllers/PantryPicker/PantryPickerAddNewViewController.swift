@@ -55,6 +55,9 @@ class PantryPickerAddNewViewController: UIViewController {
             performSegue(withIdentifier: "unwindToAddEditPantryFromNewItem", sender: nil)
         case "addNewShoppingListItemTableView":
             performSegue(withIdentifier: "uniwndToAddNewShoppingListItemFromNewItem", sender: nil)
+        case "profileSettingsView":
+            log.info("save button pressed from new item view, attempting to uniwnd back")
+            performSegue(withIdentifier: "unwindToEditPickListFromNewItem", sender: nil)
         default:
             log.fault("Hmm, whatever you were tryna' do obviously is not fully implemented yet")
             log.fault("Check func saveButtonPressed in PantryPickerAddNewViewController")

@@ -47,8 +47,9 @@ class ProfileModelController {
      - Returns: Array of strings representing categories from pantry array
      */
     func getCategories() -> [String] {
-        var categories: [String] = []
+        let categories: [String] = profiles![selectedIndex].categories
         
+        /*
         //Gather info from each item in pantry
         for item in profiles![selectedIndex].pantry {
             //If location is unique in locations array, append it to the end
@@ -56,8 +57,9 @@ class ProfileModelController {
                 categories.append(item.category)
             }
         }
+        */
         
-        return categories
+        return categories.sorted()
     }
     
     /**
@@ -66,8 +68,9 @@ class ProfileModelController {
      - Returns: Array of strings representing locations from pantry array
      */
     func getLocations() -> [String] {
-        var locations: [String] = []
+        let locations: [String] = profiles![selectedIndex].locations
         
+        /*
         //Gather info from each item in pantry
         for item in profiles![selectedIndex].pantry {
             //If location is unique in locations array, append it to the end
@@ -75,8 +78,9 @@ class ProfileModelController {
                 locations.append(item.location)
             }
         }
+        */
         
-        return locations
+        return locations.sorted()
     }
     
     /**
@@ -85,8 +89,9 @@ class ProfileModelController {
      - Returns: Array of strings representing units from pantry array
      */
     func getUnits() -> [String] {
-        var units: [String] = []
+        let units: [String] = profiles![selectedIndex].units
         
+        /*
         //Gather info from each item in pantry
         for item in profiles![selectedIndex].pantry {
             //If location is unique in locations array, append it to the end
@@ -94,8 +99,9 @@ class ProfileModelController {
                 units.append(item.units)
             }
         }
+        */
         
-        return units
+        return units.sorted()
     }
     
     //MARK: - Data Movement
@@ -190,7 +196,7 @@ class ProfileModelController {
         //log.info("\n\nreceivedData.pantry: \(receivedData.pantry.description)")
         //log.info("\n\nreceivedData.shoppingList: \(receivedData.shoppingList.description)")
 
-        var newData = Profile(name: "", pantry: [], shoppingList: [])
+        var newData = Profile(name: "", pantry: [], shoppingList: [], categories: [], locations: [], units: [])
         
         
         /*
@@ -441,7 +447,10 @@ class ProfileModelController {
         PantryItem(name: "Strawberry Jelly", category: "Preserves", location: "Fridge", currentQuantity: 2, units: "Jars", note: "Sweet strawberry jelly", lastUpdate: Date()),
         PantryItem(name: "Bread", category: "Breads", location: "Bread Box", currentQuantity: 4, units: "Loaves", note: "Good for making sandwiches", lastUpdate: Date())],
         shoppingList:
-        [PantryItem(name: "Cookies", category: "Snacks", location: "Cookie Jar", currentQuantity: 12, units: "Cookies", note: "Very tasty, chocochip cookies", lastUpdate: Date())])]
+            [PantryItem(name: "Cookies", category: "Snacks", location: "Cookie Jar", currentQuantity: 12, units: "Cookies", note: "Very tasty, chocochip cookies", lastUpdate: Date())],
+        categories: ["Snacks", "Breads", "Staples", "Preserves"],
+        locations: ["Cookie Jar", "Galley Counter", "Cupboard", "Fridge", "Bread Box"],
+        units: ["Cookies", "Bagels", "Jars", "Loaves"])]
         
         sampleProfile[0].description = "Blackbeard's ship. This is a sample profile, feel free to change as you see fit."
         

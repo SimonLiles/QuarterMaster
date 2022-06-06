@@ -22,7 +22,7 @@ class NewProfileTableViewController: UITableViewController {
     @IBOutlet weak var descriptionTextView: UITextView!
     
     // MARK: - Variables and Constants
-    var profile = Profile(name: "", pantry: [], shoppingList: [])
+    var profile = Profile(name: "", pantry: [], shoppingList: [], categories: [], locations: [], units: [])
     
     //Object to collect and store logs.
     let log = Logger()
@@ -56,7 +56,7 @@ class NewProfileTableViewController: UITableViewController {
         var nameText = profileNameTextField.text ?? ""
         nameText = nameText.trimmingCharacters(in: CharacterSet(charactersIn: "\0 "))
         
-        let testProfile = Profile(name: nameText, pantry: [], shoppingList: [])
+        let testProfile = Profile(name: nameText, pantry: [], shoppingList: [], categories: [], locations: [], units: [])
         
         //Check if new profile is unique
         if(userData.profiles!.contains(testProfile)) {

@@ -39,7 +39,8 @@ class PantryTableViewController: UITableViewController {
     
     //List of all possible categories
     var categories: [String] {
-        itemsCollatedByCategory.map({$0.key}).sorted()
+        //itemsCollatedByCategory.map({$0.key}).sorted()
+        return userData.profiles![profileIndex].categories.sorted()
     }
     
     //Collates pantry with Location Keys
@@ -146,7 +147,7 @@ class PantryTableViewController: UITableViewController {
         }
         
         //Implementation of dynamic categories
-        return itemsCollatedByCategory[categories[section]]!.count
+        return itemsCollatedByCategory[categories[section]]?.count ?? 0
     }
     
     //Sets section header titles

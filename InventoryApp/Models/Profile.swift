@@ -28,6 +28,10 @@ struct Profile: Codable {
     var pantry: [PantryItem] //Holds pantry for the profile instance
     var shoppingList: [PantryItem] //Holds shopping list data for profile instance
     
+    var categories: [String] //Holds all possible categories for pantry
+    var locations: [String] //Holds all possible locations for pantry
+    var units: [String] //Holds all possible units for pantry
+    
     var description: String = "" //Description of the profile
     
     //Data used for sharing
@@ -36,10 +40,14 @@ struct Profile: Codable {
     
     var shoppingListLastClear: Date = Date()
         
-    init(name: String, pantry: [PantryItem], shoppingList: [PantryItem]) {
+    init(name: String, pantry: [PantryItem], shoppingList: [PantryItem], categories: [String], locations: [String], units: [String]) {
         self.name = name
         self.pantry = pantry
         self.shoppingList = shoppingList
+        
+        self.categories = categories
+        self.locations = locations
+        self.units = units
     }
     
     /**

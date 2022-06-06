@@ -218,7 +218,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <toolbar key="tableFooterView" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="Pln-Oz-Uan">
-                            <rect key="frame" x="0.0" y="112" width="414" height="44"/>
+                            <rect key="frame" x="0.0" y="111.5" width="414" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                             <items>
                                 <barButtonItem style="plain" systemItem="flexibleSpace" id="LU2-gL-B7P"/>
@@ -935,10 +935,74 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle=" " id="g8M-1J-KDh">
+                            <tableViewSection headerTitle=" Manage" id="Kpi-zQ-Hfj">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="NQF-tI-ytu" style="IBUITableViewCellStyleDefault" id="q6j-4t-NtC">
+                                        <rect key="frame" x="0.0" y="385" width="414" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="q6j-4t-NtC" id="keC-ql-FwJ">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Categories" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="NQF-tI-ytu">
+                                                    <rect key="frame" x="20" y="0.0" width="374" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="5e5-n7-KKQ" kind="show" identifier="pickerSegue" id="rSD-tg-nbE"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="Onm-PV-AxH" style="IBUITableViewCellStyleDefault" id="pe6-do-oom">
+                                        <rect key="frame" x="0.0" y="428.5" width="414" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pe6-do-oom" id="4n2-T2-S9W">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Locations" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Onm-PV-AxH">
+                                                    <rect key="frame" x="20" y="0.0" width="374" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="5e5-n7-KKQ" kind="show" identifier="pickerSegue" id="vbp-jg-DjI"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" textLabel="lGT-U5-uWP" style="IBUITableViewCellStyleDefault" id="AZ5-Ux-QNq">
+                                        <rect key="frame" x="0.0" y="472" width="414" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="AZ5-Ux-QNq" id="Kfi-Ao-gDL">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Units" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lGT-U5-uWP">
+                                                    <rect key="frame" x="20" y="0.0" width="374" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="5e5-n7-KKQ" kind="show" identifier="pickerSegue" id="Qvh-U2-RWg"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle=" Data Sharing" id="g8M-1J-KDh">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="SOZ-S8-iR2">
-                                        <rect key="frame" x="0.0" y="385" width="414" height="52.5"/>
+                                        <rect key="frame" x="0.0" y="582.5" width="414" height="52.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="SOZ-S8-iR2" id="Rn9-cx-Rw6">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="52.5"/>
@@ -967,7 +1031,7 @@
                             <tableViewSection headerTitle=" " id="68N-17-I9K">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="LK8-fP-qEh">
-                                        <rect key="frame" x="0.0" y="504.5" width="414" height="52.5"/>
+                                        <rect key="frame" x="0.0" y="702" width="414" height="52.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="LK8-fP-qEh" id="egE-mm-kYo">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="52.5"/>
@@ -1454,7 +1518,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="New" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nsQ-yH-kb9">
-                                <rect key="frame" x="32" y="188" width="351" height="34"/>
+                                <rect key="frame" x="32" y="240" width="351" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <connections>
@@ -1483,17 +1547,18 @@
                         <outlet property="saveButton" destination="rfI-3U-YEY" id="p9a-l3-Pjd"/>
                         <segue destination="Ydc-JT-Ulk" kind="unwind" identifier="unwindToAddEditPantryFromNewItem" unwindAction="unwindToAddEditPantryTableViewWithSegue:" id="rjv-7g-ggu"/>
                         <segue destination="Ydc-JT-Ulk" kind="unwind" identifier="uniwndToAddNewShoppingListItemFromNewItem" unwindAction="unwindToAddNewShoppingListItemTableViewWithSegue:" id="3he-n0-uxq"/>
+                        <segue destination="Ydc-JT-Ulk" kind="unwind" identifier="unwindToEditPickListFromNewItem" unwindAction="unwindToPickListTableViewWithSegue:" id="7e9-x5-aNm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iqz-kR-ej7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="Ydc-JT-Ulk" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="9508.6956521739139" y="1086.8303571428571"/>
+            <point key="canvasLocation" x="10154" y="1606"/>
         </scene>
         <!--Picker List-->
         <scene sceneID="zkD-6n-YRL">
             <objects>
-                <tableViewController id="5e5-n7-KKQ" customClass="PantryPickerListTableViewController" customModule="QuarterMaster" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController definesPresentationContext="YES" id="5e5-n7-KKQ" customClass="PantryPickerListTableViewController" customModule="QuarterMaster" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="hYD-hQ-Jgf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1532,25 +1597,21 @@
                                 <action selector="cancelButtonPressed:" destination="5e5-n7-KKQ" id="cpP-Pf-osM"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="checkmark" catalog="system" id="jGW-9X-XNU">
-                            <connections>
-                                <action selector="saveButtonPressed:" destination="5e5-n7-KKQ" id="9hd-Mg-NvP"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="edit" id="jGW-9X-XNU"/>
                     </navigationItem>
                     <connections>
                         <outlet property="cancelButton" destination="UIp-NF-5ty" id="qji-f0-3tO"/>
-                        <outlet property="saveButton" destination="jGW-9X-XNU" id="jyw-fF-oyk"/>
                         <segue destination="Xf7-Jy-gk3" kind="unwind" identifier="unwindToAddEditPantryFromPickerList" unwindAction="unwindToAddEditPantryTableViewWithSegue:" id="QSw-Tg-1Xk"/>
                         <segue destination="Xf7-Jy-gk3" kind="unwind" identifier="uniwndToAddNewShoppingListItemFromPickerList" unwindAction="unwindToAddNewShoppingListItemTableViewWithSegue:" id="49E-T6-MO3"/>
                         <segue destination="Xf7-Jy-gk3" kind="unwind" identifier="cancelUnwindToAddEditPantryFromPickerList" unwindAction="unwindToAddEditPantryTableViewWithSegue:" id="tHq-aV-Kb1"/>
                         <segue destination="Xf7-Jy-gk3" kind="unwind" identifier="cancelUniwndToAddNewShoppingListItemFromPickerList" unwindAction="unwindToAddNewShoppingListItemTableViewWithSegue:" id="Yq4-Oy-KWF"/>
+                        <segue destination="Xf7-Jy-gk3" kind="unwind" identifier="cancelUnwindToEditProfileSettingsFromPickerList" unwindAction="unwindToEditProfileTableViewWithSegue:" id="i9e-lF-g5K"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cWG-CZ-NEI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="Xf7-Jy-gk3" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="8560.8695652173919" y="1086.8303571428571"/>
+            <point key="canvasLocation" x="9209" y="1606"/>
         </scene>
         <!--MCPeerBrowser-->
         <scene sceneID="Ryf-LX-mdm">
@@ -1590,7 +1651,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="7O5-cZ-v3A"/>
-        <segue reference="1gT-FL-wWn"/>
+        <segue reference="vbp-jg-DjI"/>
         <segue reference="4vV-M5-4Al"/>
     </inferredMetricsTieBreakers>
     <resources>

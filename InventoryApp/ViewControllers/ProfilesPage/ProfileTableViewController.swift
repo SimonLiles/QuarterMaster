@@ -83,7 +83,7 @@ class ProfileTableViewController: UITableViewController {
             
             let receivedData = MultipeerSession.instance.receivedData
             
-            var newProfile = Profile(name: "", pantry: [], shoppingList: [])
+            var newProfile = Profile(name: "", pantry: [], shoppingList: [], categories: [], locations: [], units: [])
             newProfile = newProfile.decode(data: receivedData!)
             
             self.log.info("New Data Finished decoding")
