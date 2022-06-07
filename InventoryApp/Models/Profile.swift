@@ -34,7 +34,7 @@ struct Profile: Codable {
     
     var description: String = "" //Description of the profile
     
-    var pantryCollateKey: String = "" //Key for orgainizing the pantry
+    var pantryCollateKey: String = "Category" //Key for orgainizing the pantry
     
     //Data used for sharing
 
