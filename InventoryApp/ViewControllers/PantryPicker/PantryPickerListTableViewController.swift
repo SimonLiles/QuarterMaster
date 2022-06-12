@@ -49,6 +49,11 @@ class PantryPickerListTableViewController: UITableViewController {
         
         updateSaveButtonState()
         
+        if (returnKey == "addNewShoppingListItemTableView") {
+            navigationItem.rightBarButtonItem?.isEnabled = false
+            navigationItem.rightBarButtonItem?.title = " "
+        }
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
