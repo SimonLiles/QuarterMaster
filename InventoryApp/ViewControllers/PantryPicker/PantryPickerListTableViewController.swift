@@ -113,6 +113,8 @@ class PantryPickerListTableViewController: UITableViewController {
                     userData.profiles![profileIndex].categories.append("Uncategorized")
                 }
                 
+                selectedItem = "Uncategorized"
+                
                 //Remove category from inventory
                 var index: Int = 0
                 for item in userData.profiles![profileIndex].pantry {
@@ -141,6 +143,8 @@ class PantryPickerListTableViewController: UITableViewController {
                     userData.profiles![profileIndex].locations.append("No Location")
                 }
                 
+                selectedItem = "No Location"
+                
                 //Remove category from inventory
                 var index: Int = 0
                 for item in userData.profiles![profileIndex].pantry {
@@ -168,6 +172,8 @@ class PantryPickerListTableViewController: UITableViewController {
                 if(!userData.profiles![profileIndex].units.contains("Unitless")) {
                     userData.profiles![profileIndex].units.append("Unitless")
                 }
+                
+                selectedItem = "Unitless"
                 
                 //Remove category from inventory
                 var index: Int = 0

@@ -299,7 +299,18 @@ class PantryTableViewController: UITableViewController {
                 pantryItem = filteredPantry[indexPath.row]
             } else {
                 //pantryItem = pantry[indexPath.row]
-                pantryItem = itemsCollatedByCategory[categories[indexPath.section]]![indexPath.row]
+                
+                switch collateKey {
+                case "Category":
+                    pantryItem = itemsCollatedByCategory[categories[indexPath.section]]![indexPath.row]
+                case "Location":
+                    pantryItem = itemsCollatedByLocation[locations[indexPath.section]]![indexPath.row]
+                case "Units":
+                    pantryItem = itemsCollatedByUnit[units[indexPath.section]]![indexPath.row]
+                default:
+                    log.error("ERROR: Unsupported collateKey in PantryTableView")
+                    pantryItem = PantryItem(name: "", category: "", location: "", currentQuantity: 0.0, units: "", note: "", lastUpdate: Date())
+                }
             }
             
             //Pull pantryItem from model controller
@@ -311,6 +322,8 @@ class PantryTableViewController: UITableViewController {
             
             // Pass pantryItem object to AddEditPantryItemTableViewController
             addEditPantryItemTableViewController.pantryItem = pantryItem
+            addEditPantryItemTableViewController.selectedIndexPath = indexPath
+            addEditPantryItemTableViewController.pantryIndex = pantryItemIndex
         }
     }
     
@@ -321,22 +334,28 @@ class PantryTableViewController: UITableViewController {
         if segue.identifier == "saveUnwind" {
             let sourceViewController = segue.source as! AddEditPantryItemTableViewController
         
+            let selectedIndexPath = sourceViewController.selectedIndexPath
+            let pantryIndex = sourceViewController.pantryIndex
+            
             let pantryItem = sourceViewController.pantryItem
-            if let selectedIndexPath = tableView.indexPathForSelectedRow {
+            
+            if(!selectedIndexPath.isEmpty) {
                 
                 //Ugly code to change a specific item in Pantry
-                let pantryItemToChange = itemsCollatedByCategory[categories[selectedIndexPath.section]]![selectedIndexPath.row]
-                var index = 0
-                for item in pantry {
-                    //Used pantryItem name as an identifier, assuming generally user does not have 2 of same pantry item
-                    if pantryItemToChange == item {
-                        break //If pantryItemToRemove matches the item, break out of the loop
-                    } else {
-                        index += 1
-                    }
+                var pantryItemToChange = PantryItem(name: "", category: "", location: "", currentQuantity: 0.0, units: "", note: "", lastUpdate: Date())
+                switch collateKey{
+                case "Category":
+                    pantryItemToChange = itemsCollatedByCategory[categories[selectedIndexPath.section]]?[selectedIndexPath.row] ?? pantryItemToChange
+                case "Location":
+                    pantryItemToChange = itemsCollatedByLocation[locations[selectedIndexPath.section]]![selectedIndexPath.row]
+                case "Units":
+                    pantryItemToChange = itemsCollatedByUnit[units[selectedIndexPath.section]]![selectedIndexPath.row]
+                default:
+                    log.error("ERROR: Unsupported collateKey")
                 }
-                pantry[index] = pantryItem //update item with new data
-                pantry[index].lastUpdate = Date()
+                
+                pantry[pantryIndex!] = pantryItem //update item with new data
+                pantry[pantryIndex!].lastUpdate = Date()
                 
                 //Ugly code to change a specific item in Shopping List
                 var shoppingListIndex = 0

@@ -34,6 +34,9 @@ class AddEditPantryItemTableViewController: UITableViewController {
     //Object to collect and store logs.
     let log = Logger()
     
+    var selectedIndexPath: IndexPath = IndexPath()
+    var pantryIndex: Int?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
                 
@@ -250,14 +253,47 @@ class AddEditPantryItemTableViewController: UITableViewController {
             switch key {
             case "Category":
                 pantryItem.category = pantryPickerAddNewViewController.newItem
+                userData.profiles![userData.selectedIndex].categories.append(pantryPickerAddNewViewController.newItem)
                 categoryLabel.text = pantryItem.category
                 tableView.reloadData()
             case "Location":
                 pantryItem.location = pantryPickerAddNewViewController.newItem
+                userData.profiles![userData.selectedIndex].locations.append(pantryPickerAddNewViewController.newItem)
                 locationLabel.text = pantryItem.location
                 tableView.reloadData()
             case "Units":
                 pantryItem.units = pantryPickerAddNewViewController.newItem
+                userData.profiles![userData.selectedIndex].units.append(pantryPickerAddNewViewController.newItem)
+                unitsLabel.text = pantryItem.units
+                tableView.reloadData()
+            default:
+                log.fault("Hmm, switch statements in unwindToAddEditPantryTableView are not working properly")
+                return
+            }
+            
+            //Reload tableViews for shoppingList and pantry tabs
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadPantry"), object: userData.profiles![userData.selectedIndex].pantry)
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadShoppingList"), object: userData.profiles![userData.selectedIndex].pantry)
+            
+            updateSaveButtonState()
+        } else if segue.identifier == "cancelUnwindToAddEditPantryFromPickerList" {
+            log.info("cancelUnwind from Pantry Picker List")
+            let pantryPickerListTableViewController = segue.source as! PantryPickerListTableViewController
+            //let pantryPickerListTableViewController = navController.topViewController as! PantryPickerListTableViewController
+            
+            let key = pantryPickerListTableViewController.name
+            
+            switch key {
+            case "Category":
+                pantryItem.category = pantryPickerListTableViewController.selectedItem
+                categoryLabel.text = pantryItem.category
+                tableView.reloadData()
+            case "Location":
+                pantryItem.location = pantryPickerListTableViewController.selectedItem
+                locationLabel.text = pantryItem.location
+                tableView.reloadData()
+            case "Units":
+                pantryItem.units = pantryPickerListTableViewController.selectedItem
                 unitsLabel.text = pantryItem.units
                 tableView.reloadData()
             default:
