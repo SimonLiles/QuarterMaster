@@ -164,6 +164,8 @@ class PantryTableViewController: UITableViewController {
         case "Location":
             return locations.count
         case "Units":
+            log.error("Unsupported collate given in Pantry TableView in numberOfSections()")
+            log.error("collateKey = \(self.collateKey)")
             return units.count
         default:
             return 1
@@ -212,7 +214,7 @@ class PantryTableViewController: UITableViewController {
         case "Units":
             return units[section]
         default:
-            return "ERROR: given collateKey unsupported"
+            return "ERROR: collateKey \"\(collateKey)\" is unsupported"
         }
         
         //return categories[section]
@@ -239,6 +241,7 @@ class PantryTableViewController: UITableViewController {
                 pantryItem = itemsCollatedByUnit[units[indexPath.section]]![indexPath.row]
             default:
                 log.error("ERROR: PantryTableView -> Unknown collateKey")
+                log.error("collateKey = \(self.collateKey)")
                 pantryItem = PantryItem(name: "", category: "", location: "", currentQuantity: 0.0, units: "", note: "", lastUpdate: Date())
             }
 
@@ -309,6 +312,7 @@ class PantryTableViewController: UITableViewController {
                     pantryItem = itemsCollatedByUnit[units[indexPath.section]]![indexPath.row]
                 default:
                     log.error("ERROR: Unsupported collateKey in PantryTableView")
+                    log.error("collateKey = \(self.collateKey)")
                     pantryItem = PantryItem(name: "", category: "", location: "", currentQuantity: 0.0, units: "", note: "", lastUpdate: Date())
                 }
             }
@@ -324,6 +328,19 @@ class PantryTableViewController: UITableViewController {
             addEditPantryItemTableViewController.pantryItem = pantryItem
             addEditPantryItemTableViewController.selectedIndexPath = indexPath
             addEditPantryItemTableViewController.pantryIndex = pantryItemIndex
+            
+            switch collateKey {
+            case "Category":
+                addEditPantryItemTableViewController.selectedSection = categories[indexPath.section]
+            case "Location":
+                addEditPantryItemTableViewController.selectedSection = locations[indexPath.section]
+            case "Units":
+                addEditPantryItemTableViewController.selectedSection = units[indexPath.section]
+            default:
+                log.error("ERROR: Unsupported collateKey.")
+                log.error("collateKey = \(self.collateKey)")
+                addEditPantryItemTableViewController.selectedSection = "unsupported collateKey"
+            }
         }
     }
     
@@ -333,9 +350,10 @@ class PantryTableViewController: UITableViewController {
         
         if segue.identifier == "saveUnwind" {
             let sourceViewController = segue.source as! AddEditPantryItemTableViewController
-        
+            
             let selectedIndexPath = sourceViewController.selectedIndexPath
             let pantryIndex = sourceViewController.pantryIndex
+            let selectedSection = sourceViewController.selectedSection
             
             let pantryItem = sourceViewController.pantryItem
             
@@ -345,13 +363,14 @@ class PantryTableViewController: UITableViewController {
                 var pantryItemToChange = PantryItem(name: "", category: "", location: "", currentQuantity: 0.0, units: "", note: "", lastUpdate: Date())
                 switch collateKey{
                 case "Category":
-                    pantryItemToChange = itemsCollatedByCategory[categories[selectedIndexPath.section]]?[selectedIndexPath.row] ?? pantryItemToChange
+                    pantryItemToChange = itemsCollatedByCategory[selectedSection]?[selectedIndexPath.row] ?? pantryItemToChange
                 case "Location":
-                    pantryItemToChange = itemsCollatedByLocation[locations[selectedIndexPath.section]]![selectedIndexPath.row]
+                    pantryItemToChange = itemsCollatedByLocation[selectedSection]?[selectedIndexPath.row] ?? pantryItemToChange
                 case "Units":
-                    pantryItemToChange = itemsCollatedByUnit[units[selectedIndexPath.section]]![selectedIndexPath.row]
+                    pantryItemToChange = itemsCollatedByUnit[selectedSection]?[selectedIndexPath.row] ?? pantryItemToChange
                 default:
                     log.error("ERROR: Unsupported collateKey")
+                    log.error("collateKey = \(self.collateKey)")
                 }
                 
                 pantry[pantryIndex!] = pantryItem //update item with new data

@@ -36,6 +36,7 @@ class AddEditPantryItemTableViewController: UITableViewController {
     
     var selectedIndexPath: IndexPath = IndexPath()
     var pantryIndex: Int?
+    var selectedSection: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
