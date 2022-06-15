@@ -141,7 +141,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Vcq-1U-WLe">
-                                                    <rect key="frame" x="189" y="0.0" width="185" height="32.5"/>
+                                                    <rect key="frame" x="188.5" y="0.0" width="185.5" height="32.5"/>
                                                     <subviews>
                                                         <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="0.0" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ada-t8-tH4">
                                                             <rect key="frame" x="0.0" y="0.0" width="48.5" height="32.5"/>
@@ -158,12 +158,9 @@
                                                             </connections>
                                                         </stepper>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oYw-O3-9J8">
-                                                            <rect key="frame" x="152.5" y="0.0" width="32.5" height="32.5"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="32.5" id="hEI-mK-xg1"/>
-                                                            </constraints>
+                                                            <rect key="frame" x="152.5" y="0.0" width="33" height="32.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                            <state key="normal" title="Button" image="circle" catalog="system">
+                                                            <state key="normal" image="circle" catalog="system">
                                                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="28" scale="default" weight="regular"/>
                                                             </state>
                                                             <connections>
@@ -226,7 +223,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <toolbar key="tableFooterView" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="Pln-Oz-Uan">
-                            <rect key="frame" x="0.0" y="112" width="414" height="44"/>
+                            <rect key="frame" x="0.0" y="111.5" width="414" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                             <items>
                                 <barButtonItem style="plain" systemItem="flexibleSpace" id="LU2-gL-B7P"/>
