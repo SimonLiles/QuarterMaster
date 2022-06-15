@@ -260,21 +260,21 @@ class PantryTableViewController: UITableViewController {
         log.info("Sort Button Pressed")
         
         let sortTitle = "Sort the Invenotry"
-        let sortMessage = "Choose how you would like inventory items to be grouped."
+        let sortMessage = "Choose how you would like inventory items to be sorted."
         
         let sortAlert = UIAlertController(title: sortTitle, message: sortMessage, preferredStyle: .actionSheet)
         
-        let categoryAction = UIAlertAction(title: "By Category", style: .default, handler: {_ in
+        let categoryAction = UIAlertAction(title: "Group By Category", style: .default, handler: {_ in
             self.collateKey = "Category"
             userData.profiles![self.profileIndex].pantryCollateKey = "Category"
             self.tableView.reloadData()
         })
-        let locationAction = UIAlertAction(title: "By Location", style: .default, handler: {_ in
+        let locationAction = UIAlertAction(title: "Group By Location", style: .default, handler: {_ in
             self.collateKey = "Location"
             userData.profiles![self.profileIndex].pantryCollateKey = "Location"
             self.tableView.reloadData()
         })
-        let unitsAction = UIAlertAction(title: "By Unit", style: .default, handler: {_ in
+        let unitsAction = UIAlertAction(title: "Group By Unit", style: .default, handler: {_ in
             self.collateKey = "Units"
             userData.profiles![self.profileIndex].pantryCollateKey = "Units"
             self.tableView.reloadData()
