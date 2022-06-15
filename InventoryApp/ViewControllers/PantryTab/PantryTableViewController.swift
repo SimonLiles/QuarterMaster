@@ -285,6 +285,10 @@ class PantryTableViewController: UITableViewController {
         sortAlert.addAction(unitsAction)
         sortAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         
+        if let popoverController = sortAlert.popoverPresentationController {
+            popoverController.barButtonItem = sender
+        }
+        
         present(sortAlert, animated: true)
     }
     

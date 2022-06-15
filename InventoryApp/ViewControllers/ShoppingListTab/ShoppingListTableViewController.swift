@@ -211,6 +211,10 @@ class ShoppingListTableViewController: UITableViewController {
         shoppingDoneAlert.addAction(finishShoppingAction)
         shoppingDoneAlert.addAction(deleteCanceledItemsAction)
         
+        if let popoverController = shoppingDoneAlert.popoverPresentationController {
+            popoverController.barButtonItem = sender
+        }
+        
         present(shoppingDoneAlert, animated: true, completion: nil)
     }
 
