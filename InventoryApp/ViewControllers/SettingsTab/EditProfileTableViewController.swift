@@ -130,6 +130,10 @@ class EditProfileTableViewController: UITableViewController {
         saveAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         saveAlert.addAction(saveAction)
         
+        if let popoverController = saveAlert.popoverPresentationController {
+            popoverController.barButtonItem = sender as? UIBarButtonItem
+        }
+        
         present(saveAlert, animated: true, completion: nil)
     }
     
@@ -146,6 +150,10 @@ class EditProfileTableViewController: UITableViewController {
         
         cancelAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         cancelAlert.addAction(cancelAction)
+        
+        if let popoverController = cancelAlert.popoverPresentationController {
+            popoverController.barButtonItem = sender as? UIBarButtonItem
+        }
         
         present(cancelAlert, animated: true, completion: nil)
 
@@ -168,7 +176,7 @@ class EditProfileTableViewController: UITableViewController {
     }
     
     @IBAction func deleteButtonPressed(_ sender: Any) {
-        let deleteAlert = UIAlertController(title: "Do you wish to continue?", message: "Are you sure you wish to delete this profile? After deleting you will not be able to recover the data.", preferredStyle: .actionSheet)
+        let deleteAlert = UIAlertController(title: "Do you wish to continue?", message: "Are you sure you wish to delete this profile? After deleting you will not be able to recover the data.", preferredStyle: .alert)
         
         let deleteAction = UIAlertAction(title: "Delete", style: .destructive, handler: { action in
             self.log.info("User chose delete action")
