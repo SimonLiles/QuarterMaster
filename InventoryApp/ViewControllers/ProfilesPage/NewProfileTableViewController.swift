@@ -81,7 +81,7 @@ class NewProfileTableViewController: UITableViewController {
         log.info("User created a new profile")
         
         //Push changes to model controller
-        profile.name = profileNameTextField.text ?? "Unnamed Vessel"
+        profile.name = profileNameTextField.text ?? "Unnamed Profile"
         profile.description = descriptionTextView.text ?? ""
         
         userData.profiles!.append(profile)
