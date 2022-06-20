@@ -157,12 +157,36 @@ class AddEditPantryItemTableViewController: UITableViewController {
         //Checks if user is trying to save data
         if segue.identifier == "saveUnwind" {
             let name = nameTextField.text ?? ""
-            let category = categoryLabel.text ?? "Uncategorized"
-            let location = locationLabel.text ?? "No Location"
+            var category = categoryLabel.text ?? "Uncategorized"
+            var location = locationLabel.text ?? "No Location"
             let quantity = quantityStepper.value
-            let units = unitsLabel.text ?? "Units"
+            var units = unitsLabel.text ?? "Unitless"
             let note = commentTextField.text ?? ""
             let currentDate = Date()
+            
+            if(categoryLabel.text == "Category") {
+                category = "Uncategorized"
+                
+                if (!(userData.profiles![userData.selectedIndex].categories.contains("Uncategorized"))) {
+                    userData.profiles![userData.selectedIndex].categories.append("Uncategorized")
+                }
+            }
+            
+            if(locationLabel.text == "Location") {
+                location = "No Location"
+                
+                if (!(userData.profiles![userData.selectedIndex].locations.contains("No Location"))) {
+                    userData.profiles![userData.selectedIndex].locations.append("No Location")
+                }
+            }
+            
+            if(unitsLabel.text == "Units") {
+                units = "Unitless"
+                
+                if (!(userData.profiles![userData.selectedIndex].units.contains("Unitless"))) {
+                    userData.profiles![userData.selectedIndex].units.append("Unitless")
+                }
+            }
             
             pantryItem = PantryItem(name: name, category: category, location: location, currentQuantity: quantity, units: units, note: note, lastUpdate: currentDate)
         } else if segue.identifier == "pickerSegue" {

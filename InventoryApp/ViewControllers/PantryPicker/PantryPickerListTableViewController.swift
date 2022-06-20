@@ -230,6 +230,20 @@ class PantryPickerListTableViewController: UITableViewController {
     
     //Responds when back button is pressed
     @IBAction func cancelButtonPressed(_ sender: UIBarButtonItem) {
+        
+        if (selectedItem.isEmpty) {
+            switch name {
+            case "Category":
+                selectedItem = "Uncategorized"
+            case "Location":
+                selectedItem = "No Location"
+            case "Units":
+                selectedItem = "Unitless"
+            default:
+                selectedItem = "Unsupported CollateKey"
+            }
+        }
+        
         switch returnKey {
         case "pantryEditTableView":
             performSegue(withIdentifier: "cancelUnwindToAddEditPantryFromPickerList", sender: nil)

@@ -95,12 +95,36 @@ class AddNewShoppingListItemTableViewController: UITableViewController {
         if segue.identifier == "saveUnwind" {
             
             let name = nameTextField.text ?? ""
-            let category = categoryLabel.text ?? ""
-            let location = locationLabel.text ?? ""
+            var category = categoryLabel.text ?? "Uncategorized"
+            var location = locationLabel.text ?? "No Location"
             let quantity = quantityStepper.value
-            let units = unitsLabel.text ?? ""
+            var units = unitsLabel.text ?? "Unitless"
             let note = commentTextFIeld.text ?? ""
             let currentDate = Date()
+            
+            if(categoryLabel.text == "Category") {
+                category = "Uncategorized"
+                
+                if (!(userData.profiles![userData.selectedIndex].categories.contains("Uncategorized"))) {
+                    userData.profiles![userData.selectedIndex].categories.append("Uncategorized")
+                }
+            }
+            
+            if(locationLabel.text == "Location") {
+                location = "No Location"
+                
+                if (!(userData.profiles![userData.selectedIndex].locations.contains("No Location"))) {
+                    userData.profiles![userData.selectedIndex].locations.append("No Location")
+                }
+            }
+            
+            if(unitsLabel.text == "Units") {
+                units = "Unitless"
+                
+                if (!(userData.profiles![userData.selectedIndex].units.contains("Unitless"))) {
+                    userData.profiles![userData.selectedIndex].units.append("Unitless")
+                }
+            }
             
             shoppingListItem = PantryItem(name: name, category: category, location: location, currentQuantity: 0, units: units, note: note, lastUpdate: currentDate)
             shoppingListItem.neededQuantity = quantity
