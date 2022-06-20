@@ -356,10 +356,14 @@ class ShoppingListTableViewController: UITableViewController {
             shoppingList.append(newShoppingListItem)
             userData.profiles![profileIndex].pantry.append(newShoppingListItem)
 
+            AddToShoppingListTableViewController.sharedItemAdder.itemsToAdd = [] //Reset the array after user presses save
+            
             userData.saveProfileData()
             log.info("ProfileModelController saved user data after adding an item to the shoppingList")
             
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadPantry"), object: userData.profiles![profileIndex].pantry)
+        } else if segue.identifier == "cancelUnwindFromAddToShoppingListView" {
+            AddToShoppingListTableViewController.sharedItemAdder.itemsToAdd = [] //Reset the array after user presses cancel
         }
         
         tableView.reloadData()
