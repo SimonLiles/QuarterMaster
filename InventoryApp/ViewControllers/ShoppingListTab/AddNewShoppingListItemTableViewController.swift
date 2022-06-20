@@ -206,14 +206,17 @@ class AddNewShoppingListItemTableViewController: UITableViewController {
             switch key {
             case "Category":
                 shoppingListItem.category = pantryPickerAddNewViewController.newItem
+                userData.profiles![userData.selectedIndex].categories.append(pantryPickerAddNewViewController.newItem)
                 categoryLabel.text = shoppingListItem.category
                 tableView.reloadData()
             case "Location":
                 shoppingListItem.location = pantryPickerAddNewViewController.newItem
+                userData.profiles![userData.selectedIndex].locations.append(pantryPickerAddNewViewController.newItem)
                 locationLabel.text = shoppingListItem.location
                 tableView.reloadData()
             case "Units":
                 shoppingListItem.units = pantryPickerAddNewViewController.newItem
+                userData.profiles![userData.selectedIndex].units.append(pantryPickerAddNewViewController.newItem)
                 unitsLabel.text = shoppingListItem.units
                 tableView.reloadData()
             default:
