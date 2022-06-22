@@ -228,6 +228,10 @@ class MultipeerSession: NSObject, ObservableObject {
         serviceAdvertiser.stopAdvertisingPeer()
         serviceBrowser.stopBrowsingForPeers()
     }
+    
+    func disconnect() {
+        session.disconnect()
+    }
 }
 
 // MARK: - Advertiser Delegates
@@ -352,6 +356,9 @@ extension MultipeerSession: MCSessionDelegate {
         default:
             log.fault("Something Broke in session peer didChange")
         }
+        
+        //Post notification to update views displaying session info/data
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "session_did_change"), object: nil)
     }
     
     ///Session didReceive data

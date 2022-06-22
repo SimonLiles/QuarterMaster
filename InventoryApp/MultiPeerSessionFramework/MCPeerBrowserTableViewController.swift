@@ -93,6 +93,17 @@ class MCPeerBrowserTableViewController: UITableViewController {
                 MultipeerSession.instance.foundPeers[selectedPeer] = "Invite Sent"
             }
             
+            switch(MultipeerSession.instance.foundPeers[selectedPeer]) {
+            case "Not Connected":
+                MultipeerSession.instance.invitePeer(with: selectedPeer)
+                MultipeerSession.instance.foundPeers[selectedPeer] = "Invite Sent"
+            case "Connected":
+                MultipeerSession.instance.disconnect()
+                MultipeerSession.instance.foundPeers[selectedPeer] = "Not Connected"
+            default:
+                break
+            }
+            
             tableView.reloadData()
         default:
             break
