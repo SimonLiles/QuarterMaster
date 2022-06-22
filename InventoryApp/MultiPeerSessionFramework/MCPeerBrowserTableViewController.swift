@@ -64,7 +64,7 @@ class MCPeerBrowserTableViewController: UITableViewController {
         case 1:
             return "1 peer found"
         default:
-            return "Found \(peerCount)"
+            return "\(peerCount) peers found"
         }
     }
     
