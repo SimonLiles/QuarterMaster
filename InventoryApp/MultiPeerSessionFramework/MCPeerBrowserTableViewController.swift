@@ -90,6 +90,7 @@ class MCPeerBrowserTableViewController: UITableViewController {
             
             if (!connectedPeers.contains(selectedPeer)) {
                 MultipeerSession.instance.invitePeer(with: selectedPeer)
+                MultipeerSession.instance.foundPeers[selectedPeer] = "Invite Sent"
             }
             
             tableView.reloadData()

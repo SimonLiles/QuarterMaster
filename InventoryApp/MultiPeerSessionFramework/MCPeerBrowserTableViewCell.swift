@@ -63,6 +63,21 @@ class MCPeerBrowserTableViewCell: UITableViewCell {
             peerStatus = "Not Connected"
         }
         
+        switch (MultipeerSession.instance.foundPeers[peer]) {
+        case "Found":
+            peerStatus = "Not Connected"
+        case "Connected":
+            peerStatus = "Connected"
+        case "Connecting":
+            peerStatus = "Connecting"
+        case "Not Connected":
+            peerStatus = "Not Connected"
+        case "Invite Sent":
+            peerStatus = "Invite Sent"
+        default:
+            peerStatus = "Unknown Status"
+        }
+        
         //Update the cell GUI
         peerIDLabel.text = peer.displayName
         peerStatusLabel.text = peerStatus
