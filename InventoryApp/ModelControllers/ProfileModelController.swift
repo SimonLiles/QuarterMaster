@@ -225,6 +225,7 @@ class ProfileModelController {
             
             //Changes to author should not permeate
             newData.originalAuthor = currentData.originalAuthor
+            newData.originalAuthorSimple = currentData.originalAuthorSimple
             
             //Update shoppingListLastClear
             if (currentData.shoppingListLastClear <= receivedData.shoppingListLastClear) {
