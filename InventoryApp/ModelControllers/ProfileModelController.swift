@@ -234,6 +234,30 @@ class ProfileModelController {
                 newData.shoppingListLastClear = currentData.shoppingListLastClear
             }
             
+            //Update the categories array
+            newData.categories = currentData.categories
+            for item in receivedData.categories {
+                if (!currentData.categories.contains(item)) {
+                    newData.categories.append(item)
+                }
+            }
+            
+            //Update the locations array
+            newData.locations = currentData.locations
+            for item in receivedData.locations {
+                if (!currentData.locations.contains(item)) {
+                    newData.locations.append(item)
+                }
+            }
+            
+            //Update the units array
+            newData.units = currentData.units
+            for item in receivedData.units {
+                if (!currentData.units.contains(item)) {
+                    newData.units.append(item)
+                }
+            }
+            
 //********************************************************************************************************
 
             //Update the pantry
