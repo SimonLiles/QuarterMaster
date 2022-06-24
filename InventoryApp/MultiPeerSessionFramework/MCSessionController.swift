@@ -289,7 +289,12 @@ extension MultipeerSession: MCNearbyServiceBrowserDelegate {
         log.info("ServiceBrowser found peer: \(peerID, privacy: .private)")
         
         //Add peer to list of nearby peers
-        nearbyPeers.append(peerID)
+        let currentDevicePeerID: MCPeerID = session.myPeerID
+        if(peerID != currentDevicePeerID) {
+            if(!nearbyPeers.contains(peerID)) {
+                nearbyPeers.append(peerID)
+            }
+        }
         
         //Add peer to dictionary of found peers
         foundPeers[peerID] = "Found"
