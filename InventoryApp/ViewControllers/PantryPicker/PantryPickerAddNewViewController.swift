@@ -42,7 +42,11 @@ class PantryPickerAddNewViewController: UIViewController {
     
     //Turns save button off when text field is empty
     func updateSaveButtonState() {
-        saveButton.isEnabled = !addNewTextField.text!.isEmpty
+        let whiteSpaceCharSet = CharacterSet(charactersIn: " \t\n")
+        
+        let trimmedNameText = addNewTextField.text!.trimmingCharacters(in: whiteSpaceCharSet)
+        
+        saveButton.isEnabled = !trimmedNameText.isEmpty
     }
     
     // MARK: - IBActions

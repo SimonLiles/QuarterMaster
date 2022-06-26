@@ -70,7 +70,9 @@ class AddEditPantryItemTableViewController: UITableViewController {
     
     ///Disables save button when required data fields are left blank
     func updateSaveButtonState() {
-        let nameText = nameTextField.text ?? ""
+        let whiteSpaceCharSet = CharacterSet(charactersIn: " \t\n")
+        
+        let nameText = nameTextField.text?.trimmingCharacters(in: whiteSpaceCharSet) ?? "Unnamed Item"
         let categoryText = categoryLabel.text ?? ""
         let locationText = locationLabel.text ?? ""
         let quantityText = quantityTextField.text ?? ""
