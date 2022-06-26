@@ -114,7 +114,7 @@ class MultipeerSession: NSObject, ObservableObject {
                 ac.addAction(UIAlertAction(title: "OK", style: .default))
                 
                 //Get current viewcontroller
-                var rootViewController = UIApplication.shared.keyWindow?.rootViewController
+                var rootViewController = UIApplication().keyWindowPresentedController
                 if let navigationController = rootViewController as? UINavigationController {
                     rootViewController = navigationController.viewControllers.first
                 }
@@ -261,7 +261,7 @@ extension MultipeerSession: MCNearbyServiceAdvertiserDelegate {
         connectAlert.addAction(connectAction)
         
         //Get current viewcontroller
-        var rootViewController = UIApplication.shared.keyWindow?.rootViewController
+        var rootViewController = UIApplication().keyWindowPresentedController
         if let navigationController = rootViewController as? UINavigationController {
             rootViewController = navigationController.viewControllers.first
         }
