@@ -103,9 +103,15 @@ class AddEditPantryItemTableViewController: UITableViewController {
             addToShoppingListButton.setTitleColor(.gray, for: .disabled)
             addToShoppingListButton.isEnabled = false
         } else {
-            addToShoppingListButton.setTitle("Add to Shopping List", for: .normal)
-            addToShoppingListButton.setTitleColor(.systemBlue, for: .normal)
-            addToShoppingListButton.isEnabled = true
+            if (saveButton.isEnabled) {
+                addToShoppingListButton.setTitle("Add to Shopping List", for: .normal)
+                addToShoppingListButton.setTitleColor(.systemBlue, for: .normal)
+                addToShoppingListButton.isEnabled = true
+            } else {
+                addToShoppingListButton.setTitle("  ", for: .disabled)
+                addToShoppingListButton.setTitleColor(.systemBlue, for: .disabled)
+                addToShoppingListButton.isEnabled = false
+            }
             
         }
     }
