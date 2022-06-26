@@ -463,6 +463,9 @@ class ProfileModelController {
     func loadSampleProfile() -> [Profile]? {
         log.info("Loading sample profile data")
         
+        let sampleProfile: [Profile] = []
+        
+        /*
         var sampleProfile: [Profile] = [Profile(
         name: "Queen Anne's Revenge",
         pantry: [
@@ -480,6 +483,7 @@ class ProfileModelController {
         sampleProfile[0].description = "Blackbeard's ship. This is a sample profile, feel free to change as you see fit."
         
         sampleProfile[0].shoppingList[0].purchaseStatus = .toBuy
+        */
         
         return sampleProfile
     }

@@ -44,6 +44,7 @@ class ProfileTableViewController: UITableViewController {
         } else {
             userData.profiles = ProfileModelController().loadSampleProfile()
             profiles = userData.profiles!
+            performSegue(withIdentifier: "addNewProfileSegue", sender: nil)
         }
         
         profiles = userData.profiles!

@@ -1290,7 +1290,7 @@
                         <barButtonItem key="backBarButtonItem" title=" " id="fjB-Vn-ey4"/>
                         <barButtonItem key="leftBarButtonItem" systemItem="add" id="o2s-Fz-Pvj">
                             <connections>
-                                <segue destination="EjD-07-KVL" kind="presentation" id="gmS-qc-HCU"/>
+                                <segue destination="EjD-07-KVL" kind="presentation" identifier="addNewProfileSegue" id="gmS-qc-HCU"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="MPC Connect" image="personalhotspot" catalog="system" id="8Ki-aE-kzC">
