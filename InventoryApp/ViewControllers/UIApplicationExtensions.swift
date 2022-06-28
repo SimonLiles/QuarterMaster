@@ -24,7 +24,7 @@ extension UIApplication {
         }
     
     var keyWindowPresentedController: UIViewController? {
-            var viewController = self.keyWindow?.rootViewController
+        var viewController = UIApplication.shared.keyWindow?.rootViewController
             
             // If root `UIViewController` is a `UITabBarController`
             if let presentedController = viewController as? UITabBarController {
