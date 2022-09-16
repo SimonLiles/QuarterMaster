@@ -185,5 +185,7 @@ class ShoppingListTableViewCell: UITableViewCell {
         userData.profiles![profileIndex].pantry[pantryIndex] = itemToChange
         
         update(with: item, at: indexPath)
+        
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadShoppingList"), object: userData.profiles![profileIndex].pantry)
     }
 }
