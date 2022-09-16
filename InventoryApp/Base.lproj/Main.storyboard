@@ -130,10 +130,10 @@
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="54.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="KiL-cZ-Bz7">
+                                        <stackView opaque="NO" contentMode="scaleToFill" horizontalCompressionResistancePriority="752" distribution="equalSpacing" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="KiL-cZ-Bz7">
                                             <rect key="frame" x="20" y="11" width="374" height="32.5"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalCompressionResistancePriority="751" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ucl-50-ePr">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ucl-50-ePr">
                                                     <rect key="frame" x="0.0" y="0.0" width="41.5" height="32.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -172,10 +172,12 @@
                                         </stackView>
                                     </subviews>
                                     <constraints>
-                                        <constraint firstItem="KiL-cZ-Bz7" firstAttribute="leading" secondItem="WEN-DN-vhd" secondAttribute="leadingMargin" id="Ajy-Zc-biI"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="KiL-cZ-Bz7" secondAttribute="trailing" id="JQ9-Sg-B7W"/>
-                                        <constraint firstAttribute="bottomMargin" secondItem="KiL-cZ-Bz7" secondAttribute="bottom" id="Mji-XX-zXS"/>
-                                        <constraint firstItem="KiL-cZ-Bz7" firstAttribute="top" secondItem="WEN-DN-vhd" secondAttribute="topMargin" id="eh4-I8-ptl"/>
+                                        <constraint firstItem="KiL-cZ-Bz7" firstAttribute="leading" secondItem="WEN-DN-vhd" secondAttribute="leadingMargin" id="39R-gw-7X8"/>
+                                        <constraint firstItem="KiL-cZ-Bz7" firstAttribute="centerX" secondItem="WEN-DN-vhd" secondAttribute="centerX" id="3St-xc-8X4"/>
+                                        <constraint firstItem="KiL-cZ-Bz7" firstAttribute="top" secondItem="WEN-DN-vhd" secondAttribute="topMargin" id="61l-MI-A6t"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="KiL-cZ-Bz7" secondAttribute="trailing" id="ISy-Bh-Dfp"/>
+                                        <constraint firstItem="KiL-cZ-Bz7" firstAttribute="centerY" secondItem="WEN-DN-vhd" secondAttribute="centerY" id="O7N-n3-iRy"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="KiL-cZ-Bz7" secondAttribute="bottom" id="xHr-sQ-fRl"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
@@ -222,7 +224,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <toolbar key="tableFooterView" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="Pln-Oz-Uan">
-                            <rect key="frame" x="0.0" y="111.5" width="414" height="44"/>
+                            <rect key="frame" x="0.0" y="112" width="414" height="44"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                             <items>
                                 <barButtonItem style="plain" systemItem="flexibleSpace" id="LU2-gL-B7P"/>
