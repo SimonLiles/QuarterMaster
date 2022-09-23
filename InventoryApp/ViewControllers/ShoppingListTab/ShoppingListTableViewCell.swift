@@ -118,6 +118,8 @@ class ShoppingListTableViewCell: UITableViewCell {
         item.lastUpdate = Date()
         
         update(with: item, at: indexPath)
+        
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadShoppingList"), object: userData.profiles![profileIndex].pantry)
     }
     
     //Updates cell and model data when value in text field is changed
@@ -129,6 +131,8 @@ class ShoppingListTableViewCell: UITableViewCell {
         item.lastUpdate = Date()
         
         update(with: item, at: indexPath)
+        
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadShoppingList"), object: userData.profiles![profileIndex].pantry)
     }
     
     //Updates cell and model data when button is pressed
