@@ -30,7 +30,7 @@ class ShoppingListTableViewController: UITableViewController {
     
     //Collates shopping list with Category keys
     var itemsCollatedByCategory: [String: [PantryItem]] {
-        Dictionary(grouping: shoppingList, by: { $0.category })
+        Dictionary(grouping: itemsSortedByCategory, by: { $0.category })
     }
     
     //Sorts shopping list by category
@@ -104,13 +104,16 @@ class ShoppingListTableViewController: UITableViewController {
     
     //Function to filter for search results
     func filterContentForSearchText(_ searchText: String) {
+        log.info("Shopping List search is filtering")
         
         filteredShoppingList = shoppingList.filter { (pantryItem: PantryItem) -> Bool in
         
             return pantryItem.name.lowercased().contains(searchText.lowercased())
         }
       
-      tableView.reloadData()
+        log.info("\(self.filteredShoppingList.count) results found")
+        
+        tableView.reloadData()
     }
     
     // MARK: - IBActions
@@ -256,7 +259,9 @@ class ShoppingListTableViewController: UITableViewController {
     //Configures each cell
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ShoppingListCell", for: indexPath) as! ShoppingListTableViewCell
-        
+        //Make sure view data is aligned with model data
+        shoppingList = userData.profiles![profileIndex].shoppingList
+
         //Fetch model object to display in cell
         let shoppingListItem: PantryItem
         
@@ -378,5 +383,9 @@ extension ShoppingListTableViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         let searchBar = searchController.searchBar
         filterContentForSearchText(searchBar.text!)
+        
+        //Reload pantry as filter changes
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadShoppingList"), object: userData.profiles![profileIndex].shoppingList)
+
     }
 }

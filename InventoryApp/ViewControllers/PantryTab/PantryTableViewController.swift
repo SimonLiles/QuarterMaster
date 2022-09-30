@@ -33,7 +33,7 @@ class PantryTableViewController: UITableViewController {
     
     //Collates pantry with Category keys
     var itemsCollatedByCategory: [String: [PantryItem]] {
-        Dictionary(grouping: pantry, by: { $0.category })
+        Dictionary(grouping: itemsSortedByCategory, by: { $0.category })
     }
     
     //Sorts pantry by category
@@ -49,7 +49,7 @@ class PantryTableViewController: UITableViewController {
     
     //Collates pantry with Location Keys
     var itemsCollatedByLocation: [String: [PantryItem]] {
-        Dictionary(grouping: pantry, by: { $0.location })
+        Dictionary(grouping: itemsSortedByLocation, by: { $0.location })
     }
     
     //Sorts pantry by location
@@ -64,7 +64,7 @@ class PantryTableViewController: UITableViewController {
     
     //Collates pantry with Units keys
     var itemsCollatedByUnit: [String: [PantryItem]] {
-        Dictionary(grouping: pantry, by: { $0.units })
+        Dictionary(grouping: itemsSortedByUnit, by: { $0.units })
     }
     
     //Sorts pantry by unit
@@ -531,6 +531,9 @@ extension PantryTableViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         let searchBar = searchController.searchBar
         filterContentForSearchText(searchBar.text!)
+        
+        //Reload pantry as filter changes
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadPantry"), object: userData.profiles![profileIndex].pantry)
     }
 }
 

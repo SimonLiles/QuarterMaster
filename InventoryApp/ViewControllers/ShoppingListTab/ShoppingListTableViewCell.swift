@@ -83,14 +83,8 @@ class ShoppingListTableViewCell: UITableViewCell {
         //I keep using this code block everywhere, maybe abstract it into a function of a controller or model?
         let itemToChange = item
         
-        var index = 0
-        for item in userData.profiles![profileIndex].shoppingList {
-            if itemToChange == item {
-                break
-            } else {
-                index += 1
-            }
-        }
+        let index = userData.profiles![profileIndex].shoppingList.firstIndex(of: itemToChange) ?? 0
+        
         userData.profiles![profileIndex].shoppingList[index] = itemToChange
         
         //Update pantry purchase statuses
@@ -119,7 +113,6 @@ class ShoppingListTableViewCell: UITableViewCell {
         
         update(with: item, at: indexPath)
         
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadShoppingList"), object: userData.profiles![profileIndex].pantry)
     }
     
     //Updates cell and model data when value in text field is changed
@@ -132,7 +125,6 @@ class ShoppingListTableViewCell: UITableViewCell {
         
         update(with: item, at: indexPath)
         
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadShoppingList"), object: userData.profiles![profileIndex].pantry)
     }
     
     //Updates cell and model data when button is pressed
@@ -189,7 +181,5 @@ class ShoppingListTableViewCell: UITableViewCell {
         userData.profiles![profileIndex].pantry[pantryIndex] = itemToChange
         
         update(with: item, at: indexPath)
-        
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadShoppingList"), object: userData.profiles![profileIndex].pantry)
     }
 }
