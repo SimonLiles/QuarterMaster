@@ -11,9 +11,13 @@
 //  Copyright © 2020 Simon Liles. All rights reserved.
 //
 
+import Foundation
+
 import UIKit
 
 import os
+
+import StoreKit
 
 class PantryTableViewController: UITableViewController {
     
@@ -415,6 +419,9 @@ class PantryTableViewController: UITableViewController {
                 log.info("ProfileModelController saved user data after adding new item to pantry")
             }
             
+            //Ask for app review here
+            requestAppReview()
+            
         } else if segue.identifier == "deleteUnwind" {
             if let selectedIndexPath = tableView.indexPathForSelectedRow {
                 
@@ -534,6 +541,40 @@ extension PantryTableViewController: UISearchResultsUpdating {
         
         //Reload pantry as filter changes
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadPantry"), object: userData.profiles![profileIndex].pantry)
+    }
+}
+
+//MARK: - Request App Review
+extension PantryTableViewController {
+    //Logic to request app review
+    func requestAppReview() {
+        // If the app doesn't store the count, this returns 0.
+        var count = UserDefaults.standard.integer(forKey: "savePantryItemKey")
+        count += 1
+        UserDefaults.standard.set(count, forKey: "savePantryItemKey")
+        log.info("Process completed \(count) time(s).")
+
+        // Keep track of the most recent app version that prompts the user for a review.
+        let lastVersionPromptedForReview = UserDefaults.standard.string(forKey: "lastVersionPromptedForReviewKey")
+
+        // Get the current bundle version for the app.
+        let infoDictionaryKey = kCFBundleVersionKey as String
+        guard let currentVersion = Bundle.main.object(forInfoDictionaryKey: infoDictionaryKey) as? String
+            else { fatalError("Expected to find a bundle version in the info dictionary.") }
+         // Verify the user completes the process several times and doesn’t receive a prompt for this app version.
+         if count >= 4 && currentVersion != lastVersionPromptedForReview {
+             Task { @MainActor [weak self] in
+                 // Delay for two seconds to avoid interrupting the person using the app.
+                 // Use the equation n * 10^9 to convert seconds to nanoseconds.
+                 try? await Task.sleep(nanoseconds: UInt64(2e9))
+                 log.info("Presenting Request for App Review")
+                 if let windowScene = self?.view.window?.windowScene,
+                    self?.navigationController?.topViewController is PantryTableViewController {
+                     SKStoreReviewController.requestReview(in: windowScene)
+                     UserDefaults.standard.set(currentVersion, forKey: "lastVersionPromptedForReviewKey")
+                }
+             }
+         }
     }
 }
 
