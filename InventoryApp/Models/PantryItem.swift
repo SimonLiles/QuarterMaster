@@ -27,6 +27,8 @@ import Foundation
  - Important: Initialization of the PantryItem object can only be done with a name, category, location, currentQuantity, units, and the note, the other values must be set outside of the initializer
  */
 struct PantryItem: Codable, Hashable {
+    ///Unique integer representing item ID
+    var id: Int
     ///name of the item
     var name: String
     ///Category the item belongs to
@@ -57,7 +59,8 @@ struct PantryItem: Codable, Hashable {
         - Parameter units: How the amount of the item is measured
         - Parameter note: Allows user to add notes regarding the item
      */
-    init(name: String, category: String, location: String, currentQuantity: Double, units: String, note: String, lastUpdate: Date) {
+    init(id: Int, name: String, category: String, location: String, currentQuantity: Double, units: String, note: String, lastUpdate: Date) {
+        self.id = id
         self.name = name
         self.category = category
         self.location = location
