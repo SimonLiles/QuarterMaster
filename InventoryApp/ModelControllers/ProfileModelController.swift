@@ -422,7 +422,7 @@ class ProfileModelController {
     //MARK: - Data Persistence
     
     //URL address on user device for app memory
-    let archiveURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("profiles").appendingPathExtension("json")
+    let archiveURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("profiles_v_1_1").appendingPathExtension("json")
     
     /**
      Saves the array of profile objects representing user data to a .json file.
@@ -446,11 +446,105 @@ class ProfileModelController {
         
         let jsonDecoder = JSONDecoder()
         
-        guard let retrievedProfileData = try? Data(contentsOf: archiveURL) else { return nil } //Pulls json encoded profile data
+        guard let retrievedProfileData = try? Data(contentsOf: archiveURL) else {
+            log.info("Profile data not found")
+            let decodedProfiles = loadOldProfileData()
+            
+            return decodedProfiles
+        } //Pulls json encoded profile data
         
         let decodedProfiles: [Profile]? = try? jsonDecoder.decode(Array<Profile>.self, from: retrievedProfileData) //Decodes JSON profile data
         
         return decodedProfiles
+    }
+    
+    /**
+    Pulls old user data from selected .json file. Will automatically convert old data to proper format for current data model
+     
+     - Returns: Optional array of old profile objects, updated to current version of data model
+     */
+    private func loadOldProfileData() -> [Profile]? {
+        log.info("Searching for old profile data")
+        //decoder for handling json files
+        let jsonDecoder = JSONDecoder()
+        
+        log.info("Trying 1.0.2 data")
+        //URL address on user device for app memory
+        let archiveURL_1_0_2 = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("profiles").appendingPathExtension("json")
+        //Try 1.0.2 archive data
+        if let retrievedOldProfileData = try? Data(contentsOf: archiveURL_1_0_2) {
+            log.info("Found 1.0.2 data")
+            log.info("Decoding 1.0.2 data")
+            let decodedOldProfiles: [ProfileV1_0_2]? = try? jsonDecoder.decode(Array<ProfileV1_0_2>.self, from: retrievedOldProfileData) //Decodes JSON profile data
+            
+            //Convert 1.0.2 Profile data to 1.1 Profile data
+            log.info("Migrating 1.0.2 data to 1.1 standard")
+            
+            //New profile data object to meet current data model standard
+            var updatedProfiles: [Profile] = []
+            
+            var index = 0
+            for profile in decodedOldProfiles ?? [] {
+                updatedProfiles.append(Profile(name: "", pantry: [], shoppingList: [], categories: [], locations: [], units: []))
+                //transfer data to V1.1 profile data model
+                updatedProfiles[index].name = profile.name
+                updatedProfiles[index].originalAuthor = profile.originalAuthor
+                updatedProfiles[index].originalAuthorSimple = profile.originalAuthorSimple
+                updatedProfiles[index].description = profile.description
+                updatedProfiles[index].pantryCollateKey = profile.pantryCollateKey
+                
+                updatedProfiles[index].categories = profile.categories
+                updatedProfiles[index].locations = profile.locations
+                updatedProfiles[index].units = profile.units
+                
+                //Move pantry item data model to V1.1
+                var pantryIndex = 0
+                for item in profile.pantry {
+                    updatedProfiles[index].pantry.append(PantryItem(id: pantryIndex,
+                                                                    name: item.name,
+                                                                    category: item.category,
+                                                                    location: item.location,
+                                                                    currentQuantity: item.currentQuantity,
+                                                                    units: item.units,
+                                                                    note: item.note,
+                                                                    lastUpdate: item.lastUpdate))
+                    
+                    
+                    updatedProfiles[index].pantry[pantryIndex].neededQuantity = item.neededQuantity
+                    updatedProfiles[index].pantry[pantryIndex].purchaseStatus = item.purchaseStatus
+
+                    pantryIndex += 1
+                }
+                
+                //Recreate shopping list
+                for item in profile.shoppingList {
+                    //Find index of matching item
+                    var matchingItem: PantryItem = PantryItem(id: 0, name: "", category: "", location: "", currentQuantity: 0, units: "", note: "", lastUpdate: Date())
+                    for pantryItem in updatedProfiles[index].pantry {
+                        if(pantryItem.name == item.name &&
+                           pantryItem.category == item.category &&
+                           pantryItem.location == item.location &&
+                           pantryItem.currentQuantity == item.currentQuantity &&
+                           pantryItem.units == item.units &&
+                           pantryItem.neededQuantity == item.neededQuantity &&
+                           pantryItem.note == item.note &&
+                           pantryItem.purchaseStatus == item.purchaseStatus) {
+                            //copy matching pantry item into shopping list
+                            matchingItem = pantryItem
+                        }
+                    }
+                    
+                    updatedProfiles[index].shoppingList.append(matchingItem)
+                }
+                
+                //Move to next row for updated profiles
+                index += 1
+            }
+            
+            return updatedProfiles
+        } //Pulls json encoded profile data
+        
+        return nil
     }
     
     /**

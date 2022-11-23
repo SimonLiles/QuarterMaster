@@ -246,7 +246,7 @@ class PantryTableViewController: UITableViewController {
             default:
                 log.error("ERROR: PantryTableView -> Unknown collateKey")
                 log.error("collateKey = \(self.collateKey)")
-                pantryItem = PantryItem(name: "", category: "", location: "", currentQuantity: 0.0, units: "", note: "", lastUpdate: Date())
+                pantryItem = PantryItem(id: 0, name: "", category: "", location: "", currentQuantity: 0.0, units: "", note: "", lastUpdate: Date())
             }
 
         }
@@ -321,7 +321,7 @@ class PantryTableViewController: UITableViewController {
                 default:
                     log.error("ERROR: Unsupported collateKey in PantryTableView")
                     log.error("collateKey = \(self.collateKey)")
-                    pantryItem = PantryItem(name: "", category: "", location: "", currentQuantity: 0.0, units: "", note: "", lastUpdate: Date())
+                    pantryItem = PantryItem(id: 0, name: "", category: "", location: "", currentQuantity: 0.0, units: "", note: "", lastUpdate: Date())
                 }
             }
             
@@ -368,7 +368,7 @@ class PantryTableViewController: UITableViewController {
             if(!selectedIndexPath.isEmpty) {
                 
                 //Ugly code to change a specific item in Pantry
-                var pantryItemToChange = PantryItem(name: "", category: "", location: "", currentQuantity: 0.0, units: "", note: "", lastUpdate: Date())
+                var pantryItemToChange = PantryItem(id: 0, name: "", category: "", location: "", currentQuantity: 0.0, units: "", note: "", lastUpdate: Date())
                 switch collateKey{
                 case "Category":
                     pantryItemToChange = itemsCollatedByCategory[selectedSection]?[selectedIndexPath.row] ?? pantryItemToChange

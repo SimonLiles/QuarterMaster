@@ -24,7 +24,7 @@ class PantryTableViewCell: UITableViewCell {
     let profileIndex = userData.selectedIndex
     
     //creates empty PantryItem object to later fill
-    var pantryItem1 = PantryItem(name: "", category: "", location: "", currentQuantity: 0, units: "", note: "", lastUpdate: Date())
+    var pantryItem1 = PantryItem(id: 0, name: "", category: "", location: "", currentQuantity: 0, units: "", note: "", lastUpdate: Date())
     
     var indexpath: IndexPath = IndexPath()
     

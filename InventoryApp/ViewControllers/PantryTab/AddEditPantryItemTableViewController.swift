@@ -29,7 +29,7 @@ class AddEditPantryItemTableViewController: UITableViewController {
     @IBOutlet weak var deleteButton: UIButton!
     
     // MARK: - Variables and Constants
-    var pantryItem: PantryItem = PantryItem(name: "", category: "", location: "", currentQuantity: 0.0, units: "", note: "", lastUpdate: Date())
+    var pantryItem: PantryItem = PantryItem(id: 0, name: "", category: "", location: "", currentQuantity: 0.0, units: "", note: "", lastUpdate: Date())
     
     //Object to collect and store logs.
     let log = Logger()
@@ -64,6 +64,9 @@ class AddEditPantryItemTableViewController: UITableViewController {
         updateSaveButtonState()
         
         updateAddToShoppingListButtonState()
+        
+        log.info("Item name: \(self.pantryItem.name)")
+        log.info("Item ID: \(self.pantryItem.id)")
     }
     
     // MARK: - Functions
@@ -196,7 +199,7 @@ class AddEditPantryItemTableViewController: UITableViewController {
                 }
             }
             
-            pantryItem = PantryItem(name: name, category: category, location: location, currentQuantity: quantity, units: units, note: note, lastUpdate: currentDate)
+            pantryItem = PantryItem(id: 0, name: name, category: category, location: location, currentQuantity: quantity, units: units, note: note, lastUpdate: currentDate)
         } else if segue.identifier == "pickerSegue" {
             let indexPath = tableView.indexPathForSelectedRow!
             
@@ -244,7 +247,7 @@ class AddEditPantryItemTableViewController: UITableViewController {
             let note = commentTextField.text ?? ""
             let currentDate = Date()
             
-            pantryItem = PantryItem(name: name, category: category, location: location, currentQuantity: quantity, units: units, note: note, lastUpdate: currentDate)
+            pantryItem = PantryItem(id: 0, name: name, category: category, location: location, currentQuantity: quantity, units: units, note: note, lastUpdate: currentDate)
         }
         
     }
