@@ -37,7 +37,9 @@ struct Profile: Codable {
     var pantryCollateKey: String = "Category" //Key for orgainizing the pantry
     
     //Data used for sharing
-
+    var pantryChangeLog: [PantryChangeKey] = []
+    var shoppingListChangeLog: [PantryChangeKey] = []
+    
     var versionTimeStamp: Date = Date() //Holds time and date of last saved update to Profile
     
     var shoppingListLastClear: Date = Date()
