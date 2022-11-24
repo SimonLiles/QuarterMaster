@@ -419,6 +419,36 @@ class ProfileModelController {
         return newData
     }
     
+    func rebuildData() {
+        let profileIndex = ProfileModelController.shared.selectedIndex
+        var profile = ProfileModelController.shared.profiles![profileIndex]
+        //Rebuild Pantry
+        for change in profile.pantryChangeLog {
+            switch change.changeType {
+            case .insert:
+                profile.pantry.append(change.newObject)
+            case .delete:
+                profile.pantry.remove(at: profile.pantry.firstIndex(of: change.oldObject)!)
+            case .modify:
+                let pantryIndex = profile.pantry.firstIndex(of: change.oldObject)
+                profile.pantry[pantryIndex!] = change.newObject
+            }
+        }
+        
+        //Rebuild Shopping List
+        for change in profile.shoppingListChangeLog {
+            switch change.changeType {
+            case .insert:
+                profile.shoppingList.append(change.newObject)
+            case .delete:
+                profile.shoppingList.remove(at: profile.shoppingList.firstIndex(of: change.oldObject)!)
+            case .modify:
+                let pantryIndex = profile.shoppingList.firstIndex(of: change.oldObject)
+                profile.shoppingList[pantryIndex!] = change.newObject
+            }
+        }
+    }
+    
     //MARK: - Data Persistence
     
     //URL address on user device for app memory
