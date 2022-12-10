@@ -75,7 +75,11 @@ extension PantryItem: Equatable {
     static func == (lhs: PantryItem, rhs: PantryItem) -> Bool {
         return lhs.id == rhs.id
     }
-    
+    /*
+    static func > (lhs: PantryItem, rhs: PantryItem) -> Bool {
+        return lhs.name > rhs.name
+    }
+    */
     /**
      Determines if two PantryItems are an exact match.
      

@@ -85,6 +85,8 @@ class ShoppingListTableViewCell: UITableViewCell {
         
         let index = userData.profiles![profileIndex].shoppingList.firstIndex(of: itemToChange) ?? 0
         
+        userData.profiles![profileIndex].shoppingListChangeLog.append(PantryChangeKey(time: Date(), changeType: .modify, newObject: item, oldObject: itemToChange))
+        
         userData.profiles![profileIndex].shoppingList[index] = itemToChange
         
         //Update pantry purchase statuses
@@ -97,6 +99,9 @@ class ShoppingListTableViewCell: UITableViewCell {
                 pantryIndex += 1
             }
         }
+        
+        userData.profiles![profileIndex].pantryChangeLog.append(PantryChangeKey(time: Date(), changeType: .modify, newObject: itemToChange, oldObject: userData.profiles![profileIndex].pantry[pantryIndex]))
+
         userData.profiles![profileIndex].pantry[pantryIndex] = itemToChange
         
         //log.info("Sending profile data to connected peers because of ShoppingListItemCell update")

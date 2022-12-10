@@ -38,6 +38,8 @@ class AddEditPantryItemTableViewController: UITableViewController {
     var pantryIndex: Int?
     var selectedSection: String = ""
     
+    var itemID: Int = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
                 
@@ -54,7 +56,14 @@ class AddEditPantryItemTableViewController: UITableViewController {
             quantityStepper.value = pantryItem.currentQuantity
             unitsLabel.text = pantryItem.units
             commentTextField.text = pantryItem.note
+            itemID = pantryItem.id
         } else {
+            let profileIndex = userData.selectedIndex
+            pantryItem.id = userData.profiles?[profileIndex].createPantryItemID() ?? 0
+            itemID = pantryItem.id
+            
+            //log.info("Creating new ID: \(self.pantryItem.id)")
+            
             quantityStepper.value = 0
             quantityTextField.text = String(quantityStepper.value)
         }
@@ -199,7 +208,7 @@ class AddEditPantryItemTableViewController: UITableViewController {
                 }
             }
             
-            pantryItem = PantryItem(id: 0, name: name, category: category, location: location, currentQuantity: quantity, units: units, note: note, lastUpdate: currentDate)
+            pantryItem = PantryItem(id: itemID, name: name, category: category, location: location, currentQuantity: quantity, units: units, note: note, lastUpdate: currentDate)
         } else if segue.identifier == "pickerSegue" {
             let indexPath = tableView.indexPathForSelectedRow!
             

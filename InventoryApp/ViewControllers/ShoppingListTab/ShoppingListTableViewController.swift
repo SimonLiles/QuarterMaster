@@ -361,6 +361,8 @@ class ShoppingListTableViewController: UITableViewController {
             shoppingList.append(newShoppingListItem)
             userData.profiles![profileIndex].pantry.append(newShoppingListItem)
 
+            userData.profiles![profileIndex].shoppingListChangeLog.append(PantryChangeKey(time: Date(), changeType: .insert, newObject: newShoppingListItem, oldObject: newShoppingListItem))
+
             AddToShoppingListTableViewController.sharedItemAdder.itemsToAdd = [] //Reset the array after user presses save
             
             userData.saveProfileData()

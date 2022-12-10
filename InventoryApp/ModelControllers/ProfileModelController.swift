@@ -130,6 +130,9 @@ class ProfileModelController {
                 pantry[pantryIndex].neededQuantity = 1 //Reset needed quanity for pantry item
                 pantry[pantryIndex].purchaseStatus = .toBuy
                 pantry[pantryIndex].lastUpdate = Date()
+                userData.profiles![profileIndex].pantryChangeLog.append(PantryChangeKey(time: Date(), changeType: .modify, newObject: pantry[pantryIndex], oldObject: item))
+                
+                userData.profiles![profileIndex].shoppingListChangeLog.append(PantryChangeKey(time: Date(), changeType: .delete, newObject: item, oldObject: item))
                 
                 shoppingList.remove(at: index) //Remove item from shoppingList
             } else {
@@ -257,140 +260,27 @@ class ProfileModelController {
                     newData.units.append(item)
                 }
             }
-            
-//********************************************************************************************************
 
-            //Update the pantry
-            //Make sure the pantry is not empty
-            if (!currentData.pantry.isEmpty &&
-                !receivedData.pantry.isEmpty) {
-                //Loop through each element of the receivedData pantry
-                var index = 0
-                for receivedItem in receivedData.pantry {
-                    if (index >= currentData.pantry.endIndex) {
-                        //log.info("Appending extraneous items from receivedData.pantry")
-                        //log.info("Item: \(receivedItem.name)")
-                        newData.pantry.append(receivedItem)
-                    } else {
-                        //let currentItem = currentData.pantry[index]
-                        //Check if item exists in both pantries
-                        if (currentData.pantry.contains(receivedItem)) {
-                            //Get the item that matches receivedItem
-                            let currentItem = currentData.pantry[currentData.pantry.firstIndex(of: receivedItem)!]
-                            //log.info("receivedItem: \(receivedItem.name) / \(receivedItem.currentQuantity)")
-                            //log.info("currentItem: \(currentItem.name) / \(currentItem.currentQuantity)")
-                            //log.info("receivedItem.lastUpdate: \(receivedItem.lastUpdate)")
-                            //log.info("currentItem.lastUpdate: \(currentItem.lastUpdate)")
-                            //Check which item is the latest to be updated
-                            if(currentItem.lastUpdate <= receivedItem.lastUpdate) {
-                                //log.info("Appending receivedItem to pantry")
-                                newData.pantry.append(receivedItem)
-                            } else {
-                                //log.info("Appending currentItem to pantry")
-                                newData.pantry.append(currentItem)
-                            }
-                        } else {
-                            //log.info("Could not find receivedItem in currentData.pantry")
-                            //log.info("Appending receivedItem to pantry")
-                            newData.pantry.append(receivedItem)
-                        }
+            //Merge the pantry change log
+            newData.pantryChangeLog = currentData.pantryChangeLog
+            newData.pantryChangeLog.append(contentsOf: receivedData.pantryChangeLog)
+            //Remove duplicate changes
+            let pantryChangeLogSet = Set(newData.pantryChangeLog)
+            newData.pantryChangeLog = Array(pantryChangeLogSet)
+
+            newData.pantryChangeLog = newData.pantryChangeLog.sorted()
                         
-                        index += 1
-                    }
-                }
-                
-                //log.info("Finding and appending extraneous item from currentData.pantry")
-                //Find which elements were left out from currentData, append to newData
-                for currentItem in currentData.pantry {
-                    //Loop through each element of the currentData pantry
-                    var index = 0
-                    if (index >= receivedData.pantry.endIndex) {
-                        //log.info("Appending extraneous item from currentData.pantry")
-                        newData.pantry.append(currentItem)
-                    } else {
-                        var isMatch = false
-                        
-                        for receivedItem in receivedData.pantry {
-                            if (currentItem == receivedItem) {
-                                isMatch = true
-                                index += 1
-                                break
-                            }
-                        }
-                        
-                        if(!isMatch) {
-                            //log.info("Found extraneous item in currentData.pantry")
-                            //log.info("Appending currentItem.name: \(currentItem.name)")
-                            newData.pantry.append(currentItem)
-                        }
-                    }
-                }
-            } else {
-                //If one is empty and the other is not, fill with the not empty one
-                if(currentData.pantry.isEmpty && !receivedData.pantry.isEmpty) {
-                    log.info("currentData.pantry is empty. Filling with receivedData.pantry")
-                    newData.pantry = receivedData.pantry
-                }
-                if(!currentData.pantry.isEmpty && receivedData.pantry.isEmpty) {
-                    log.info("receivedData.pantry is empty. Filling with currentData.pantry")
-                    newData.pantry = currentData.pantry
-                }
-            }
+            //Merge the shopping list changelog
+            newData.shoppingListChangeLog = currentData.shoppingListChangeLog
+            newData.shoppingListChangeLog.append(contentsOf: receivedData.shoppingListChangeLog)
+            //Remove duplicate changes
+            let shoppingListChangeLogSet = Set(newData.shoppingListChangeLog)
+            newData.shoppingListChangeLog = Array(shoppingListChangeLogSet)
+
+            newData.shoppingListChangeLog = newData.shoppingListChangeLog.sorted()
             
-//********************************************************************************************************
-            
-            //Update the shopping list
-            //Make sure the shopping list is not empty
-            if (!currentData.shoppingList.isEmpty &&
-                !receivedData.shoppingList.isEmpty) {
-                //Loop through each element of the receivedData shoppinglist
-                //var index = 0
-                for receivedItem in receivedData.shoppingList {
-                    //Check if item exists in both pantries
-                    if (currentData.shoppingList.contains(receivedItem)) {
-                        //Get the item that matches receivedItem
-                        let currentItem = currentData.shoppingList[currentData.shoppingList.firstIndex(of: receivedItem)!]
-                        //Check which item is the latest to be updated
-                        if(currentItem.lastUpdate <= receivedItem.lastUpdate) {
-                            //Only keep items in shopping list that are newer than the last clear
-                            if(receivedItem.lastUpdate >= currentData.shoppingListLastClear &&
-                               receivedItem.lastUpdate >= receivedData.shoppingListLastClear) {
-                                newData.shoppingList.append(receivedItem)
-                                //print("L279 - newData.shoppingList appended receivedItem")
-                            }
-                        } else {
-                            //Only keep items in shopping list that are newer than the last clear
-                            if(currentItem.lastUpdate >= receivedData.shoppingListLastClear &&
-                               currentItem.lastUpdate >= currentData.shoppingListLastClear) {
-                                newData.shoppingList.append((currentItem))
-                                //print("L289 - newData.shoppingList appended currentItem")
-                            }
-                            
-                        }
-                    } else {
-                        newData.shoppingList.append(receivedItem)
-                        //print("L295 - newData.shoppingList appended receivedItem")
-                    }
-                }
-                
-                //Find which elements were left out from currentData, append to newData
-                for currentItem in currentData.shoppingList {
-                    if(!newData.shoppingList.contains(currentItem)) {
-                        if(currentItem.lastUpdate >= receivedData.shoppingListLastClear &&
-                           currentItem.lastUpdate >= currentData.shoppingListLastClear ) {
-                            newData.shoppingList.append(currentItem)
-                        }
-                    }
-                }
-            } else {
-                if(currentData.shoppingList.isEmpty && !receivedData.shoppingList.isEmpty) {
-                    newData.shoppingList = receivedData.shoppingList
-                }
-                
-                if(!currentData.shoppingList.isEmpty && receivedData.shoppingList.isEmpty) {
-                    newData.shoppingList = currentData.shoppingList
-                }
-            }
+            //Finish pantry and shopping list merge by rebuilding the data
+            newData = rebuildData(profile: newData)
             
             //Now that data has been merged on this end, push local changes to connected peers
             
@@ -419,34 +309,61 @@ class ProfileModelController {
         return newData
     }
     
-    func rebuildData() {
-        let profileIndex = ProfileModelController.shared.selectedIndex
-        var profile = ProfileModelController.shared.profiles![profileIndex]
+    func rebuildData(profile: Profile) -> Profile {
+        log.info("rebuildData() called")
+        
+        var rebuiltProfile: Profile = profile
+        
         //Rebuild Pantry
+        log.info("Rebuilding Pantry")
         for change in profile.pantryChangeLog {
             switch change.changeType {
             case .insert:
-                profile.pantry.append(change.newObject)
+                log.info("INSERT: \(change.oldObject.name) @ \(change.time)")
+                rebuiltProfile.pantry.append(change.newObject)
             case .delete:
-                profile.pantry.remove(at: profile.pantry.firstIndex(of: change.oldObject)!)
+                if let index = rebuiltProfile.pantry.firstIndex(of: change.oldObject) {
+                    log.info("DELETE: \(change.oldObject.name) @ \(change.time)")
+                    rebuiltProfile.pantry.remove(at: index)
+                } else {
+                    log.error("FAILED to reconstruct pantryChange @ \(change.time) : DELETE : \(change.oldObject.name)")
+                    log.error("\(change.oldObject.name) not found in Pantry")
+                }
             case .modify:
-                let pantryIndex = profile.pantry.firstIndex(of: change.oldObject)
-                profile.pantry[pantryIndex!] = change.newObject
+                if let index = rebuiltProfile.pantry.firstIndex(of: change.oldObject) {
+                    log.info("MODIFY: \(change.oldObject.name) @ \(change.time)")
+                    rebuiltProfile.pantry[index] = change.newObject
+                } else {
+                    log.error("FAILED to reconstruct pantryChange @ \(change.time) : MODIFY : \(change.oldObject.name)")
+                    log.error("\(change.oldObject.name) not found in Pantry")
+                }
             }
         }
         
         //Rebuild Shopping List
+        log.info("Rebuilding Shopping List")
         for change in profile.shoppingListChangeLog {
             switch change.changeType {
             case .insert:
-                profile.shoppingList.append(change.newObject)
+                rebuiltProfile.shoppingList.append(change.newObject)
             case .delete:
-                profile.shoppingList.remove(at: profile.shoppingList.firstIndex(of: change.oldObject)!)
+                if let index = profile.shoppingList.firstIndex(of: change.oldObject) {
+                    rebuiltProfile.shoppingList.remove(at: index)
+                } else {
+                    log.error("FAILED to reconstruct shoppingListChange @ \(change.time) : DELETE : \(change.oldObject.name)")
+                    log.error("\(change.oldObject.name) not found in Shopping List")
+                }
             case .modify:
-                let pantryIndex = profile.shoppingList.firstIndex(of: change.oldObject)
-                profile.shoppingList[pantryIndex!] = change.newObject
+                if let index = profile.shoppingList.firstIndex(of: change.oldObject) {
+                    rebuiltProfile.shoppingList[index] = change.newObject
+                } else {
+                    log.error("FAILED to reconstruct shoppingListChange @ \(change.time) : MODIFY : \(change.oldObject.name)")
+                    log.error("\(change.oldObject.name) not found in Shopping List")
+                }
             }
         }
+        
+        return rebuiltProfile
     }
     
     //MARK: - Data Persistence

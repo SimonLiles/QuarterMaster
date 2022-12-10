@@ -32,6 +32,8 @@ class AddNewShoppingListItemTableViewController: UITableViewController {
     
     var shoppingListItem: PantryItem = PantryItem(id: 0, name: "", category: "", location: "", currentQuantity: 0, units: "", note: "", lastUpdate: Date())
     
+    var itemID: Int = 0
+    
     //Object to collect and store logs.
     let log = Logger()
     
@@ -49,6 +51,10 @@ class AddNewShoppingListItemTableViewController: UITableViewController {
         
         quantityStepper.value = shoppingListItem.neededQuantity
         neededQuantityTextField.text = String(quantityStepper.value)
+        
+        let profileIndex = userData.selectedIndex
+        shoppingListItem.id = userData.profiles?[profileIndex].createPantryItemID() ?? 0
+        itemID = shoppingListItem.id
         
         updateSaveButtonState()
     }
@@ -128,7 +134,7 @@ class AddNewShoppingListItemTableViewController: UITableViewController {
                 }
             }
             
-            shoppingListItem = PantryItem(id: 0, name: name, category: category, location: location, currentQuantity: 0, units: units, note: note, lastUpdate: currentDate)
+            shoppingListItem = PantryItem(id: itemID, name: name, category: category, location: location, currentQuantity: 0, units: units, note: note, lastUpdate: currentDate)
             shoppingListItem.neededQuantity = quantity
         } else if segue.identifier == "pickerSegue" {
             let indexPath = tableView.indexPathForSelectedRow!

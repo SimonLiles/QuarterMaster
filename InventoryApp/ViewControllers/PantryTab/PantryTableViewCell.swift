@@ -90,6 +90,8 @@ class PantryTableViewCell: UITableViewCell {
         //PantryModelController.shared.pantry![index] = pantryItemToChange
         userData.profiles![profileIndex].pantry[index] = pantryItemToChange
         
+        userData.profiles![profileIndex].pantryChangeLog.append(PantryChangeKey(time: Date(), changeType: .modify, newObject: pantryItem, oldObject: pantryItemToChange))
+
         //Update corresponding item in shoppingList if item exists there
         if (userData.profiles![profileIndex].shoppingList.contains(pantryItemToChange)) {
             let shoppingListIndex = userData.profiles![profileIndex].shoppingList.firstIndex(of: pantryItemToChange) ?? 0

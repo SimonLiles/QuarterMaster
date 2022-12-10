@@ -15,7 +15,7 @@ struct ChangeLog {
 /**
  Most basic unit of the ChangeLog. Provides basic structure for tracking changes of any objects in the program. 
  */
-struct PantryChangeKey: Codable {
+struct PantryChangeKey: Codable, Hashable {
     var time: Date
     var changeType: ChangeType
     var newObject: PantryItem
@@ -26,6 +26,20 @@ struct PantryChangeKey: Codable {
         self.changeType = changeType
         self.newObject = newObject
         self.oldObject = oldObject
+    }
+}
+
+extension PantryChangeKey: Comparable {
+    static func < (lhs: PantryChangeKey, rhs: PantryChangeKey) -> Bool {
+        return lhs.time < rhs.time
+    }
+    
+    static func > (lhs: PantryChangeKey, rhs: PantryChangeKey) -> Bool {
+        return lhs.time > rhs.time
+    }
+    
+    static func == (lhs: PantryChangeKey, rhs: PantryChangeKey) -> Bool {
+        return lhs.time == rhs.time && lhs.changeType == rhs.changeType && lhs.oldObject == rhs.oldObject && lhs.newObject == rhs.newObject
     }
 }
 

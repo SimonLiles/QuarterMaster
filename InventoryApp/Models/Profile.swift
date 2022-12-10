@@ -75,6 +75,17 @@ struct Profile: Codable {
         
         return decodedProfile!
     }
+    
+    ///Generates a unique integer for each new pantry item
+    func createPantryItemID() -> Int {
+        //log.info("createPantryItemID() called")
+        let maxID = pantry.map { $0.id } .max() ?? 0
+        
+        //log.info("Item IDs: \(pantry.map { $0.id } )")
+        //log.info("maxID: \(maxID)")
+        
+        return maxID + 1
+    }
 }
 
 extension Profile: Equatable {

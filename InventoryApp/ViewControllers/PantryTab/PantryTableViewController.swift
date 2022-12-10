@@ -356,6 +356,7 @@ class PantryTableViewController: UITableViewController {
     @IBAction func unwindToPantryTableView(segue: UIStoryboardSegue) {
         //guard segue.identifier == "saveUnwind" else {return}
         
+        //MARK: - "saveUnwind" Segue
         if segue.identifier == "saveUnwind" {
             let sourceViewController = segue.source as! AddEditPantryItemTableViewController
             
@@ -365,6 +366,7 @@ class PantryTableViewController: UITableViewController {
             
             let pantryItem = sourceViewController.pantryItem
             
+            //If an existing item has changes saved
             if(!selectedIndexPath.isEmpty) {
                 
                 //Ugly code to change a specific item in Pantry
@@ -394,11 +396,19 @@ class PantryTableViewController: UITableViewController {
                     } else {
                         shoppingListIndex += 1
                     }
+                    
+                    //Track change in pantry of item being modified to shopping list
+                    userData.profiles![profileIndex].shoppingListChangeLog.append(PantryChangeKey(time: Date(), changeType: .modify, newObject: pantryItem, oldObject: pantryItemToChange))
+
                 }
                 
                 //Pass pantry data back to ProfileModelController and save all data
                 userData.profiles![profileIndex].pantry = pantry
                 userData.saveProfileData()
+                
+                userData.profiles![profileIndex].pantryChangeLog.append(PantryChangeKey(time: Date(), changeType: .modify, newObject: pantryItem, oldObject: pantryItemToChange))
+                
+                
                 log.info("ProfileModelController saved user data after unwinding to PantryTableView")
                 
                 //Tell ShoppingList Tab to reload data with new shoppingList data
@@ -409,6 +419,8 @@ class PantryTableViewController: UITableViewController {
                 
                 tableView.reloadData() //reload data in pantry so that table view updates with new data
             } else {
+                //If a new item is created
+                
                 //let newIndexPath = IndexPath(row: pantry.count, section: 0)
                 pantry.append(pantryItem) //add new item at end
                 pantry[pantry.endIndex - 1].lastUpdate = Date()
@@ -416,6 +428,7 @@ class PantryTableViewController: UITableViewController {
                 
                 userData.profiles![profileIndex].pantry = pantry //Pass pantry data back to model controller
                 userData.saveProfileData() //Save model data
+                userData.profiles![profileIndex].pantryChangeLog.append(PantryChangeKey(time: Date(), changeType: .insert, newObject: pantryItem, oldObject: pantryItem))
                 log.info("ProfileModelController saved user data after adding new item to pantry")
             }
             
@@ -423,6 +436,8 @@ class PantryTableViewController: UITableViewController {
             requestAppReview()
             
         } else if segue.identifier == "deleteUnwind" {
+            //MARK: - "deleteUnwind" Segue
+
             if let selectedIndexPath = tableView.indexPathForSelectedRow {
                 
                 //Ugly code to remove a specific item from the array
@@ -450,11 +465,14 @@ class PantryTableViewController: UITableViewController {
                 pantry.remove(at: index) //remove item from pantry
                 if (userData.profiles![profileIndex].shoppingList.contains(pantryItemToRemove)) {
                     userData.profiles![profileIndex].shoppingList.remove(at: shoppingIndex) //Remove item from shopping list
+                    userData.profiles![profileIndex].shoppingListChangeLog.append(PantryChangeKey(time: Date(), changeType: .delete, newObject: pantryItemToRemove, oldObject: pantryItemToRemove))
+
                 }
                 
                 //Pass data back to model controller
                 userData.profiles![profileIndex].pantry = pantry //Pass pantry data back to model controller
-
+                userData.profiles![profileIndex].pantryChangeLog.append(PantryChangeKey(time: Date(), changeType: .delete, newObject: pantryItemToRemove, oldObject: pantryItemToRemove))
+                
                 //Reload tableViews
                 tableView.reloadData() //reload table to reflect deleted item
                 NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reloadShoppingList"), object: userData.profiles![profileIndex].shoppingList)
@@ -463,6 +481,8 @@ class PantryTableViewController: UITableViewController {
                 log.info("ProfileModelController saved user data after removing an item from the pantry")
             }
         } else if segue.identifier == "addToShoppingListUnwind" {
+            //MARK: - "addToShoppingListUnwind" Segue
+
             let sourceViewController = segue.source as! AddEditPantryItemTableViewController
         
             let pantryItem = sourceViewController.pantryItem
@@ -471,23 +491,34 @@ class PantryTableViewController: UITableViewController {
             if(!userData.profiles![profileIndex].pantry.contains(pantryItem)) {
                 userData.profiles![profileIndex].pantry.append(pantryItem)
                 userData.profiles![profileIndex].shoppingList.append(pantryItem)
+                
+                userData.profiles![profileIndex].pantryChangeLog.append(PantryChangeKey(time: Date(), changeType: .insert, newObject: pantryItem, oldObject: pantryItem))
+
+                userData.profiles![profileIndex].shoppingListChangeLog.append(PantryChangeKey(time: Date(), changeType: .insert, newObject: pantryItem, oldObject: pantryItem))
             } else {
                 //Save to pantry
                 let pantryIndex = userData.profiles![profileIndex].pantry.firstIndex(of: pantryItem)
+                userData.profiles![profileIndex].pantryChangeLog.append(PantryChangeKey(time: Date(), changeType: .modify, newObject: pantryItem, oldObject: userData.profiles![profileIndex].pantry[pantryIndex!]))
                 userData.profiles![profileIndex].pantry[pantryIndex!] = pantryItem
-                
+
                 //Add to ShoppingList
                 
                 //Increment if it already is there
                 if(userData.profiles![profileIndex].shoppingList.contains(pantryItem)) {
                     let shoppingListIndex = userData.profiles![profileIndex].shoppingList.firstIndex(of: pantryItem)
                     userData.profiles![profileIndex].shoppingList[shoppingListIndex!].neededQuantity += 1
+                    
+                    userData.profiles![profileIndex].shoppingListChangeLog.append(PantryChangeKey(time: Date(), changeType: .modify, newObject: userData.profiles![profileIndex].shoppingList[shoppingListIndex!], oldObject: pantryItem))
+
                     userData.profiles![profileIndex].shoppingList[shoppingListIndex!].lastUpdate = Date()
                 } else {
                     userData.profiles![profileIndex].shoppingList.append(pantryItem)
+                    userData.profiles![profileIndex].shoppingListChangeLog.append(PantryChangeKey(time: Date(), changeType: .insert, newObject: pantryItem, oldObject: pantryItem))
                 }
             }
             
+            userData.profiles![profileIndex].shoppingListChangeLog.append(PantryChangeKey(time: Date(), changeType: .insert, newObject: pantryItem, oldObject: pantryItem))
+
             userData.saveProfileData() //Save all data
             log.info("ProfileModelController saved user data after adding an item to the shoppingList")
             
