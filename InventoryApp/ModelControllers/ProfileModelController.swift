@@ -286,10 +286,10 @@ class ProfileModelController {
             
             //If the received data and current data, do not match, send current data to connected peers
             let receivedDataEncoded = receivedData.encode()
-            let newDataEncoded = newData.encode()
+            let currentDataEncoded = currentData.encode()
             log.info("receivedDataEncoded.hashValue = \(receivedDataEncoded.hashValue)")
-            log.info("newDataEncoded.hashValue = \(newDataEncoded.hashValue)")
-            if(receivedDataEncoded.hashValue == newDataEncoded.hashValue) {
+            log.info("currentDataEncoded.hashValue = \(currentDataEncoded.hashValue)")
+            if(receivedDataEncoded.hashValue == currentDataEncoded.hashValue) {
                 log.info("updateMerge found no possible changes")
                 //return currentData
             } else {

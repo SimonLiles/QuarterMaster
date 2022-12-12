@@ -119,6 +119,16 @@ extension Profile: Equatable {
             return false
         }
         
+        //Check if originalAuthor match
+        if(item1.originalAuthor != item2.originalAuthor) {
+            return false
+        }
+        
+        //Check if originalAuthorSimple match
+        if(item1.originalAuthorSimple != item2.originalAuthorSimple) {
+            return false
+        }
+        
         //Check if Pantries are the same
         
         //Are the pantries the same length? If not, return false
@@ -168,6 +178,31 @@ extension Profile: Equatable {
             if (index >= item1.shoppingList.count && element1 != item2.shoppingList[item2.shoppingList.count - 1]) {
                 return false
             }
+        }
+        
+        //Check if categories match
+        if(item1.categories == item2.categories) {
+            return false
+        }
+        
+        //Check if locations match
+        if(item1.locations == item2.locations) {
+            return false
+        }
+        
+        //Check if units match
+        if(item1.units == item2.units) {
+            return false
+        }
+                
+        //Check if pantryChangeLog matches
+        if(item1.pantryChangeLog == item2.pantryChangeLog) {
+            return false
+        }
+        
+        //Check if shoppingListChangeLog matches
+        if(item1.shoppingListChangeLog == item2.shoppingListChangeLog) {
+            return false
         }
         
         log.info("Both Profiles are an exact match")

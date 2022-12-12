@@ -51,6 +51,7 @@ class PantryTableViewCell: UITableViewCell {
      
         - Parameter pantryItem: holds pantryItem object for a specific cell
         - Parameter path: indexPath object
+        - Parameter collateKey: string representing the collate key
      */
     func update(with pantryItem: PantryItem, at path: IndexPath, with collateKey: String) {
         
@@ -90,7 +91,7 @@ class PantryTableViewCell: UITableViewCell {
         //PantryModelController.shared.pantry![index] = pantryItemToChange
         userData.profiles![profileIndex].pantry[index] = pantryItemToChange
         
-        userData.profiles![profileIndex].pantryChangeLog.append(PantryChangeKey(time: Date(), changeType: .modify, newObject: pantryItem, oldObject: pantryItemToChange))
+        //userData.profiles![profileIndex].pantryChangeLog.append(PantryChangeKey(time: Date(), changeType: .modify, newObject: pantryItem, oldObject: pantryItemToChange))
 
         //Update corresponding item in shoppingList if item exists there
         if (userData.profiles![profileIndex].shoppingList.contains(pantryItemToChange)) {
@@ -112,6 +113,8 @@ class PantryTableViewCell: UITableViewCell {
     
     //Updates cell and model data
     @IBAction func quantityStepped(_ sender: UIStepper) {
+        let oldPantryItem = pantryItem1
+        
         pantryItem1.currentQuantity = quantityStepper.value
         
         pantryItem1.lastUpdate = Date()
@@ -123,10 +126,13 @@ class PantryTableViewCell: UITableViewCell {
         //userData.profiles![profileIndex].pantry[index] = pantryItemToChange
         
         update(with: pantryItem1, at: indexpath, with: collateKey)
+        
+        userData.profiles![profileIndex].pantryChangeLog.append(PantryChangeKey(time: Date(), changeType: .modify, newObject: pantryItem1, oldObject: oldPantryItem))
     }
     
     //Updates cell and model data when value in text field is changed
     @IBAction func quantityChanged(_ sender: UITextField) {
+        let oldPantryItem = pantryItem1
         let newQuantity = Double(sender.text!)
                 
         
@@ -135,5 +141,7 @@ class PantryTableViewCell: UITableViewCell {
         pantryItem1.lastUpdate = Date()
         
         update(with: pantryItem1, at: indexpath, with: collateKey)
+        
+        userData.profiles![profileIndex].pantryChangeLog.append(PantryChangeKey(time: Date(), changeType: .modify, newObject: pantryItem1, oldObject: oldPantryItem))
     }
 }
