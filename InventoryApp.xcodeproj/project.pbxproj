@@ -10,6 +10,8 @@
 		F41473F92840052100BFEFC4 /* AppInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41473F82840052100BFEFC4 /* AppInstance.swift */; };
 		F41473FB284005C100BFEFC4 /* AppInstanceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41473FA284005C100BFEFC4 /* AppInstanceController.swift */; };
 		F41473FD28415A9900BFEFC4 /* LANPermViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41473FC28415A9900BFEFC4 /* LANPermViewController.swift */; };
+		F4196ED42947B23000B829C4 /* QuarterMasterUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4196ED32947B23000B829C4 /* QuarterMasterUnitTests.swift */; };
+		F4196EDB2947B30600B829C4 /* ProfileModelControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4196EDA2947B30600B829C4 /* ProfileModelControllerTests.swift */; };
 		F461FC862868F5E200FF895C /* UIApplicationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F461FC852868F5E200FF895C /* UIApplicationExtensions.swift */; };
 		F4D44B94292EB99300B995FF /* ChangeLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D44B93292EB99300B995FF /* ChangeLog.swift */; };
 		F4EC5AC0292E8385003FE2E8 /* ProfileV1_0_2.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EC5ABF292E8385003FE2E8 /* ProfileV1_0_2.swift */; };
@@ -43,10 +45,23 @@
 		FEC2F25224A15A7D0087FB3C /* PantryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEC2F25124A15A7D0087FB3C /* PantryTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		F4196ED52947B23000B829C4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = FE3DB129247DAD280055EBEF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = FE3DB130247DAD280055EBEF;
+			remoteInfo = InventoryApp;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		F41473F82840052100BFEFC4 /* AppInstance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInstance.swift; sourceTree = "<group>"; };
 		F41473FA284005C100BFEFC4 /* AppInstanceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInstanceController.swift; sourceTree = "<group>"; };
 		F41473FC28415A9900BFEFC4 /* LANPermViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LANPermViewController.swift; path = InventoryApp/LANPermViewController.swift; sourceTree = SOURCE_ROOT; };
+		F4196ED12947B23000B829C4 /* QuarterMasterUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuarterMasterUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4196ED32947B23000B829C4 /* QuarterMasterUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuarterMasterUnitTests.swift; sourceTree = "<group>"; };
+		F4196EDA2947B30600B829C4 /* ProfileModelControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModelControllerTests.swift; sourceTree = "<group>"; };
 		F461FC852868F5E200FF895C /* UIApplicationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExtensions.swift; sourceTree = "<group>"; };
 		F4D44B93292EB99300B995FF /* ChangeLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeLog.swift; sourceTree = "<group>"; };
 		F4EC5ABF292E8385003FE2E8 /* ProfileV1_0_2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileV1_0_2.swift; sourceTree = "<group>"; };
@@ -83,6 +98,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		F4196ECE2947B23000B829C4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FE3DB12E247DAD280055EBEF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -93,6 +115,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F4196ED22947B23000B829C4 /* QuarterMasterUnitTests */ = {
+			isa = PBXGroup;
+			children = (
+				F4196ED32947B23000B829C4 /* QuarterMasterUnitTests.swift */,
+				F4196EDA2947B30600B829C4 /* ProfileModelControllerTests.swift */,
+			);
+			path = QuarterMasterUnitTests;
+			sourceTree = "<group>";
+		};
 		F4F819B527A34CBE0037B4DA /* MultiPeerSessionFramework */ = {
 			isa = PBXGroup;
 			children = (
@@ -116,6 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				FE3DB133247DAD280055EBEF /* InventoryApp */,
+				F4196ED22947B23000B829C4 /* QuarterMasterUnitTests */,
 				FE3DB132247DAD280055EBEF /* Products */,
 			);
 			sourceTree = "<group>";
@@ -124,6 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				FE3DB131247DAD280055EBEF /* QuarterMaster.app */,
+				F4196ED12947B23000B829C4 /* QuarterMasterUnitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -234,6 +267,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		F4196ED02947B23000B829C4 /* QuarterMasterUnitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F4196ED72947B23000B829C4 /* Build configuration list for PBXNativeTarget "QuarterMasterUnitTests" */;
+			buildPhases = (
+				F4196ECD2947B23000B829C4 /* Sources */,
+				F4196ECE2947B23000B829C4 /* Frameworks */,
+				F4196ECF2947B23000B829C4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F4196ED62947B23000B829C4 /* PBXTargetDependency */,
+			);
+			name = QuarterMasterUnitTests;
+			productName = QuarterMasterUnitTests;
+			productReference = F4196ED12947B23000B829C4 /* QuarterMasterUnitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		FE3DB130247DAD280055EBEF /* InventoryApp */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = FE3DB145247DAD2C0055EBEF /* Build configuration list for PBXNativeTarget "InventoryApp" */;
@@ -257,10 +308,14 @@
 		FE3DB129247DAD280055EBEF /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1140;
+				LastSwiftUpdateCheck = 1410;
 				LastUpgradeCheck = 1250;
 				ORGANIZATIONNAME = "Simon Liles";
 				TargetAttributes = {
+					F4196ED02947B23000B829C4 = {
+						CreatedOnToolsVersion = 14.1;
+						TestTargetID = FE3DB130247DAD280055EBEF;
+					};
 					FE3DB130247DAD280055EBEF = {
 						CreatedOnToolsVersion = 11.4.1;
 					};
@@ -280,11 +335,19 @@
 			projectRoot = "";
 			targets = (
 				FE3DB130247DAD280055EBEF /* InventoryApp */,
+				F4196ED02947B23000B829C4 /* QuarterMasterUnitTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		F4196ECF2947B23000B829C4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FE3DB12F247DAD280055EBEF /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -299,6 +362,15 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		F4196ECD2947B23000B829C4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F4196ED42947B23000B829C4 /* QuarterMasterUnitTests.swift in Sources */,
+				F4196EDB2947B30600B829C4 /* ProfileModelControllerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		FE3DB12D247DAD280055EBEF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -338,6 +410,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		F4196ED62947B23000B829C4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = FE3DB130247DAD280055EBEF /* InventoryApp */;
+			targetProxy = F4196ED52947B23000B829C4 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		FE3DB13A247DAD280055EBEF /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -358,6 +438,46 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		F4196ED82947B23000B829C4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7KYNV53LHJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = SimonLiles.QuarterMasterUnitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/QuarterMaster.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/QuarterMaster";
+			};
+			name = Debug;
+		};
+		F4196ED92947B23000B829C4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 7KYNV53LHJ;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.1;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = SimonLiles.QuarterMasterUnitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/QuarterMaster.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/QuarterMaster";
+			};
+			name = Release;
+		};
 		FE3DB143247DAD2C0055EBEF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -521,6 +641,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		F4196ED72947B23000B829C4 /* Build configuration list for PBXNativeTarget "QuarterMasterUnitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F4196ED82947B23000B829C4 /* Debug */,
+				F4196ED92947B23000B829C4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		FE3DB12C247DAD280055EBEF /* Build configuration list for PBXProject "InventoryApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
