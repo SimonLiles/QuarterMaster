@@ -593,7 +593,7 @@ extension PantryTableViewController {
         guard let currentVersion = Bundle.main.object(forInfoDictionaryKey: infoDictionaryKey) as? String
             else { fatalError("Expected to find a bundle version in the info dictionary.") }
          // Verify the user completes the process several times and doesn’t receive a prompt for this app version.
-         if count >= 4 && currentVersion != lastVersionPromptedForReview {
+         if count >= 15 && currentVersion != lastVersionPromptedForReview {
              Task { @MainActor [weak self] in
                  // Delay for two seconds to avoid interrupting the person using the app.
                  // Use the equation n * 10^9 to convert seconds to nanoseconds.
