@@ -111,21 +111,29 @@ extension Profile: Equatable {
         
         //If names are not equal, return false
         if(item1.name != item2.name) {
+            log.info("Profile names do not match.")
+            log.info("\(item1.name) != \(item2.name)")
             return false
         }
         
         //If descriptions are not equal, return false
         if(item1.description != item2.description) {
+            log.info("Profile descriptions do not match.")
+            log.info("\(item1.description) != \(item2.description)")
             return false
         }
         
         //Check if originalAuthor match
         if(item1.originalAuthor != item2.originalAuthor) {
+            log.info("Profile originalAuthors do not match.")
+            log.info("\(item1.originalAuthor) != \(item2.originalAuthor)")
             return false
         }
         
         //Check if originalAuthorSimple match
         if(item1.originalAuthorSimple != item2.originalAuthorSimple) {
+            log.info("Profile originalAuthorSimple do not match.")
+            log.info("\(item1.originalAuthorSimple) != \(item2.originalAuthorSimple)")
             return false
         }
         
@@ -133,6 +141,8 @@ extension Profile: Equatable {
         
         //Are the pantries the same length? If not, return false
         if(item1.pantry.count != item2.pantry.count) {
+            log.info("Profile pantry counts do not match.")
+            log.info("\(item1.pantry.count) != \(item2.pantry.count)")
             return false
         }
         
@@ -158,6 +168,8 @@ extension Profile: Equatable {
         //Check if shopping lists are the same
         //Are the shoppingLists the same length? If not, return false
         if(item1.shoppingList.count != item2.shoppingList.count) {
+            log.info("Profile shopping list counts do not match.")
+            log.info("\(item1.shoppingList.count) != \(item2.shoppingList.count)")
             return false
         }
         
@@ -181,27 +193,37 @@ extension Profile: Equatable {
         }
         
         //Check if categories match
-        if(item1.categories == item2.categories) {
+        if(item1.categories != item2.categories) {
+            log.info("Profile categories do not match.")
+            log.info("\(item1.categories) != \(item2.categories)")
             return false
         }
         
         //Check if locations match
-        if(item1.locations == item2.locations) {
+        if(item1.locations != item2.locations) {
+            log.info("Profile locations do not match.")
+            log.info("\(item1.locations) != \(item2.locations)")
             return false
         }
         
         //Check if units match
-        if(item1.units == item2.units) {
+        if(item1.units != item2.units) {
+            log.info("Profile units do not match.")
+            log.info("\(item1.units) != \(item2.units)")
             return false
         }
                 
         //Check if pantryChangeLog matches
-        if(item1.pantryChangeLog == item2.pantryChangeLog) {
+        if(item1.pantryChangeLog != item2.pantryChangeLog) {
+            log.info("Profile pantryChangeLogs do not match.")
+            log.info("\(item1.pantryChangeLog) != \(item2.pantryChangeLog)")
             return false
         }
         
         //Check if shoppingListChangeLog matches
-        if(item1.shoppingListChangeLog == item2.shoppingListChangeLog) {
+        if(item1.shoppingListChangeLog != item2.shoppingListChangeLog) {
+            log.info("Profile shoppingListChangeLogs do not match.")
+            log.info("\(item1.shoppingListChangeLog) != \(item2.shoppingListChangeLog)")
             return false
         }
         
