@@ -173,11 +173,22 @@ final class ProfileModelControllerTests: XCTestCase {
         }
     }
 
-    func testPerformanceRebuildData_4inserts() throws {
-        // This is an example of a performance test case.
+    func testPerformanceRebuildData_1MillionInserts() throws {
+        // Prepare a very large changelog
+        
+        var bigChangeLog: [PantryChangeKey] = []
+        for index in 1...1000000 {
+            let change = PantryChangeKey(time: Date(), changeType: .insert,
+                                                  newObject: PantryItem(id: index, name: "Item \(index)", category: "Cat", location: "Loc", currentQuantity: 0, units: "Units", note: "", lastUpdate: Date()),
+                                                  oldObject: PantryItem(id: index, name: "Item \(index)", category: "Cat", location: "Loc", currentQuantity: 0, units: "Units", note: "", lastUpdate: Date()))
+            
+            bigChangeLog.append(change)
+        }
+        
+        testProfile.pantryChangeLog = bigChangeLog
+        
         self.measure {
             // Put the code you want to measure the time of here.
-            testProfile.pantryChangeLog = testChangeLog1
             
             //Create test profile
             testProfile = ProfileModelController().rebuildData(profile: testProfile)
