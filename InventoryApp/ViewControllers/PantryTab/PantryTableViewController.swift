@@ -228,6 +228,8 @@ class PantryTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "pantryItemCell", for: indexPath) as! PantryTableViewCell
                 
+        pantry = userData.profiles![profileIndex].pantry
+        
         //Fetch model object to display in cell
         let pantryItem: PantryItem
         
